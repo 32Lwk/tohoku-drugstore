@@ -76,6 +76,11 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
 
             from_name = normalize_chain_name(store_name)
             if from_name and from_name != "不明":
+                # コスモスは施設名誤ヒットが多い
+                if from_name == "コスモス" and not any(
+                    k in store_name for k in ("ドラッグ", "Drug", "薬局", "コスモス薬品", "ドラッグストア")
+                ):
+                    continue
                 chain = from_name
             elif company and company != "不明":
                 # チェーン検索: 店舗名にそのチェーンを示す語が必要
@@ -97,7 +102,6 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
                 terms = aliases.get(company, [company])
                 if not any(t in store_name for t in terms):
                     continue
-                # コスモスは誤ヒットが多いのでドラッグ系に限定
                 # コスモスは誤ヒットが多いのでドラッグ系に限定
                 if company == "コスモス" and not any(
                     k in store_name for k in ("ドラッグ", "Drug", "薬局", "コスモス薬品", "ドラッグストア")

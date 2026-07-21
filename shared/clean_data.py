@@ -46,11 +46,11 @@ def clean_stores(df: pd.DataFrame, prefecture: str) -> pd.DataFrame:
     def is_drugstore_like(row) -> bool:
         name = str(row.get("store_name", ""))
         company = str(row.get("company", ""))
-        if company in known and company != "その他":
+        if company == "コスモス":
+            return any(k in name for k in ("ドラッグ", "Drug", "薬局", "コスモス薬品"))
+        if company in known and company not in ("その他", "コスモス"):
             return True
         if any(k in name for k in ("ドラッグ", "Drug", "DRUG")):
-            return True
-        if company == "その他" and any(k in name for k in ("ドラッグ", "Drug", "DRUG")):
             return True
         return False
 
