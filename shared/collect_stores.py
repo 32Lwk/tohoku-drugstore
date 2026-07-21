@@ -7,8 +7,11 @@ from pathlib import Path
 import googlemaps
 import pandas as pd
 
-from shared.config import KNOWN_CHAINS, PREFECTURES
+from shared.config import CHAIN_NORMALIZE, KNOWN_CHAINS, PREFECTURES
 from shared.utils import ensure_dirs, load_api_key, normalize_address, normalize_chain_name
+
+
+KNOWN_CHAIN_NAMES = set(KNOWN_CHAINS) | set(CHAIN_NORMALIZE.values())
 
 
 def get_municipalities_from_geojson(geojson_path: Path) -> list[str]:
@@ -137,11 +140,11 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
     discovered_chains = set()
     for s in all_stores:
         chain = normalize_chain_name(s["store_name"])
-        if chain != "不明":
+        if chain in KNOWN_CHAIN_NAMES:
             discovered_chains.add(chain)
 
-    chains_to_search = sorted(set(KNOWN_CHAINS) | discovered_chains)
-    print(f"\n[2/2] チェーン別検索: {len(chains_to_search)}チェーン")
+    chains_to_search = sorted(KNOWN_CHAIN_NAMES | discovered_chains)
+    print(f"\n[2/2] チェーン別検索: {len(chains_to_search)}チェーン（既知チェーンのみ）")
     # 県全体 + 主要市区町村（全市区町村×全チェーンは過多のため）
     chain_locations = [prefecture] + [c for c in municipalities if c.endswith(("市", "区"))][:25]
     for chain in chains_to_search:
