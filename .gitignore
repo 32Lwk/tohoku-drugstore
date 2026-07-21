@@ -6,6 +6,6 @@ __pycache__/
 .venv/
 venv/
 *.log
-geocode_cache*.pkl
+.summary_generated.lock
 .DS_Store
 Thumbs.db
