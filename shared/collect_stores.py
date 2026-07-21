@@ -85,11 +85,26 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
             time.sleep(0.12)
 
         address = normalize_address(formatted, prefecture)
-        if prefecture not in address:
+        if not address.startswith(prefecture):
             continue
 
+        derived = normalize_chain_name(store_name, query)
+        # チェーン精査検索時は店舗名がチェーンを含むものだけ採用（誤ラベル防止）
+        if company:
+            aliases = {company}
+            for src, dst in __import__("shared.config", fromlist=["CHAIN_NORMALIZE"]).CHAIN_NORMALIZE.items():
+                if dst == company or src == company:
+                    aliases.add(src)
+                    aliases.add(dst)
+            if not any(a and a in store_name for a in aliases):
+                # 店舗名にチェーン名が無い場合はスキップ
+                if derived != company and company not in store_name:
+                    continue
+            chain = company
+        else:
+            chain = derived
+
         seen_ids.add(pid)
-        chain = company or normalize_chain_name(store_name, query)
         results.append(
             {
                 "company": chain,

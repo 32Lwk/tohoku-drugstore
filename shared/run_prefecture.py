@@ -64,6 +64,13 @@ def validate_prefecture(slug: str) -> dict:
 def write_report(slug: str, checks: dict) -> None:
     cfg = PREFECTURES[slug]
     paths = ensure_dirs(slug)
+    zero_chains = [
+        c for c in [
+            "GENKY", "コスモス", "クリエイト", "ハックドラッグ", "ドラッグユタカ",
+            "Vドラッグ", "ZIPドラッグ", "セキ薬品", "よどやドラッグ", "サツドラ",
+        ]
+        if checks["chain_counts"].get(c, 0) == 0
+    ]
     lines = [
         f"# {cfg['name']} ドラッグストア調査レポート",
         "",
@@ -84,6 +91,13 @@ def write_report(slug: str, checks: dict) -> None:
     ]
     for chain, count in sorted(checks["chain_counts"].items(), key=lambda x: -x[1]):
         lines.append(f"| {chain} | {count} |")
+    if zero_chains:
+        lines.extend([
+            "",
+            "## 0件チェーン（東北未出店または検出なし）",
+            "",
+            ", ".join(zero_chains),
+        ])
     lines.extend(["", "## 成果物", "", f"- maps/ HTML 3ファイル", ""])
     paths["report"].write_text("\n".join(lines), encoding="utf-8")
 
