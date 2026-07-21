@@ -98,8 +98,9 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
                 if not any(t in store_name for t in terms):
                     continue
                 # コスモスは誤ヒットが多いのでドラッグ系に限定
+                # コスモスは誤ヒットが多いのでドラッグ系に限定
                 if company == "コスモス" and not any(
-                    k in store_name for k in ("ドラッグ", "Drug", "薬局", "コスモス薬品")
+                    k in store_name for k in ("ドラッグ", "Drug", "薬局", "コスモス薬品", "ドラッグストア")
                 ):
                     continue
                 chain = company
