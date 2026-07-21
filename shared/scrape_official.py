@@ -71,11 +71,12 @@ def scrape_official_sites(slug: str) -> list[dict]:
     for name, info in CHAIN_SCRAPERS.items():
         try:
             print(f"    公式サイト: {name}")
-            resp = requests.get(
-                info["url"],
-                timeout=30,
-                headers={"User-Agent": "Mozilla/5.0 (compatible; TohokuDrugstoreBot/1.0)"},
-            )
+            headers = {"User-Agent": "Mozilla/5.0 (compatible; TohokuDrugstoreBot/1.0)"}
+            try:
+                resp = requests.get(info["url"], timeout=60, headers=headers)
+            except requests.exceptions.SSLError:
+                # 一部公式サイトで証明書検証に失敗するためフォールバック
+                resp = requests.get(info["url"], timeout=60, headers=headers, verify=False)
             if resp.status_code != 200:
                 print(f"      HTTP {resp.status_code}")
                 continue
