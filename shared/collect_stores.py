@@ -83,7 +83,15 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
                 continue
 
             types = place.get("types", [])
-            if "pharmacy" in types and "drugstore" not in types and "store" not in types:
+            name_hint = place.get("name", "")
+            # 薬局のみ（ドラッグストアでない）は除外。既知チェーン名を含む場合は残す
+            is_pharmacy_only = "pharmacy" in types and "drugstore" not in types
+            known_hit = any(c in name_hint for c in ("ドラッグ", "Drug", "ウエルシア", "GENKY", "マツモト", "ツルハ", "コスモス", "セイムス", "サツドラ"))
+            if is_pharmacy_only and not known_hit:
+                continue
+            # 明らかに無関係な業態を除外
+            noise_types = {"gas_station", "car_dealer", "hospital", "doctor", "dentist", "bank", "atm", "lodging"}
+            if noise_types & set(types) and "drugstore" not in types and not known_hit:
                 continue
 
             seen_ids.add(pid)
@@ -153,16 +161,22 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
         chain = normalize_chain_name(s["store_name"])
         if chain != "不明":
             discovered_chains.add(chain)
+            s["company"] = chain  # 収集時点で正規化
 
-    chains_to_search = sorted(set(KNOWN_CHAINS) | discovered_chains)
-    print(f"\n[2/2] チェーン別検索: {len(chains_to_search)}チェーン（県単位＋主要市）")
+    # 既知チェーンのみ精査（discovered はログ用。検索対象は正規化済み既知名）
+    from shared.config import CHAIN_NORMALIZE
+
+    chains_to_search = sorted(
+        {CHAIN_NORMALIZE.get(c, c) for c in KNOWN_CHAINS} | discovered_chains
+    )
+    print(f"\n[2/2] チェーン別検索: {len(chains_to_search)}チェーン（県単位＋主要市）", flush=True)
     # 主要市（店舗が多い市区町村）を追加検索して取りこぼしを減らす
     major_cities = [c for c in municipalities if c.endswith("市")][:8]
     for chain in chains_to_search:
         before = len(all_stores)
         queries = [f"{chain} {prefecture}"] + [f"{chain} {city} {prefecture}" for city in major_cities]
         for q in queries:
-            batch = search_places(gmaps, q, prefecture, normalize_chain_name(chain), seen_ids)
+            batch = search_places(gmaps, q, prefecture, chain, seen_ids)
             all_stores.extend(batch)
             time.sleep(0.1)
         added = len(all_stores) - before

@@ -36,10 +36,22 @@ def clean_stores(df: pd.DataFrame, prefecture: str) -> pd.DataFrame:
     df = df[~df["store_name"].apply(is_pharmacy_only)]
     print(f"  薬局除外（追加）: {before - len(df)}件")
 
+    # チェーン不明かつドラッグストアらしき名称でないものを除外
+    ds_name = df["store_name"].str.contains(
+        r"ドラッグ|Drug|DRUG|ウエルシア|Welcia|GENKY|ゲンキー|マツモトキヨシ|コスモス|セイムス|サツドラ|クリエイト",
+        na=False,
+        regex=True,
+    )
+    known_company = df["company"].fillna("").ne("") & df["company"].ne("不明")
+    before = len(df)
+    df = df[known_company | ds_name]
+    print(f"  非DS除外（チェーン不明）: {before - len(df)}件")
+
     df = df.drop_duplicates(subset=["place_id"], keep="first")
     df = df.drop_duplicates(subset=["company", "address"], keep="first")
 
-    # 同一住所で薬局系とドラッグストア系が混在 → ドラッグストア優先
+    # 同一住所で薬局系とドラッグストア系が混在 → ドラッグストアのみ残す
+    # 異なるチェーン同一住所は残す
     groups = {}
     for idx, row in df.iterrows():
         key = address_key(row["address"])
@@ -51,15 +63,14 @@ def clean_stores(df: pd.DataFrame, prefecture: str) -> pd.DataFrame:
             continue
         rows = [(i, df.loc[i]) for i in indices]
         drugstore_rows = [r for r in rows if not is_pharmacy_only(r[1]["store_name"])]
-        if drugstore_rows:
-            keep = drugstore_rows[0][0]
-            for i, _ in rows:
-                if i != keep:
-                    drop_indices.append(i)
+        pharmacy_rows = [r for r in rows if is_pharmacy_only(r[1]["store_name"])]
+        if drugstore_rows and pharmacy_rows:
+            for i, _ in pharmacy_rows:
+                drop_indices.append(i)
 
     if drop_indices:
         df = df.drop(index=drop_indices)
-        print(f"  同一住所重複整理: {len(drop_indices)}件削除")
+        print(f"  同一住所の薬局優先除外: {len(drop_indices)}件削除")
 
     df = df.sort_values(["company", "store_name"]).reset_index(drop=True)
     return df[["company", "store_name", "address"]]

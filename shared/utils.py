@@ -80,9 +80,10 @@ def normalize_chain_name(name: str, search_query: str = "") -> str:
     for chain in KNOWN_CHAINS:
         if chain in text or chain.lower() in text.lower():
             return CHAIN_NORMALIZE.get(chain, chain)
-    if "スギ" in text and "薬局" not in text:
+    if "スギ" in text and ("ドラッグ" in text or "薬局" in text):
         return "スギ薬局"
-    return name.split(" ")[0] if name else "不明"
+    # 未知の店名をチェーン扱いしない（discovered_chains 汚染防止）
+    return "不明"
 
 
 def prefecture_paths(slug: str) -> dict:
