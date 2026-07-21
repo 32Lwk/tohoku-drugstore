@@ -1,0 +1,11 @@
+.env
+*.pkl
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+*.log
+geocode_cache*.pkl
+.DS_Store
+Thumbs.db
