@@ -19,12 +19,12 @@ def get_municipalities_from_geojson(geojson_path: Path) -> list[str]:
     cities = set()
     for feature in geo.get("features", []):
         props = feature.get("properties", {})
-        prefix = props.get("N03_003") or props.get("N03_001") or ""
-        name = props.get("N03_004") or props.get("N03_002") or ""
-        if prefix and name:
-            cities.add(f"{prefix}{name}")
-        elif name:
-            cities.add(name)
+        # N03_003=郡名, N03_004=市区町村名（N03_001は県名なので prefix に使わない）
+        gun = props.get("N03_003") or ""
+        name = props.get("N03_004") or ""
+        if not name or name == "所属未定地":
+            continue
+        cities.add(f"{gun}{name}" if gun else name)
     return sorted(cities)
 
 
@@ -49,13 +49,15 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
             continue
 
         seen_ids.add(pid)
+        # Place Details の fields に "types" は不可（"type" のみ）。types は Text Search 結果を使う。
         try:
             details = gmaps.place(
                 place_id=pid,
                 language="ja",
-                fields=["name", "formatted_address", "geometry", "types", "business_status"],
+                fields=["name", "formatted_address", "geometry", "business_status"],
             )
-        except Exception:
+        except Exception as e:
+            print(f"    place details エラー: {pid} -> {e}")
             continue
 
         if details.get("status") != "OK":
