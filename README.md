@@ -13,6 +13,15 @@
 | `prefectures/05_山形県/` | 山形県 |
 | `prefectures/06_福島県/` | 福島県 |
 
+## 事前準備（Cloud Agent 起動前に必須）
+
+Cursor → Settings → Cloud Agents → Environment Variables:
+
+| 変数名 | 取得方法 |
+|--------|---------|
+| `Google_Place_API` | Google Cloud Console |
+| `ESTAT_APP_ID` | [e-Stat API 無料登録](https://www.e-stat.go.jp/api/)（2分） |
+
 ## セットアップ
 
 ```bash

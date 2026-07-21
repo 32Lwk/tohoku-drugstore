@@ -1,6 +1,7 @@
-"""1県分の全パイプライン実行"""
+"""1県分の全パイプライン実行（エラー時リトライ・自己修復対応）"""
 
 import sys
+import traceback
 from datetime import datetime
 from pathlib import Path
 
@@ -15,32 +16,49 @@ from shared.fetch_boundaries import fetch_for_prefecture as fetch_boundaries
 from shared.fetch_census import fetch_for_prefecture as fetch_census
 from shared.fetch_official_stores import fetch_official_for_prefecture
 from shared.geocode_stores import geocode_for_prefecture
+from shared.scrape_official import merge_official_into_raw
 from shared.utils import ensure_dirs
 from shared.verify_data import cross_validate
 
 
+def run_step(name: str, func, *args, max_retries: int = 3, **kwargs):
+    last_error = None
+    for attempt in range(1, max_retries + 1):
+        try:
+            print(f"\n>>> {name} (試行 {attempt}/{max_retries})")
+            return func(*args, **kwargs)
+        except Exception as e:
+            last_error = e
+            print(f"  [警告] {name} 失敗: {e}")
+            if attempt < max_retries:
+                print("  → 再試行します...")
+            else:
+                print(traceback.format_exc())
+    raise RuntimeError(f"{name} が {max_retries} 回失敗: {last_error}")
+
+
 def validate_prefecture(slug: str) -> dict:
     paths = ensure_dirs(slug)
-    checks = {}
-
     coord = __import__("pandas").read_csv(paths["coord_csv"], encoding="utf-8-sig")
-    checks["total_stores"] = len(coord)
-    checks["with_coords"] = coord["latitude"].notna().sum()
-    checks["coord_rate"] = round(checks["with_coords"] / max(len(coord), 1) * 100, 1)
-    checks["chains"] = coord["company"].nunique()
-    checks["chain_counts"] = coord["company"].value_counts().to_dict()
-
     density = __import__("pandas").read_csv(paths["density_csv"], encoding="utf-8-sig")
-    checks["municipalities"] = len(density)
-    checks["maps_exist"] = all(
-        (paths["maps"] / f).exists()
-        for f in [
-            f"{PREFECTURES[slug]['name']}ドラッグストア地図.html",
-            f"{PREFECTURES[slug]['name']}ドラッグストア密度コロプレスマップ.html",
-            f"{PREFECTURES[slug]['name']}高齢化率コロプレスマップ.html",
-        ]
-    )
-    return checks
+    pref_name = PREFECTURES[slug]["name"]
+
+    return {
+        "total_stores": len(coord),
+        "with_coords": int(coord["latitude"].notna().sum()),
+        "coord_rate": round(int(coord["latitude"].notna().sum()) / max(len(coord), 1) * 100, 1),
+        "chains": int(coord["company"].nunique()),
+        "chain_counts": coord["company"].value_counts().to_dict(),
+        "municipalities": len(density),
+        "maps_exist": all(
+            (paths["maps"] / f).exists()
+            for f in [
+                f"{pref_name}ドラッグストア地図.html",
+                f"{pref_name}ドラッグストア密度コロプレスマップ.html",
+                f"{pref_name}高齢化率コロプレスマップ.html",
+            ]
+        ),
+    }
 
 
 def write_report(slug: str, checks: dict) -> None:
@@ -66,17 +84,7 @@ def write_report(slug: str, checks: dict) -> None:
     ]
     for chain, count in sorted(checks["chain_counts"].items(), key=lambda x: -x[1]):
         lines.append(f"| {chain} | {count} |")
-
-    lines.extend([
-        "",
-        "## 成果物",
-        "",
-        f"- `{paths['final_csv'].name}`",
-        f"- `{paths['coord_csv'].name}`",
-        f"- `{paths['density_csv'].name}`",
-        f"- maps/ 内 HTML 3ファイル",
-        "",
-    ])
+    lines.extend(["", "## 成果物", "", f"- maps/ HTML 3ファイル", ""])
     paths["report"].write_text("\n".join(lines), encoding="utf-8")
 
 
@@ -86,32 +94,24 @@ def run_prefecture(slug: str) -> dict:
     print(f"開始: {cfg['name']} ({slug})")
     print("=" * 80)
 
-    print("\n[Step 1/8] 境界データ取得")
-    fetch_boundaries(slug)
+    run_step("Step 1: 境界データ", fetch_boundaries, slug)
+    run_step("Step 2: 国勢調査2020", fetch_census, slug)
+    run_step("Step 3: Google Places 一次調査", collect_for_prefecture, slug)
+    run_step("Step 4a: 公式API二次調査", fetch_official_for_prefecture, slug, max_retries=2)
+    run_step("Step 4b: 公式サイトスクレイピング", merge_official_into_raw, slug, max_retries=2)
+    run_step("Step 5: クリーニング", clean_for_prefecture, slug)
+    run_step("Step 6: 座標取得", geocode_for_prefecture, slug)
+    run_step("Step 7: 密度分析", analyze_for_prefecture, slug)
+    run_step("Step 8: 地図生成", create_all_maps, slug)
+    run_step("Step 9: 検証", cross_validate, slug, max_retries=1)
 
-    print("\n[Step 2/8] 国勢調査データ取得")
-    fetch_census(slug)
-
-    print("\n[Step 3/8] 店舗データ収集（Google Places）")
-    collect_for_prefecture(slug)
-
-    print("\n[Step 4/8] 公式サイト二次調査")
-    fetch_official_for_prefecture(slug)
-
-    print("\n[Step 5/8] データクリーニング")
-    clean_for_prefecture(slug)
-
-    print("\n[Step 6/8] 座標取得")
-    geocode_for_prefecture(slug)
-
-    print("\n[Step 7/8] 密度分析")
-    analyze_for_prefecture(slug)
-
-    print("\n[Step 8/8] 地図生成・検証・レポート")
-    create_all_maps(slug)
-    cross_validate(slug)
     checks = validate_prefecture(slug)
     write_report(slug, checks)
+
+    if checks["coord_rate"] < 95:
+        print(f"  [注意] 座標取得率 {checks['coord_rate']}% — geocode_stores.py 再実行を推奨")
+    if not checks["maps_exist"]:
+        print("  [注意] 地図未生成 — create_maps.py 再実行を推奨")
 
     print(f"\n完了: {cfg['name']} - {checks['total_stores']}件")
     return checks

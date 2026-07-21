@@ -11,7 +11,11 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 
 def load_api_key(required: bool = True) -> str | None:
     load_dotenv(ROOT_DIR / ".env")
-    key = os.getenv("Google_Place_API") or os.getenv("GOOGLE_PLACE_API")
+    key = (
+        os.getenv("Google_Place_API")
+        or os.getenv("GOOGLE_PLACE_API")
+        or os.getenv("GOOGLE_MAPS_API_KEY")
+    )
     if not key:
         if required:
             raise ValueError(
