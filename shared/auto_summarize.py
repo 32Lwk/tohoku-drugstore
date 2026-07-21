@@ -25,11 +25,11 @@ def _prefecture_complete(slug: str) -> bool:
 
     required = [
         base / "report.md",
-        data / f"{pref}_ドラッグストア_座標付き.csv",
+        data / f"{pref}ドラッグストア_座標付き.csv",
         data / "市区町村別ドラッグストア分析.csv",
-        maps / f"{pref}_ドラッグストア地図.html",
-        maps / f"{pref}_ドラッグストア密度コロプレスマップ.html",
-        maps / f"{pref}_高齢化率コロプレスマップ.html",
+        maps / f"{pref}ドラッグストア地図.html",
+        maps / f"{pref}ドラッグストア密度コロプレスマップ.html",
+        maps / f"{pref}高齢化率コロプレスマップ.html",
     ]
     return all(p.exists() for p in required)
 
