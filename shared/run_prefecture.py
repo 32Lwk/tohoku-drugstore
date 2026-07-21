@@ -13,6 +13,7 @@ from shared.config import PREFECTURES
 from shared.create_maps import create_all_maps
 from shared.fetch_boundaries import fetch_for_prefecture as fetch_boundaries
 from shared.fetch_census import fetch_for_prefecture as fetch_census
+from shared.fetch_official_stores import fetch_official_for_prefecture
 from shared.geocode_stores import geocode_for_prefecture
 from shared.utils import ensure_dirs
 from shared.verify_data import cross_validate
@@ -91,22 +92,23 @@ def run_prefecture(slug: str) -> dict:
     print("\n[Step 2/8] 国勢調査データ取得")
     fetch_census(slug)
 
-    print("\n[Step 3/8] 店舗データ収集")
+    print("\n[Step 3/8] 店舗データ収集（Google Places）")
     collect_for_prefecture(slug)
 
-    print("\n[Step 4/8] データクリーニング")
+    print("\n[Step 4/8] 公式サイト二次調査")
+    fetch_official_for_prefecture(slug)
+
+    print("\n[Step 5/8] データクリーニング")
     clean_for_prefecture(slug)
 
-    print("\n[Step 5/8] 座標取得")
+    print("\n[Step 6/8] 座標取得")
     geocode_for_prefecture(slug)
 
-    print("\n[Step 6/8] 密度分析")
+    print("\n[Step 7/8] 密度分析")
     analyze_for_prefecture(slug)
 
-    print("\n[Step 7/8] 地図生成")
+    print("\n[Step 8/8] 地図生成・検証・レポート")
     create_all_maps(slug)
-
-    print("\n[Step 8/8] 検証・レポート")
     cross_validate(slug)
     checks = validate_prefecture(slug)
     write_report(slug, checks)

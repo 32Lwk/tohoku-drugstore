@@ -13,87 +13,59 @@ from shared.utils import ensure_dirs
 CACHE_DIR = Path(__file__).resolve().parent / "census_cache"
 CACHE_DIR.mkdir(exist_ok=True)
 
-# 国勢調査2020 人口等基本集計 市区町村（全国一括CSV）
-NATIONAL_CENSUS_URL = (
-    "https://www.e-stat.go.jp/stat-search/file-download?"
-    "statInfId=000032143617&fileKind=1"
-)
+# 令和2年国勢調査 都道府県・市区町村別の主な結果（xlsx）
+ESTAT_MUNICIPAL_XLSX = {
+    "url": "https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032143614&fileKind=0",
+    "referer": "https://www.e-stat.go.jp/stat-search/files?stat_infid=000032143614",
+}
 
 
-def _download_national_census() -> Path:
-    national_cache = CACHE_DIR / "national_census_2020.csv"
-    if national_cache.exists():
-        return national_cache
-
-    print("  全国国勢調査CSVをダウンロード中...")
-    resp = requests.get(NATIONAL_CENSUS_URL, timeout=180, allow_redirects=True)
+def _download_estat_xlsx() -> bytes:
+    session = requests.Session()
+    session.headers.update({"User-Agent": "Mozilla/5.0 tohoku-drugstore/1.0"})
+    session.get(ESTAT_MUNICIPAL_XLSX["referer"], timeout=60)
+    resp = session.get(ESTAT_MUNICIPAL_XLSX["url"], timeout=180)
     resp.raise_for_status()
-
-    for enc in ["cp932", "shift_jis", "utf-8-sig", "utf-8"]:
-        try:
-            text = resp.content.decode(enc)
-            national_cache.write_text(text, encoding="utf-8-sig")
-            return national_cache
-        except UnicodeDecodeError:
-            continue
-
-    national_cache.write_bytes(resp.content)
-    return national_cache
+    return resp.content
 
 
-def _parse_national_csv(path: Path, prefecture: str) -> tuple[pd.DataFrame, pd.DataFrame]:
-    for enc in ["utf-8-sig", "cp932", "shift_jis"]:
-        try:
-            df = pd.read_csv(path, encoding=enc, low_memory=False)
-            break
-        except Exception:
-            continue
-    else:
-        raise ValueError(f"CSV読込失敗: {path}")
-
-    cols = df.columns.tolist()
-    area_col = next((c for c in cols if "地域" in str(c) or "市区町村" in str(c)), cols[0])
-    df_pref = df[df[area_col].astype(str).str.contains(prefecture.replace("県", ""), na=False)].copy()
-
-    if df_pref.empty:
-        df_pref = df[df.astype(str).apply(lambda r: r.str.contains(prefecture, na=False).any(), axis=1)]
-
-    pop_col = next((c for c in cols if "人口" in str(c) and "密度" not in str(c)), None)
-    elderly_col = next((c for c in cols if "65" in str(c) or "高齢" in str(c)), None)
-    total_col = next((c for c in cols if "総数" in str(c) or "人口" in str(c)), None)
+def _parse_estat_xlsx(content: bytes, prefecture: str) -> tuple[pd.DataFrame, pd.DataFrame]:
+    df = pd.read_excel(BytesIO(content), sheet_name="第１面事項_2020年", header=None)
+    pref_code = next(v["code"] for v in PREFECTURES.values() if v["name"] == prefecture)
+    rows = df[df[0].astype(str).str.startswith(f"{pref_code}_")]
 
     pop_rows = []
     aging_rows = []
-
-    for _, row in df_pref.iterrows():
-        city_raw = str(row[area_col])
-        city = _normalize_city_name(city_raw, prefecture)
+    for _, row in rows.iterrows():
+        code_name = str(row[1])
+        if pd.isna(code_name) or code_name == "nan":
+            continue
+        city = _parse_city_name(code_name)
         if not city or city == prefecture:
             continue
-
-        pop = _to_float(row.get(pop_col)) if pop_col else None
-        elderly = _to_float(row.get(elderly_col)) if elderly_col else None
-        total = _to_float(row.get(total_col)) if total_col else pop
-
-        if pop:
-            pop_rows.append({"市区町村": city, "人口": pop})
-        if elderly and total and total > 0:
-            aging_rows.append({
-                "市区町村": city,
-                "総数": total,
-                "65歳以上": elderly,
-                "高齢化率": round(elderly / total * 100, 2),
-            })
+        total = _to_float(row[4])
+        elderly = _to_float(row[16])
+        aging_rate = _to_float(row[19])
+        if total:
+            pop_rows.append({"市区町村": city, "人口": total})
+        if elderly and total:
+            aging_rows.append(
+                {
+                    "市区町村": city,
+                    "総数": total,
+                    "65歳以上": elderly,
+                    "高齢化率": aging_rate if aging_rate else round(elderly / total * 100, 2),
+                }
+            )
 
     pop_df = pd.DataFrame(pop_rows).drop_duplicates("市区町村")
     aging_df = pd.DataFrame(aging_rows).drop_duplicates("市区町村")
     return pop_df, aging_df
 
 
-def _normalize_city_name(raw: str, prefecture: str) -> str:
-    s = raw.replace(prefecture, "").strip()
-    m = re.search(r"(.+?(?:市|区|町|村))", s)
-    return m.group(1) if m else s
+def _parse_city_name(code_name: str) -> str:
+    m = re.search(r"_(.+)$", code_name)
+    return m.group(1) if m else code_name
 
 
 def _to_float(val) -> float | None:
@@ -140,47 +112,23 @@ def fetch_for_prefecture(slug: str) -> tuple[pd.DataFrame, pd.DataFrame]:
         aging_df = pd.read_csv(pref_cache_aging, encoding="utf-8-sig")
     else:
         try:
-            national = _download_national_census()
-            pop_df, aging_df = _parse_national_csv(national, prefecture)
+            xlsx_cache = CACHE_DIR / "estat_municipal_2020.xlsx"
+            if not xlsx_cache.exists():
+                print("  国勢調査xlsxをダウンロード中...")
+                xlsx_cache.write_bytes(_download_estat_xlsx())
+            pop_df, aging_df = _parse_estat_xlsx(xlsx_cache.read_bytes(), prefecture)
             if pop_df.empty:
                 raise ValueError("該当県データなし")
             pop_df.to_csv(pref_cache_pop, index=False, encoding="utf-8-sig")
             aging_df.to_csv(pref_cache_aging, index=False, encoding="utf-8-sig")
         except Exception as e:
-            print(f"  国勢調査自動取得失敗 ({e}) → e-Stat手動DLを試行")
-            pop_df, aging_df = _fetch_estat_manual(cfg["code"], prefecture)
+            print(f"  国勢調査自動取得失敗 ({e}) → GeoJSONフォールバック")
+            pop_df, aging_df = _build_from_geojson(slug)
 
     pop_df.to_csv(paths["population_csv"], index=False, encoding="utf-8-sig")
     aging_df.to_csv(paths["aging_csv"], index=False, encoding="utf-8-sig")
     print(f"  人口: {len(pop_df)}市区町村 / 高齢化率: {len(aging_df)}市区町村")
     return pop_df, aging_df
-
-
-def _fetch_estat_manual(pref_code: str, prefecture: str) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """
-    e-Stat 統計ダッシュボードから都道府県別CSVを取得。
-    https://www.e-stat.go.jp/stat-search/files?page=1&layout=dataset&toukei=00200521
-    """
-    alt_urls = [
-        f"https://www.e-stat.go.jp/stat-search/file-download?statInfId=000032143617&fileKind=1",
-    ]
-    for url in alt_urls:
-        try:
-            r = requests.get(url, timeout=120)
-            if r.status_code == 200:
-                tmp = CACHE_DIR / "tmp_census.csv"
-                tmp.write_bytes(r.content)
-                pop_df, aging_df = _parse_national_csv(tmp, prefecture)
-                if not pop_df.empty:
-                    return pop_df, aging_df
-        except Exception:
-            continue
-
-    raise RuntimeError(
-        f"{prefecture} の国勢調査データ取得に失敗。"
-        " Cloud Agent: e-Stat から2020国勢調査CSVをDLし "
-        f"shared/census_cache/{pref_code}_population.csv に配置してください。"
-    )
 
 
 if __name__ == "__main__":

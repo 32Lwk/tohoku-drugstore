@@ -41,7 +41,7 @@ def geocode_gsi(address: str) -> tuple[float, float] | None:
 def geocode_for_prefecture(slug: str) -> pd.DataFrame:
     cfg = PREFECTURES[slug]
     paths = ensure_dirs(slug)
-    api_key = load_api_key()
+    api_key = load_api_key(required=False)
 
     df_raw = pd.read_csv(paths["raw_csv"], encoding="utf-8-sig") if paths["raw_csv"].exists() else pd.DataFrame()
     coord_from_raw = {}
@@ -63,7 +63,7 @@ def geocode_for_prefecture(slug: str) -> pd.DataFrame:
         addr = row["address"]
         coords = coord_from_raw.get(addr) or cache.get(addr)
 
-        if coords is None:
+        if coords is None and api_key:
             coords = geocode_google(addr, api_key)
             api_calls += 1
             time.sleep(0.1)

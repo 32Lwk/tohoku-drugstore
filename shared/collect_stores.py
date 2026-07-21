@@ -93,7 +93,15 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
     cfg = PREFECTURES[slug]
     prefecture = cfg["name"]
     paths = ensure_dirs(slug)
-    api_key = load_api_key()
+    api_key = load_api_key(required=False)
+    if not api_key:
+        print("  Google_Place_API 未設定 → Places一次調査をスキップ（二次調査で補完）")
+        df = pd.DataFrame(columns=["company", "store_name", "address", "place_id", "latitude", "longitude", "source"])
+        if paths["raw_csv"].exists():
+            return pd.read_csv(paths["raw_csv"], encoding="utf-8-sig")
+        df.to_csv(paths["raw_csv"], index=False, encoding="utf-8-sig")
+        return df
+
     gmaps = googlemaps.Client(key=api_key)
 
     municipalities = get_municipalities_from_geojson(paths["geojson"])

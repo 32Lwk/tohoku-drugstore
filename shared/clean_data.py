@@ -28,8 +28,13 @@ def clean_stores(df: pd.DataFrame, prefecture: str) -> pd.DataFrame:
     df = df[df["address"].str.contains(prefecture, na=False)]
 
     before = len(df)
+    strict_pharmacy = df["store_name"].str.contains("薬局|調剤", na=False)
+    df = df[~strict_pharmacy]
+    print(f"  薬局除外（厳格）: {before - len(df)}件")
+
+    before = len(df)
     df = df[~df["store_name"].apply(is_pharmacy_only)]
-    print(f"  薬局除外: {before - len(df)}件")
+    print(f"  薬局除外（追加）: {before - len(df)}件")
 
     df = df.drop_duplicates(subset=["place_id"], keep="first")
     df = df.drop_duplicates(subset=["company", "address"], keep="first")

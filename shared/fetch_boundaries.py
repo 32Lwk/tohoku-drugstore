@@ -10,14 +10,14 @@ import requests
 from shared.config import PREFECTURES
 from shared.utils import ensure_dirs
 
-# 国土地理院 行政区域データ（2020年基準）
+# 国土地理院 行政区域データ（2025年基準）
 N03_ZIP_URLS = {
-    "02": "https://nlftp.mlit.go.jp/ksj/gml/codelist/N03-20230101_02_GML.zip",
-    "03": "https://nlftp.mlit.go.jp/ksj/gml/codelist/N03-20230101_03_GML.zip",
-    "04": "https://nlftp.mlit.go.jp/ksj/gml/codelist/N03-20230101_04_GML.zip",
-    "05": "https://nlftp.mlit.go.jp/ksj/gml/codelist/N03-20230101_05_GML.zip",
-    "06": "https://nlftp.mlit.go.jp/ksj/gml/codelist/N03-20230101_06_GML.zip",
-    "07": "https://nlftp.mlit.go.jp/ksj/gml/codelist/N03-20230101_07_GML.zip",
+    "02": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2025/N03-20250101_02_GML.zip",
+    "03": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2025/N03-20250101_03_GML.zip",
+    "04": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2025/N03-20250101_04_GML.zip",
+    "05": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2025/N03-20250101_05_GML.zip",
+    "06": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2025/N03-20250101_06_GML.zip",
+    "07": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2025/N03-20250101_07_GML.zip",
 }
 
 

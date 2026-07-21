@@ -9,14 +9,16 @@ from dotenv import load_dotenv
 ROOT_DIR = Path(__file__).resolve().parent.parent
 
 
-def load_api_key() -> str:
+def load_api_key(required: bool = True) -> str | None:
     load_dotenv(ROOT_DIR / ".env")
     key = os.getenv("Google_Place_API") or os.getenv("GOOGLE_PLACE_API")
     if not key:
-        raise ValueError(
-            "Google_Place_API が未設定です。"
-            " .env または Cloud Agent の Environment Variables に設定してください。"
-        )
+        if required:
+            raise ValueError(
+                "Google_Place_API が未設定です。"
+                " .env または Cloud Agent の Environment Variables に設定してください。"
+            )
+        return None
     return key
 
 
