@@ -5,16 +5,28 @@ import re
 import pandas as pd
 
 from shared.config import CHAIN_NORMALIZE, PREFECTURES
-from shared.utils import ensure_dirs, is_pharmacy_only, normalize_address
+from shared.utils import ensure_dirs, is_pharmacy_only, normalize_address, normalize_chain_name
 
 
-def normalize_company(company: str) -> str:
-    return CHAIN_NORMALIZE.get(company, company)
+def normalize_company(company: str, store_name: str = "") -> str:
+    """店名からチェーンを判定。誤ラベルの company は信じない。"""
+    detected = normalize_chain_name(store_name) if store_name else "不明"
+    if detected != "不明":
+        return detected
+    # 店名から判定不能なら不明（検索時の誤ラベルを残さない）
+    return "不明"
 
 
 def address_key(address: str) -> str:
     a = re.sub(r"\s+", "", address or "")
     a = re.sub(r"[０-９]", lambda m: chr(ord(m.group()) - 0xFEE0), a)
+    a = a.translate(str.maketrans("−ー‐–—", "-----"))
+    a = a.replace("字", "")
+    a = re.sub(r"大字", "", a)
+    a = re.sub(r"(\d+)丁目", r"\1-", a)
+    a = re.sub(r"(\d+)番", r"\1-", a)
+    a = re.sub(r"(\d+)号", r"\1", a)
+    a = re.sub(r"-{2,}", "-", a)
     return a
 
 
@@ -23,7 +35,10 @@ def clean_stores(df: pd.DataFrame, prefecture: str) -> pd.DataFrame:
         return df
 
     df = df.copy()
-    df["company"] = df["company"].apply(normalize_company)
+    # 店名からチェーンを再判定（検索ラベルの誤付与を訂正）
+    df["company"] = [
+        normalize_company(c, n) for c, n in zip(df.get("company", []), df.get("store_name", []))
+    ]
     df["address"] = df["address"].apply(lambda a: normalize_address(a, prefecture))
     # 他県住所や正規化失敗（空）を除外
     before = len(df)
@@ -42,7 +57,7 @@ def clean_stores(df: pd.DataFrame, prefecture: str) -> pd.DataFrame:
 
     # チェーン不明かつドラッグストアらしき名称でないものを除外
     ds_name = df["store_name"].str.contains(
-        r"ドラッグ|Drug|DRUG|ウエルシア|Welcia|GENKY|ゲンキー|マツモトキヨシ|コスモス|セイムス|サツドラ|クリエイト",
+        r"ドラッグ|Drug|DRUG|ウエルシア|Welcia|GENKY|ゲンキー|マツモトキヨシ|セイムス|サツドラ|薬王堂|ツルハ",
         na=False,
         regex=True,
     )
@@ -51,8 +66,16 @@ def clean_stores(df: pd.DataFrame, prefecture: str) -> pd.DataFrame:
     df = df[known_company | ds_name]
     print(f"  非DS除外（チェーン不明）: {before - len(df)}件")
 
-    df = df.drop_duplicates(subset=["place_id"], keep="first")
+    if "place_id" in df.columns:
+        df = df.drop_duplicates(subset=["place_id"], keep="first")
     df = df.drop_duplicates(subset=["company", "address"], keep="first")
+
+    # 全角数字・「字」などの表記ゆれ同一住所を統合（同一チェーンのみ）
+    df["_akey"] = df["address"].apply(address_key)
+    before = len(df)
+    df = df.drop_duplicates(subset=["company", "_akey"], keep="first")
+    print(f"  住所表記ゆれ重複: {before - len(df)}件削除")
+    df = df.drop(columns=["_akey"])
 
     # 同一住所で薬局系とドラッグストア系が混在 → ドラッグストアのみ残す
     # 異なるチェーン同一住所は残す

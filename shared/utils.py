@@ -133,17 +133,67 @@ def is_pharmacy_only(store_name: str) -> bool:
     return False
 
 
-def normalize_chain_name(name: str, search_query: str = "") -> str:
-    from shared.config import CHAIN_NORMALIZE, KNOWN_CHAINS
+# 曖昧語は厳密パターン必須（理容室・企業名などの誤ヒット防止）
+# 注意: パターン1つでも末尾カンマ必須 → (r"foo",)  でないと str になり1文字ずつ誤マッチする
+_STRICT_CHAIN_RULES: list[tuple[str, tuple[str, ...]]] = [
+    ("コスモス", (r"ドラッグストア\s*コスモス", r"コスモス\s*ドラッグ", r"ドラッグストアコスモス")),
+    ("クリエイト", (r"クリエイト\s*S\s*D", r"クリエイトＳＤ", r"クリエイトエス・?ディー", r"クリエイトエスディー")),
+    ("キョーリン", (r"キョーリン\s*ドラッグ", r"ドラッグ\s*キョーリン")),
+    ("杏林堂", (r"杏林堂ドラッグ", r"ドラッグ杏林堂")),
+    ("GENKY", (r"GENKY", r"ゲンキー")),
+    ("ツルハドラッグ", (r"ツルハドラッグ", r"ツルハ")),
+    ("ハッピードラッグ", (r"ハッピー[・･\s]?ドラッグ", r"ハッピードラッグ")),
+    ("ウエルシア", (r"ウエルシア",)),
+    ("サンドラッグ", (r"サンドラッグ", r"サンドラック")),
+    ("マツモトキヨシ", (r"マツモトキヨシ", r"マツキヨ")),
+    ("セイムス", (r"セイムス",)),
+    ("サツドラ", (r"サツドラ",)),
+    ("カワチ薬品", (r"カワチ薬品", r"カワチ")),
+    ("クスリのアオキ", (r"クスリのアオキ", r"くすりのあおき")),
+    ("なの花ドラッグ", (r"なの花ドラッグ",)),
+    ("よどやドラッグ", (r"よどやドラッグ",)),
+    ("ドラッグユタカ", (r"ドラッグユタカ", r"ユタカ薬局")),
+    ("スギ薬局", (r"スギ薬局", r"スギドラッグ")),
+    ("Vドラッグ", (r"Vドラッグ", r"ブイドラッグ")),
+    ("ZIPドラッグ", (r"ZIPドラッグ", r"ジップドラッグ")),
+    ("ココカラファイン", (r"ココカラファイン", r"ココカラ")),
+    ("トモズ", (r"トモズ",)),
+    ("ダイコクドラッグ", (r"ダイコクドラッグ",)),
+    ("キリン堂", (r"キリン堂",)),
+    ("コクミン", (r"コクミン",)),
+    ("ハックドラッグ", (r"ハックドラッグ",)),
+    ("セキ薬品", (r"セキ薬品",)),
+    ("ドラッグスギヤマ", (r"ドラッグスギヤマ", r"スギヤマ")),
+    ("スーパードラッグアサヒ", (r"スーパードラッグアサヒ", r"スーパードラッグメガ", r"ドラッグアサヒ")),
+    ("薬王堂", (r"薬王堂",)),
+]
 
-    text = name or search_query
-    for chain in KNOWN_CHAINS:
-        if chain in text or chain.lower() in text.lower():
-            return CHAIN_NORMALIZE.get(chain, chain)
+
+def normalize_chain_name(name: str, search_query: str = "") -> str:
+    from shared.config import CHAIN_NORMALIZE
+
+    text = (name or "") + " " + (search_query or "")
+    text_n = text.replace("・", "").replace("･", "").replace(" ", "")
+
+    for chain, patterns in _STRICT_CHAIN_RULES:
+        if isinstance(patterns, str):  # カンマ漏れ防御
+            patterns = (patterns,)
+        for pat in patterns:
+            flags = re.IGNORECASE if re.search(r"[A-Za-z]", pat) else 0
+            if re.search(pat, text, flags) or re.search(pat, text_n, flags):
+                return CHAIN_NORMALIZE.get(chain, chain)
+
     if "スギ" in text and ("ドラッグ" in text or "薬局" in text):
         return "スギ薬局"
-    # 未知の店名をチェーン扱いしない（discovered_chains 汚染防止）
     return "不明"
+
+
+def store_matches_searched_chain(store_name: str, company: str) -> bool:
+    """チェーン精査検索の結果が、本当にそのチェーンか判定する。"""
+    if not company:
+        return True
+    detected = normalize_chain_name(store_name)
+    return detected == company
 
 
 def prefecture_paths(slug: str) -> dict:

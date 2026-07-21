@@ -8,7 +8,7 @@ import googlemaps
 import pandas as pd
 
 from shared.config import KNOWN_CHAINS, PREFECTURES
-from shared.utils import ensure_dirs, load_api_key, normalize_address, normalize_chain_name
+from shared.utils import ensure_dirs, load_api_key, normalize_address, normalize_chain_name, store_matches_searched_chain
 
 
 def get_municipalities_from_geojson(geojson_path: Path) -> list[str]:
@@ -45,21 +45,9 @@ def _place_from_result(place: dict, prefecture: str, company: str, query: str) -
 
     # チェーン精査検索時は、店名がそのチェーンを示すものだけ採用
     if company:
-        if detected != "不明" and detected != company:
+        if not store_matches_searched_chain(store_name, company):
             return None
-        if detected == "不明" and company not in store_name:
-            # 別名ゆれ（ゲンキー等）は normalize 側で吸収済み。それでも不明なら除外
-            aliases = {
-                "GENKY": ("ゲンキー", "GENKY"),
-                "マツモトキヨシ": ("マツキヨ", "マツモトキヨシ"),
-                "ツルハドラッグ": ("ツルハ",),
-                "サンドラッグ": ("サンド",),
-                "ハッピードラッグ": ("ハッピー", "ウエルシア"),
-            }
-            ok = any(a in store_name for a in aliases.get(company, ()))
-            if not ok:
-                return None
-        chain = company if detected == "不明" else detected
+        chain = company
     else:
         chain = detected
 
