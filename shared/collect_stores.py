@@ -72,7 +72,20 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
             continue
 
         store_name = r.get("name", "")
-        chain = company or normalize_chain_name(store_name, query)
+        # チェーン指定検索では店舗名にキーワードが含まれるものだけ採用（誤ヒット防止）
+        if company:
+            keys = [company]
+            if company == "GENKY":
+                keys.append("ゲンキー")
+            if company == "マツモトキヨシ":
+                keys.extend(["マツキヨ", "matsukiyo"])
+            if company == "カワチ薬品":
+                keys.append("カワチ")
+            if not any(k.lower() in store_name.lower() for k in keys if k):
+                continue
+            chain = company
+        else:
+            chain = normalize_chain_name(store_name, query)
         geom = r.get("geometry", {}).get("location", {})
 
         results.append(
@@ -123,18 +136,20 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
             print(f"    {city}: +{len(batch)}件 (累計{len(all_stores)})")
         time.sleep(0.2)
 
-    discovered_chains = set()
-    for s in all_stores:
-        chain = normalize_chain_name(s["store_name"])
-        if chain != "不明":
-            discovered_chains.add(chain)
-
-    chains_to_search = sorted(set(KNOWN_CHAINS) | discovered_chains)
-    print(f"\n[2/2] チェーン別検索: {len(chains_to_search)}チェーン")
+    # 既知チェーンのみ精査（発見名の先頭語検索は誤ヒット・件数爆発の原因）
+    discovered = {
+        normalize_chain_name(s["store_name"])
+        for s in all_stores
+        if normalize_chain_name(s["store_name"]) != "不明"
+    }
+    chains_to_search = sorted(set(KNOWN_CHAINS) | discovered)
+    print(f"\n[2/2] チェーン別検索: {len(chains_to_search)}チェーン (発見済{len(discovered)})")
     for chain in chains_to_search:
         before = len(all_stores)
-        for city in municipalities:
-            q = f"{chain} {city} {prefecture}"
+        # 広域で見つかったチェーンは市区町村単位、未発見は県単位で補完
+        targets = municipalities if chain in discovered else [prefecture]
+        for city in targets:
+            q = f"{chain} {city}" if city == prefecture else f"{chain} {city} {prefecture}"
             batch = search_places(gmaps, q, prefecture, normalize_chain_name(chain), seen_ids)
             all_stores.extend(batch)
             time.sleep(0.15)
