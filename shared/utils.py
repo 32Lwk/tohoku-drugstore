@@ -101,7 +101,7 @@ def normalize_chain_name(name: str, search_query: str = "") -> str:
             return CHAIN_NORMALIZE.get(chain, chain)
     if "ハッピー" in text and "ドラッグ" in text:
         return "ハッピードラッグ"
-    if "スギ" in text:
+    if "スギ薬局" in text or "スギドラッグ" in text:
         return "スギ薬局"
     if "サンド" in text and "ドラッグ" in text:
         return "サンドラッグ"
