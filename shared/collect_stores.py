@@ -50,12 +50,14 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
 
         seen_ids.add(pid)
         try:
+            # Place Details の fields に "types" は不可（"type" も非推奨）。types は Text Search 結果を使用。
             details = gmaps.place(
                 place_id=pid,
                 language="ja",
-                fields=["name", "formatted_address", "geometry", "types", "business_status"],
+                fields=["name", "formatted_address", "geometry", "business_status"],
             )
-        except Exception:
+        except Exception as e:
+            print(f"    place details エラー: {pid} -> {e}")
             continue
 
         if details.get("status") != "OK":
