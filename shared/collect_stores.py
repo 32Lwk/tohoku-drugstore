@@ -19,12 +19,16 @@ def get_municipalities_from_geojson(geojson_path: Path) -> list[str]:
     cities = set()
     for feature in geo.get("features", []):
         props = feature.get("properties", {})
-        prefix = props.get("N03_003") or props.get("N03_001") or ""
-        name = props.get("N03_004") or props.get("N03_002") or ""
-        if prefix and name:
-            cities.add(f"{prefix}{name}")
-        elif name:
-            cities.add(name)
+        gun = props.get("N03_003") or ""
+        city = props.get("N03_004") or ""
+        ward = props.get("N03_005") or ""
+        # 政令市は区単位で検索（Text Search の20件制限対策）
+        if city and ward:
+            cities.add(f"{city}{ward}")
+        elif gun and city:
+            cities.add(f"{gun}{city}")
+        elif city:
+            cities.add(city)
     return sorted(cities)
 
 
@@ -36,7 +40,11 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
         print(f"    検索エラー: {query} -> {e}")
         return results
 
-    if resp.get("status") != "OK":
+    status = resp.get("status")
+    if status not in ("OK", "ZERO_RESULTS"):
+        print(f"    検索status異常: {query} -> {status} {resp.get('error_message', '')}")
+        return results
+    if status != "OK":
         return results
 
     for place in resp.get("results", []):
@@ -48,31 +56,37 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
         if "pharmacy" in types and "drugstore" not in types and "store" not in types:
             continue
 
-        seen_ids.add(pid)
-        try:
-            details = gmaps.place(
-                place_id=pid,
-                language="ja",
-                fields=["name", "formatted_address", "geometry", "types", "business_status"],
-            )
-        except Exception:
-            continue
+        # Text Search の結果を優先利用（Place Details の fields 不整合を回避し API 節約）
+        store_name = place.get("name", "")
+        formatted = place.get("formatted_address", "")
+        geom = place.get("geometry", {}).get("location", {})
 
-        if details.get("status") != "OK":
-            continue
+        if not formatted or not geom:
+            try:
+                details = gmaps.place(
+                    place_id=pid,
+                    language="ja",
+                    fields=["name", "formatted_address", "geometry", "business_status"],
+                )
+            except Exception as e:
+                print(f"    detailsエラー: {pid} -> {e}")
+                continue
+            if details.get("status") != "OK":
+                continue
+            r = details["result"]
+            if r.get("business_status") == "CLOSED_PERMANENTLY":
+                continue
+            store_name = r.get("name", store_name)
+            formatted = r.get("formatted_address", formatted)
+            geom = r.get("geometry", {}).get("location", {}) or geom
+            time.sleep(0.12)
 
-        r = details["result"]
-        if r.get("business_status") == "CLOSED_PERMANENTLY":
-            continue
-
-        address = normalize_address(r.get("formatted_address", ""), prefecture)
+        address = normalize_address(formatted, prefecture)
         if prefecture not in address:
             continue
 
-        store_name = r.get("name", "")
+        seen_ids.add(pid)
         chain = company or normalize_chain_name(store_name, query)
-        geom = r.get("geometry", {}).get("location", {})
-
         results.append(
             {
                 "company": chain,
@@ -84,7 +98,6 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
                 "source": "google_places",
             }
         )
-        time.sleep(0.12)
 
     return results
 
@@ -129,10 +142,12 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
 
     chains_to_search = sorted(set(KNOWN_CHAINS) | discovered_chains)
     print(f"\n[2/2] チェーン別検索: {len(chains_to_search)}チェーン")
+    # 県全体 + 主要市区町村（全市区町村×全チェーンは過多のため）
+    chain_locations = [prefecture] + [c for c in municipalities if c.endswith(("市", "区"))][:25]
     for chain in chains_to_search:
         before = len(all_stores)
-        for city in municipalities:
-            q = f"{chain} {city} {prefecture}"
+        for loc in chain_locations:
+            q = f"{chain} {loc}" if loc != prefecture else f"{chain} {prefecture}"
             batch = search_places(gmaps, q, prefecture, normalize_chain_name(chain), seen_ids)
             all_stores.extend(batch)
             time.sleep(0.15)

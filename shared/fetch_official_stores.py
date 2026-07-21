@@ -26,53 +26,78 @@ def _parse_city_name(code_name: str) -> str:
 
 
 def fetch_tsuruha_yext(prefecture: str, center: tuple[float, float]) -> list[dict]:
+    """ツルハYext検索。『宮城県』など一部クエリは誤マッチするため短名も併用。"""
     stores: list[dict] = []
-    offset = 0
-    total = None
-    while total is None or offset < total:
-        params = {
-            "experienceKey": "shop-search",
-            "api_key": TSURUHA_YEXT_KEY,
-            "v": "20220511",
-            "version": "PRODUCTION",
-            "locale": "ja",
-            "input": prefecture,
-            "location": f"{center[0]},{center[1]}",
-            "verticalKey": "locations",
-            "limit": "50",
-            "offset": str(offset),
-        }
-        resp = requests.get(TSURUHA_YEXT_URL, params=params, timeout=30)
-        resp.raise_for_status()
-        payload = resp.json().get("response", {})
-        results = payload.get("results", [])
-        if not results:
+    seen: set[str] = set()
+    queries = []
+    short = prefecture.replace("県", "").replace("府", "").replace("都", "")
+    for q in (short, prefecture, ""):
+        if q not in queries:
+            queries.append(q)
+
+    for input_q in queries:
+        offset = 0
+        total = None
+        matched_in_query = 0
+        while total is None or offset < total:
+            params = {
+                "experienceKey": "shop-search",
+                "api_key": TSURUHA_YEXT_KEY,
+                "v": "20220511",
+                "version": "PRODUCTION",
+                "locale": "ja",
+                "input": input_q,
+                "location": f"{center[0]},{center[1]}",
+                "verticalKey": "locations",
+                "limit": "50",
+                "offset": str(offset),
+            }
+            resp = requests.get(TSURUHA_YEXT_URL, params=params, timeout=30)
+            resp.raise_for_status()
+            payload = resp.json().get("response", {})
+            results = payload.get("results", [])
+            if not results:
+                break
+            total = payload.get("resultsCount", len(results))
+            page_matched = 0
+            for item in results:
+                data = item.get("data", {})
+                addr = data.get("address", {})
+                if addr.get("region") != prefecture:
+                    continue
+                line = addr.get("line1", "")
+                city = addr.get("city", "")
+                address = normalize_address(f"{prefecture}{city}{line}", prefecture)
+                chain = data.get("c_brandFilter") or data.get("c_name_GBP") or "ツルハドラッグ"
+                chain = normalize_chain_name(chain)
+                coord = data.get("yextDisplayCoordinate") or {}
+                key = f"{chain}|{address}"
+                if key in seen:
+                    continue
+                seen.add(key)
+                page_matched += 1
+                stores.append(
+                    {
+                        "company": chain,
+                        "store_name": data.get("name", chain),
+                        "address": address,
+                        "place_id": _make_place_id("yext", chain, address),
+                        "latitude": coord.get("latitude"),
+                        "longitude": coord.get("longitude"),
+                        "source": "official_tsuruha",
+                    }
+                )
+            matched_in_query += page_matched
+            offset += 50
+            time.sleep(0.1)
+            # 空クエリは全国件数になるため、県マッチが続いている間だけ継続
+            if input_q == "" and page_matched == 0:
+                break
+            # 短名で十分な件数が取れたら終了
+            if input_q == short and matched_in_query >= 30 and offset >= (total or 0):
+                break
+        if len(stores) >= 30:
             break
-        total = payload.get("resultsCount", len(results))
-        for item in results:
-            data = item.get("data", {})
-            addr = data.get("address", {})
-            if addr.get("region") != prefecture:
-                continue
-            line = addr.get("line1", "")
-            city = addr.get("city", "")
-            address = normalize_address(f"{prefecture}{city}{line}", prefecture)
-            chain = data.get("c_brandFilter") or data.get("c_name_GBP") or "ツルハドラッグ"
-            chain = normalize_chain_name(chain)
-            coord = data.get("yextDisplayCoordinate") or {}
-            stores.append(
-                {
-                    "company": chain,
-                    "store_name": data.get("name", chain),
-                    "address": address,
-                    "place_id": _make_place_id("yext", chain, address),
-                    "latitude": coord.get("latitude"),
-                    "longitude": coord.get("longitude"),
-                    "source": "official_tsuruha",
-                }
-            )
-        offset += 50
-        time.sleep(0.1)
     return stores
 
 
