@@ -12,6 +12,7 @@ from shared.utils import ensure_dirs, load_api_key, normalize_address, normalize
 
 
 def get_municipalities_from_geojson(geojson_path: Path) -> list[str]:
+    """市区町村名を返す。郡部は「郡+町村」、市は市名のみ（県名は付けない）。"""
     if not geojson_path.exists():
         return []
     with open(geojson_path, encoding="utf-8") as f:
@@ -19,72 +20,96 @@ def get_municipalities_from_geojson(geojson_path: Path) -> list[str]:
     cities = set()
     for feature in geo.get("features", []):
         props = feature.get("properties", {})
-        prefix = props.get("N03_003") or props.get("N03_001") or ""
-        name = props.get("N03_004") or props.get("N03_002") or ""
-        if prefix and name:
-            cities.add(f"{prefix}{name}")
-        elif name:
+        name = (props.get("N03_004") or "").strip()
+        if not name or name == "所属未定地":
+            continue
+        gun = (props.get("N03_003") or "").strip()
+        if gun:
+            cities.add(f"{gun}{name}")
+        else:
             cities.add(name)
     return sorted(cities)
 
 
 def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: set) -> list[dict]:
+    """Text Search（ページネーション対応）+ Place Details。"""
     results = []
-    try:
-        resp = gmaps.places(query=query, language="ja", region="jp")
-    except Exception as e:
-        print(f"    検索エラー: {query} -> {e}")
-        return results
+    page_token = None
 
-    if resp.get("status") != "OK":
-        return results
-
-    for place in resp.get("results", []):
-        pid = place.get("place_id")
-        if not pid or pid in seen_ids:
-            continue
-
-        types = place.get("types", [])
-        if "pharmacy" in types and "drugstore" not in types and "store" not in types:
-            continue
-
-        seen_ids.add(pid)
+    for _page in range(3):  # 最大60件（20×3）
         try:
-            details = gmaps.place(
-                place_id=pid,
-                language="ja",
-                fields=["name", "formatted_address", "geometry", "types", "business_status"],
+            if page_token:
+                time.sleep(2.0)  # next_page_token 有効化待ち
+                resp = gmaps.places(query=query, language="ja", region="jp", page_token=page_token)
+            else:
+                resp = gmaps.places(query=query, language="ja", region="jp")
+        except Exception as e:
+            print(f"    検索エラー: {query} -> {e}")
+            break
+
+        status = resp.get("status")
+        if status not in ("OK", "ZERO_RESULTS"):
+            if status in ("OVER_QUERY_LIMIT", "RESOURCE_EXHAUSTED"):
+                print(f"    API制限: {status} — 60秒待機")
+                time.sleep(60)
+                continue
+            break
+
+        for place in resp.get("results", []):
+            pid = place.get("place_id")
+            if not pid or pid in seen_ids:
+                continue
+
+            types = place.get("types", [])
+            if "pharmacy" in types and "drugstore" not in types and "store" not in types:
+                continue
+
+            seen_ids.add(pid)
+            try:
+                details = gmaps.place(
+                    place_id=pid,
+                    language="ja",
+                    fields=["name", "formatted_address", "geometry", "types", "business_status"],
+                )
+            except Exception:
+                continue
+
+            if details.get("status") != "OK":
+                continue
+
+            r = details["result"]
+            if r.get("business_status") == "CLOSED_PERMANENTLY":
+                continue
+
+            address = normalize_address(r.get("formatted_address", ""), prefecture)
+            if prefecture not in address:
+                continue
+
+            store_name = r.get("name", "")
+            # 店舗名から判定できたチェーンを優先（検索クエリの誤分類を防ぐ）
+            from_name = normalize_chain_name(store_name)
+            if from_name and from_name != "不明" and from_name != store_name.split(" ")[0]:
+                chain = from_name
+            else:
+                chain = company or from_name or normalize_chain_name(store_name, query)
+            geom = r.get("geometry", {}).get("location", {})
+
+            results.append(
+                {
+                    "company": chain,
+                    "store_name": store_name,
+                    "address": address,
+                    "place_id": pid,
+                    "latitude": geom.get("lat"),
+                    "longitude": geom.get("lng"),
+                    "source": "google_places",
+                }
             )
-        except Exception:
-            continue
+            time.sleep(0.12)
 
-        if details.get("status") != "OK":
-            continue
-
-        r = details["result"]
-        if r.get("business_status") == "CLOSED_PERMANENTLY":
-            continue
-
-        address = normalize_address(r.get("formatted_address", ""), prefecture)
-        if prefecture not in address:
-            continue
-
-        store_name = r.get("name", "")
-        chain = company or normalize_chain_name(store_name, query)
-        geom = r.get("geometry", {}).get("location", {})
-
-        results.append(
-            {
-                "company": chain,
-                "store_name": store_name,
-                "address": address,
-                "place_id": pid,
-                "latitude": geom.get("lat"),
-                "longitude": geom.get("lng"),
-                "source": "google_places",
-            }
-        )
-        time.sleep(0.12)
+        page_token = resp.get("next_page_token")
+        if not page_token:
+            break
 
     return results
 
@@ -96,7 +121,9 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
     api_key = load_api_key(required=False)
     if not api_key:
         print("  Google_Place_API 未設定 → Places一次調査をスキップ（二次調査で補完）")
-        df = pd.DataFrame(columns=["company", "store_name", "address", "place_id", "latitude", "longitude", "source"])
+        df = pd.DataFrame(
+            columns=["company", "store_name", "address", "place_id", "latitude", "longitude", "source"]
+        )
         if paths["raw_csv"].exists():
             return pd.read_csv(paths["raw_csv"], encoding="utf-8-sig")
         df.to_csv(paths["raw_csv"], index=False, encoding="utf-8-sig")
@@ -112,28 +139,59 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
     seen_ids: set[str] = set()
     all_stores: list[dict] = []
 
-    print(f"\n[1/2] 広域検索: ドラッグストア × {len(municipalities)}市区町村")
+    # 既存 raw があれば place_id を引き継ぎ（増分マージ用）
+    if paths["raw_csv"].exists():
+        try:
+            prev = pd.read_csv(paths["raw_csv"], encoding="utf-8-sig")
+            if "place_id" in prev.columns:
+                seen_ids.update(prev["place_id"].dropna().astype(str).tolist())
+                all_stores.extend(prev.to_dict("records"))
+                print(f"  既存 raw を読み込み: {len(prev)}件（増分収集）")
+        except Exception:
+            pass
+
+    print(f"\n[1/3] 広域検索: ドラッグストア × {len(municipalities)}市区町村")
     for city in municipalities:
         q = f"ドラッグストア {city} {prefecture}"
+        before = len(all_stores)
         batch = search_places(gmaps, q, prefecture, "", seen_ids)
         all_stores.extend(batch)
-        if batch:
-            print(f"    {city}: +{len(batch)}件 (累計{len(all_stores)})")
+        added = len(all_stores) - before
+        if added:
+            print(f"    {city}: +{added}件 (累計{len(all_stores)})")
         time.sleep(0.2)
 
     discovered_chains = set()
     for s in all_stores:
-        chain = normalize_chain_name(s["store_name"])
-        if chain != "不明":
+        chain = normalize_chain_name(str(s.get("store_name", "")))
+        if chain and chain != "不明":
             discovered_chains.add(chain)
 
-    chains_to_search = sorted(set(KNOWN_CHAINS) | discovered_chains)
-    print(f"\n[2/2] チェーン別検索: {len(chains_to_search)}チェーン")
+    # 正規化後のチェーン名で検索（別名は CHAIN_NORMALIZE で統一）
+    from shared.config import CHAIN_NORMALIZE
+
+    raw_chains = set(KNOWN_CHAINS) | discovered_chains
+    chains_to_search = sorted({CHAIN_NORMALIZE.get(c, c) for c in raw_chains})
+
+    print(f"\n[2/3] 県全体チェーン検索: {len(chains_to_search)}チェーン")
     for chain in chains_to_search:
         before = len(all_stores)
-        for city in municipalities:
+        q = f"{chain} {prefecture}"
+        batch = search_places(gmaps, q, prefecture, chain, seen_ids)
+        all_stores.extend(batch)
+        added = len(all_stores) - before
+        if added:
+            print(f"    {chain}（県全体）: +{added}件")
+        time.sleep(0.2)
+
+    # 主要市のみチェーン×市区町村（取りこぼし防止）
+    major_cities = [c for c in municipalities if c.endswith("市")]
+    print(f"\n[3/3] 市×チェーン精査: {len(major_cities)}市 × {len(chains_to_search)}チェーン")
+    for chain in chains_to_search:
+        before = len(all_stores)
+        for city in major_cities:
             q = f"{chain} {city} {prefecture}"
-            batch = search_places(gmaps, q, prefecture, normalize_chain_name(chain), seen_ids)
+            batch = search_places(gmaps, q, prefecture, chain, seen_ids)
             all_stores.extend(batch)
             time.sleep(0.15)
         added = len(all_stores) - before
@@ -142,7 +200,19 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
 
     df = pd.DataFrame(all_stores)
     if df.empty:
-        df = pd.DataFrame(columns=["company", "store_name", "address", "place_id", "latitude", "longitude", "source"])
+        df = pd.DataFrame(
+            columns=["company", "store_name", "address", "place_id", "latitude", "longitude", "source"]
+        )
+    else:
+        # 店舗名からチェーン再判定
+        def _fix_company(row):
+            from_name = normalize_chain_name(str(row.get("store_name", "")))
+            if from_name and from_name != "不明":
+                return from_name
+            return CHAIN_NORMALIZE.get(str(row.get("company", "")), row.get("company"))
+
+        df["company"] = df.apply(_fix_company, axis=1)
+        df = df.drop_duplicates(subset=["place_id"], keep="first")
 
     df.to_csv(paths["raw_csv"], index=False, encoding="utf-8-sig")
     print(f"\n生データ保存: {paths['raw_csv']} ({len(df)}件)")

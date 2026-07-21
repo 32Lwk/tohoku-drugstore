@@ -61,12 +61,17 @@ def is_pharmacy_only(store_name: str) -> bool:
                 "GENKY",
                 "ZIP",
                 "マツモト",
+                "マツキヨ",
                 "ツルハ",
                 "ウエルシア",
+                "ハッピー",
                 "サンド",
                 "ココカラ",
                 "コスモス",
                 "ユタカ",
+                "アオキ",
+                "セイムス",
+                "カワチ",
             ]
         ):
             return True
@@ -77,11 +82,17 @@ def normalize_chain_name(name: str, search_query: str = "") -> str:
     from shared.config import CHAIN_NORMALIZE, KNOWN_CHAINS
 
     text = name or search_query
-    for chain in KNOWN_CHAINS:
+    # 長いチェーン名を優先（ハッピー・ドラッグ > ドラッグ 等）
+    candidates = sorted(KNOWN_CHAINS, key=len, reverse=True)
+    for chain in candidates:
         if chain in text or chain.lower() in text.lower():
             return CHAIN_NORMALIZE.get(chain, chain)
-    if "スギ" in text and "薬局" not in text:
+    if "ハッピー" in text and "ドラッグ" in text:
+        return "ハッピードラッグ"
+    if "スギ" in text:
         return "スギ薬局"
+    if "サンド" in text and "ドラッグ" in text:
+        return "サンドラッグ"
     return name.split(" ")[0] if name else "不明"
 
 

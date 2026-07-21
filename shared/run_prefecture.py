@@ -84,7 +84,30 @@ def write_report(slug: str, checks: dict) -> None:
     ]
     for chain, count in sorted(checks["chain_counts"].items(), key=lambda x: -x[1]):
         lines.append(f"| {chain} | {count} |")
-    lines.extend(["", "## 成果物", "", f"- maps/ HTML 3ファイル", ""])
+    lines.extend(
+        [
+            "",
+            "## 成果物",
+            "",
+            f"- `{cfg['name']}ドラッグストア_最終版.csv`",
+            f"- `{cfg['name']}ドラッグストア_座標付き.csv`",
+            "- `市区町村別ドラッグストア分析.csv`",
+            "- `市区町村別人口.csv`",
+            "- `市区町村別高齢化率.csv`",
+            "- `raw_stores.csv`",
+            "- maps/ 内 HTML 3ファイル",
+            "",
+        ]
+    )
+    if checks["coord_rate"] < 95:
+        lines.extend(
+            [
+                "## 要手動対応",
+                "",
+                f"- 座標取得率が {checks['coord_rate']}% で基準（95%）未達",
+                "",
+            ]
+        )
     paths["report"].write_text("\n".join(lines), encoding="utf-8")
 
 
