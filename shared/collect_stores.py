@@ -8,8 +8,10 @@ import googlemaps
 import pandas as pd
 
 from shared.config import KNOWN_CHAINS, NON_DRUGSTORE_KEYWORDS, PREFECTURES
-from shared.utils import ensure_dirs, load_api_key, normalize_address, normalize_chain_name, is_in_prefecture
+from shared.utils import ensure_dirs, is_in_prefecture, load_api_key, normalize_address, normalize_chain_name
 
+# Place Details で有効な fields（'types' は無効 → 検索結果から取得）
+DETAIL_FIELDS = ["name", "formatted_address", "geometry", "business_status"]
 
 DRUGSTORE_NAME_HINTS = (
     "ドラッグ",
@@ -44,9 +46,8 @@ DRUGSTORE_NAME_HINTS = (
     "ハッピー",
     "くすり",
     "クスリ",
-    "サンドラッグ",
-    "サンドラック",
 )
+
 
 def _looks_like_drugstore(store_name: str, types: list[str]) -> bool:
     name = store_name or ""
@@ -56,7 +57,6 @@ def _looks_like_drugstore(store_name: str, types: list[str]) -> bool:
         return True
     if any(h in name for h in DRUGSTORE_NAME_HINTS):
         return True
-    # pharmacy 単体は調剤薬局の可能性が高いので名前ヒント必須
     return False
 
 
@@ -81,7 +81,6 @@ def address_matches_municipalities(address: str, municipalities: list[str]) -> b
     """住所が対象県の市区町村のいずれかを含むか"""
     if not address or not municipalities:
         return True
-    # 長い名前から照合（「盛岡市」より「岩手郡岩手町」を優先）
     for city in sorted(municipalities, key=len, reverse=True):
         if city and city in address:
             return True
@@ -128,10 +127,10 @@ def search_places(
             if "pharmacy" in types and "drugstore" not in types and "store" not in types:
                 continue
 
-            # Text Search 結果に geometry / address があれば Place Details を省略
             store_name = place.get("name", "")
             if not _looks_like_drugstore(store_name, types):
                 continue
+
             raw_addr = place.get("formatted_address") or place.get("vicinity") or ""
             geom = place.get("geometry", {}).get("location", {})
             business_status = place.get("business_status")
@@ -141,8 +140,7 @@ def search_places(
                     details = gmaps.place(
                         place_id=pid,
                         language="ja",
-                        # Place Details の fields は 'types' ではなく 'type'（単数）
-                        fields=["name", "formatted_address", "geometry", "type", "business_status"],
+                        fields=DETAIL_FIELDS,
                     )
                 except Exception as e:
                     print(f"    place details エラー: {pid} -> {e}")
@@ -170,7 +168,6 @@ def search_places(
             derived = normalize_chain_name(store_name)
             if company:
                 expected = normalize_chain_name(company)
-                # 店舗名に検索チェーン（または正規化名）が含まれない誤ヒットを除外
                 aliases = {company, expected}
                 if not any(a and a in store_name for a in aliases):
                     continue
@@ -205,7 +202,9 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
     api_key = load_api_key(required=False)
     if not api_key:
         print("  Google_Place_API 未設定 → Places一次調査をスキップ（二次調査で補完）")
-        df = pd.DataFrame(columns=["company", "store_name", "address", "place_id", "latitude", "longitude", "source"])
+        df = pd.DataFrame(
+            columns=["company", "store_name", "address", "place_id", "latitude", "longitude", "source"]
+        )
         if paths["raw_csv"].exists():
             return pd.read_csv(paths["raw_csv"], encoding="utf-8-sig")
         df.to_csv(paths["raw_csv"], index=False, encoding="utf-8-sig")
@@ -233,8 +232,13 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
     discovered_chains = set()
     for s in all_stores:
         chain = normalize_chain_name(s["store_name"])
-        # 既知チェーンのみ二次検索対象（店舗名先頭語の汚染を防止）
-        if chain in KNOWN_CHAINS or chain in ("スギ薬局", "薬王堂", "ハッピードラッグ", "GENKY", "クリエイトSD"):
+        if chain in KNOWN_CHAINS or chain in (
+            "スギ薬局",
+            "薬王堂",
+            "ハッピードラッグ",
+            "GENKY",
+            "クリエイトSD",
+        ):
             discovered_chains.add(chain)
 
     chains_to_search = sorted(set(KNOWN_CHAINS) | discovered_chains)
@@ -276,7 +280,9 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
 
     df = pd.DataFrame(all_stores)
     if df.empty:
-        df = pd.DataFrame(columns=["company", "store_name", "address", "place_id", "latitude", "longitude", "source"])
+        df = pd.DataFrame(
+            columns=["company", "store_name", "address", "place_id", "latitude", "longitude", "source"]
+        )
 
     df.to_csv(paths["raw_csv"], index=False, encoding="utf-8-sig")
     print(f"\n生データ保存: {paths['raw_csv']} ({len(df)}件)")

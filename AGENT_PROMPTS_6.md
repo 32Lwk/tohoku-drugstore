@@ -3,7 +3,19 @@
 > **使い方**
 > 1. 下記「事前準備」を完了
 > 2. Cloud Agent を **6回** 起動し、Agent 1〜6 のプロンプトを **1県1つずつ** 貼り付け
-> 3. 6県完了後、「サマリー用プロンプト」を1回実行
+> 3. **サマリーは自動** — 6県目が完了した Agent が `00_実行レポート.md` を生成（手動不要）
+
+### サマリー自動化の仕組み
+
+各 Agent は push 後に `python shared/auto_summarize.py` を実行します。
+- 6県未完了 → スキップ（次の Agent が再チェック）
+- **6県すべて完了** → `00_実行レポート.md` 生成 & git push
+
+**PC常時稼働の場合（任意）**: 7体目不要。代わりにローカルで監視も可能:
+```bash
+python shared/auto_summarize.py --watch
+```
+5分ごとに完了確認し、6県揃い次第サマリーを自動生成します。
 
 ---
 
@@ -108,6 +120,9 @@ git add prefectures/01_青森県/ shared/
 git commit -m "feat: 青森県ドラッグストア調査完了"
 git pull --rebase origin main || true
 git push origin main
+
+# 6県すべて完了していればサマリーを自動生成（最後の Agent が実行）
+python shared/auto_summarize.py
 ```
 
 ---
@@ -144,6 +159,9 @@ git add prefectures/02_岩手県/ shared/
 git commit -m "feat: 岩手県ドラッグストア調査完了"
 git pull --rebase origin main || true
 git push origin main
+
+# 6県すべて完了していればサマリーを自動生成（最後の Agent が実行）
+python shared/auto_summarize.py
 ```
 
 ---
@@ -180,6 +198,9 @@ git add prefectures/03_宮城県/ shared/
 git commit -m "feat: 宮城県ドラッグストア調査完了"
 git pull --rebase origin main || true
 git push origin main
+
+# 6県すべて完了していればサマリーを自動生成（最後の Agent が実行）
+python shared/auto_summarize.py
 ```
 
 ---
@@ -216,6 +237,9 @@ git add prefectures/04_秋田県/ shared/
 git commit -m "feat: 秋田県ドラッグストア調査完了"
 git pull --rebase origin main || true
 git push origin main
+
+# 6県すべて完了していればサマリーを自動生成（最後の Agent が実行）
+python shared/auto_summarize.py
 ```
 
 ---
@@ -252,6 +276,9 @@ git add prefectures/05_山形県/ shared/
 git commit -m "feat: 山形県ドラッグストア調査完了"
 git pull --rebase origin main || true
 git push origin main
+
+# 6県すべて完了していればサマリーを自動生成（最後の Agent が実行）
+python shared/auto_summarize.py
 ```
 
 ---
@@ -288,44 +315,27 @@ git add prefectures/06_福島県/ shared/
 git commit -m "feat: 福島県ドラッグストア調査完了"
 git pull --rebase origin main || true
 git push origin main
+
+# 6県すべて完了していればサマリーを自動生成（最後の Agent が実行）
+python shared/auto_summarize.py
 ```
 
 ---
 
-## サマリー用（6県完了後に1回だけ実行）
+## サマリー用（通常は不要・自動実行済み）
+
+> **6県 Agent プロンプト末尾の `python shared/auto_summarize.py` が自動実行します。**
+> 手動で実行するのは、自動生成が失敗した場合のみ。
 
 ```
-6県調査の統合サマリーを作成してください。
+6県調査の統合サマリーを手動で再生成してください。
 
-## 自律実行ルール
-エラーで停止せず、不足県・不足ファイルがあれば python shared/run_prefecture.py {slug} で再実行すること。
-
-## 実行
 cd c:\Users\yutok\Desktop\tohoku-drugstore
 git pull origin main
-
-# 6県の完了確認
-各 prefectures/XX_○○県/ に以下があるか確認:
-  - report.md
-  - maps/ HTML 3種
-  - data/ CSV 5種
-
-# 不足があれば該当県を再実行
-python shared/run_prefecture.py {不足県slug}
-
-# サマリー生成
-python run_all.py
-
-# 最終 push
-git add .
-git commit -m "docs: 東北6県調査サマリーレポート追加"
+python shared/auto_summarize.py --force
+git add 00_実行レポート.md
+git commit -m "docs: 東北6県調査サマリー再生成"
 git push origin main
-
-## 00_実行レポート.md に記載すること
-- 6県別: 店舗数・座標率・チェーン数・地図有無
-- 合計店舗数
-- 要再調査・手動対応が必要な項目
-- API使用量の概算
 ```
 
 ---
