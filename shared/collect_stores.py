@@ -19,72 +19,98 @@ def get_municipalities_from_geojson(geojson_path: Path) -> list[str]:
     cities = set()
     for feature in geo.get("features", []):
         props = feature.get("properties", {})
-        prefix = props.get("N03_003") or props.get("N03_001") or ""
-        name = props.get("N03_004") or props.get("N03_002") or ""
+        # N03_003=郡・政令市名, N03_004=市区町村名（N03_001=都道府県は付けない）
+        prefix = props.get("N03_003") or ""
+        name = props.get("N03_004") or ""
+        if not name or name in ("所属未定地",):
+            continue
         if prefix and name:
             cities.add(f"{prefix}{name}")
-        elif name:
+        else:
             cities.add(name)
     return sorted(cities)
 
 
+def _place_from_result(place: dict, prefecture: str, company: str, query: str) -> dict | None:
+    """Text Search / Place Details の結果から店舗レコードを組み立てる。"""
+    if place.get("business_status") == "CLOSED_PERMANENTLY":
+        return None
+
+    address = normalize_address(place.get("formatted_address", ""), prefecture)
+    if prefecture not in address:
+        return None
+
+    store_name = place.get("name", "")
+    chain = company or normalize_chain_name(store_name, query)
+    geom = place.get("geometry", {}).get("location", {})
+
+    return {
+        "company": chain,
+        "store_name": store_name,
+        "address": address,
+        "place_id": place.get("place_id"),
+        "latitude": geom.get("lat"),
+        "longitude": geom.get("lng"),
+        "source": "google_places",
+    }
+
+
 def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: set) -> list[dict]:
     results = []
-    try:
-        resp = gmaps.places(query=query, language="ja", region="jp")
-    except Exception as e:
-        print(f"    検索エラー: {query} -> {e}")
-        return results
+    next_page_token = None
 
-    if resp.get("status") != "OK":
-        return results
-
-    for place in resp.get("results", []):
-        pid = place.get("place_id")
-        if not pid or pid in seen_ids:
-            continue
-
-        types = place.get("types", [])
-        if "pharmacy" in types and "drugstore" not in types and "store" not in types:
-            continue
-
-        seen_ids.add(pid)
+    for page in range(3):  # Text Search は最大3ページ（60件）
         try:
-            details = gmaps.place(
-                place_id=pid,
-                language="ja",
-                fields=["name", "formatted_address", "geometry", "types", "business_status"],
-            )
-        except Exception:
-            continue
+            if next_page_token:
+                time.sleep(2.0)  # next_page_token は発行直後は無効
+                resp = gmaps.places(query=query, language="ja", region="jp", page_token=next_page_token)
+            else:
+                resp = gmaps.places(query=query, language="ja", region="jp")
+        except Exception as e:
+            print(f"    検索エラー: {query} -> {e}")
+            return results
 
-        if details.get("status") != "OK":
-            continue
+        status = resp.get("status")
+        if status not in ("OK", "ZERO_RESULTS"):
+            print(f"    検索status異常: {query} -> {status} {resp.get('error_message', '')}")
+            return results
+        if status == "ZERO_RESULTS":
+            return results
 
-        r = details["result"]
-        if r.get("business_status") == "CLOSED_PERMANENTLY":
-            continue
+        for place in resp.get("results", []):
+            pid = place.get("place_id")
+            if not pid or pid in seen_ids:
+                continue
 
-        address = normalize_address(r.get("formatted_address", ""), prefecture)
-        if prefecture not in address:
-            continue
+            types = place.get("types", [])
+            if "pharmacy" in types and "drugstore" not in types and "store" not in types:
+                continue
 
-        store_name = r.get("name", "")
-        chain = company or normalize_chain_name(store_name, query)
-        geom = r.get("geometry", {}).get("location", {})
+            seen_ids.add(pid)
 
-        results.append(
-            {
-                "company": chain,
-                "store_name": store_name,
-                "address": address,
-                "place_id": pid,
-                "latitude": geom.get("lat"),
-                "longitude": geom.get("lng"),
-                "source": "google_places",
-            }
-        )
-        time.sleep(0.12)
+            # Place Details（types は invalid field のため含めない）
+            detail_place = None
+            try:
+                details = gmaps.place(
+                    place_id=pid,
+                    language="ja",
+                    fields=["name", "formatted_address", "geometry", "business_status"],
+                )
+                if details.get("status") == "OK":
+                    detail_place = details["result"]
+                    detail_place["place_id"] = pid
+            except Exception as e:
+                print(f"    Place Details失敗(フォールバック): {pid[:12]}... -> {e}")
+
+            # Details失敗時は Text Search の結果を使う
+            record = _place_from_result(detail_place or place, prefecture, company, query)
+            if record:
+                results.append(record)
+            time.sleep(0.12)
+
+        next_page_token = resp.get("next_page_token")
+        if not next_page_token:
+            break
 
     return results
 
