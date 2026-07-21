@@ -11,7 +11,6 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from shared.config import PREFECTURES
-from shared.run_prefecture import validate_prefecture
 from shared.summary import write_summary
 
 LOCK_FILE = ROOT / ".summary_generated.lock"
@@ -45,6 +44,38 @@ def check_status() -> tuple[int, list[str], list[str]]:
     return len(done), done, pending
 
 
+def validate_prefecture(slug: str) -> dict:
+    """軽量検証（googlemaps 等不要）"""
+    import pandas as pd
+
+    cfg = PREFECTURES[slug]
+    base = ROOT / "prefectures" / slug
+    coord_csv = base / "data" / f"{cfg['name']}_ドラッグストア_座標付き.csv"
+    density_csv = base / "data" / "市区町村別ドラッグストア分析.csv"
+    maps = base / "maps"
+
+    coord = pd.read_csv(coord_csv, encoding="utf-8-sig")
+    density = pd.read_csv(density_csv, encoding="utf-8-sig")
+    pref = cfg["name"]
+
+    return {
+        "total_stores": len(coord),
+        "with_coords": int(coord["latitude"].notna().sum()),
+        "coord_rate": round(int(coord["latitude"].notna().sum()) / max(len(coord), 1) * 100, 1),
+        "chains": int(coord["company"].nunique()),
+        "chain_counts": coord["company"].value_counts().to_dict(),
+        "municipalities": len(density),
+        "maps_exist": all(
+            (maps / f).exists()
+            for f in [
+                f"{pref}ドラッグストア地図.html",
+                f"{pref}ドラッグストア密度コロプレスマップ.html",
+                f"{pref}高齢化率コロプレスマップ.html",
+            ]
+        ),
+    }
+
+
 def collect_results() -> dict:
     results = {}
     for slug in PREFECTURES:
@@ -76,9 +107,9 @@ def try_summarize(force: bool = False) -> bool:
     count, done, pending = check_status()
     print(f"\n[auto_summarize] 完了: {count}/6 県")
     for slug in done:
-        print(f"  ✅ {PREFECTURES[slug]['name']}")
+        print(f"  [OK] {PREFECTURES[slug]['name']}")
     for slug in pending:
-        print(f"  ⏳ {PREFECTURES[slug]['name']}")
+        print(f"  [待] {PREFECTURES[slug]['name']}")
 
     if count < 6 and not force:
         print("  → 6県未完了のためサマリー生成をスキップ（最後の Agent が再実行します）")
