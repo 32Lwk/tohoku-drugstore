@@ -14,6 +14,7 @@ from shared.create_maps import create_all_maps
 from shared.fetch_boundaries import fetch_for_prefecture as fetch_boundaries
 from shared.fetch_census import fetch_for_prefecture as fetch_census
 from shared.geocode_stores import geocode_for_prefecture
+from shared.utils import ensure_dirs
 from shared.verify_data import cross_validate
 
 

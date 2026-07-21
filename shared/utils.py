@@ -13,7 +13,10 @@ def load_api_key() -> str:
     load_dotenv(ROOT_DIR / ".env")
     key = os.getenv("Google_Place_API") or os.getenv("GOOGLE_PLACE_API")
     if not key:
-        raise ValueError(".env に Google_Place_API が設定されていません")
+        raise ValueError(
+            "Google_Place_API が未設定です。"
+            " .env または Cloud Agent の Environment Variables に設定してください。"
+        )
     return key
 
 
