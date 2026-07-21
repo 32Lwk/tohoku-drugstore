@@ -8,7 +8,13 @@ import googlemaps
 import pandas as pd
 
 from shared.config import KNOWN_CHAINS, PREFECTURES
-from shared.utils import ensure_dirs, load_api_key, normalize_address, normalize_chain_name
+from shared.utils import (
+    address_in_prefecture,
+    ensure_dirs,
+    load_api_key,
+    normalize_address,
+    normalize_chain_name,
+)
 
 
 def get_municipalities_from_geojson(geojson_path: Path) -> list[str]:
@@ -29,22 +35,70 @@ def get_municipalities_from_geojson(geojson_path: Path) -> list[str]:
 
 
 def _chain_aliases(company: str) -> list[str]:
+    """誤ヒットしにくいエイリアス（短い汎用名は使わない）"""
     aliases = {
         "GENKY": ["GENKY", "ゲンキー"],
         "マツモトキヨシ": ["マツモトキヨシ", "マツキヨ"],
-        "スギ薬局": ["スギ薬局", "スギドラッグ", "スギ"],
-        "カワチ薬品": ["カワチ薬品", "カワチ", "カワachi"],
-        "ツルハドラッグ": ["ツルハ", "ツルハドラッグ"],
+        "スギ薬局": ["スギ薬局", "スギドラッグ"],
+        "カワチ薬品": ["カワチ薬品"],
+        "ツルハドラッグ": ["ツルハドラッグ", "ツルハ"],
         "ウエルシア": ["ウエルシア", "ウェルシア"],
         "サンドラック": ["サンドラッグ", "サンドラック"],
-        "ココカラファイン": ["ココカラ", "ココカラファイン"],
-        "クスリのアオキ": ["クスリのアオキ", "アオキ"],
-        "コスモス": ["コスモス"],
+        "ココカラファイン": ["ココカラファイン"],
+        "クスリのアオキ": ["クスリのアオキ"],
+        "コスモス": ["ドラッグストアコスモス", "コスモス薬品", "コスモスドラッグ"],
         "セイムス": ["セイムス"],
         "Vドラッグ": ["Vドラッグ", "Ｖドラッグ"],
         "ZIPドラッグ": ["ZIPドラッグ", "ジップドラッグ"],
+        "クリエイトエス・ディー": ["クリエイトエス・ディー", "クリエイトS・D", "クリエイトS.D"],
+        "薬王堂": ["薬王堂"],
+        "ハッピードラッグ": ["ハッピードラッグ"],
+        "ドラッグスギヤマ": ["ドラッグスギヤマ"],
+        "ドラッグユタカ": ["ドラッグユタカ"],
+        "よどやドラッグ": ["よどやドラッグ"],
+        "トモズ": ["トモズ", "TOMOD'S"],
+        "ダイコクドラッグ": ["ダイコクドラッグ"],
+        "キリン堂": ["キリン堂"],
+        "サツドラ": ["サツドラ"],
+        "コクミン": ["コクミン"],
+        "なの花ドラッグ": ["なの花ドラッグ"],
+        "ハックドラッグ": ["ハックドラッグ"],
+        "杏林堂": ["杏林堂"],
+        "キョーリン": ["キョーリン堂", "キョーリン"],
+        "セキ薬品": ["セキ薬品"],
     }
     return aliases.get(company, [company])
+
+
+DRUGSTORE_NAME_HINTS = (
+    "ドラッグ",
+    "Drug",
+    "DRUG",
+    "くすり",
+    "クスリ",
+    "薬王堂",
+    "ウエルシア",
+    "ウェルシア",
+    "ツルハ",
+    "マツモトキヨシ",
+    "マツキヨ",
+    "ゲンキー",
+    "GENKY",
+    "セイムス",
+    "カワチ薬品",
+    "スギ薬局",
+    "スギドラッグ",
+    "クスリのアオキ",
+    "ハッピードラッグ",
+    "クリエイトエス",
+    "クリエイトS",
+    "ドラッグストアコスモス",
+)
+
+
+def _looks_like_drugstore(store_name: str) -> bool:
+    name = store_name or ""
+    return any(h.lower() in name.lower() for h in DRUGSTORE_NAME_HINTS)
 
 
 def _parse_place(place: dict, prefecture: str, company: str, query: str, seen_ids: set) -> dict | None:
@@ -59,14 +113,22 @@ def _parse_place(place: dict, prefecture: str, company: str, query: str, seen_id
     if place.get("business_status") == "CLOSED_PERMANENTLY":
         return None
 
-    address = normalize_address(place.get("formatted_address", ""), prefecture)
-    if prefecture not in address:
+    raw_addr = place.get("formatted_address", "")
+    if not address_in_prefecture(raw_addr, prefecture):
+        return None
+
+    address = normalize_address(raw_addr, prefecture)
+    if not address_in_prefecture(address, prefecture):
         return None
 
     store_name = place.get("name", "")
-    # チェーン指定検索時は店舗名にチェーン名が含まれるものだけ採用（誤ヒット防止）
+    # チェーン指定検索時は店舗名にチェーン名が含まれるものだけ採用
     if company and company not in ("その他", "不明", ""):
         if not any(a.lower() in store_name.lower() for a in _chain_aliases(company)):
+            return None
+    else:
+        chain_guess = normalize_chain_name(store_name, query)
+        if chain_guess in ("その他", "不明") and not _looks_like_drugstore(store_name):
             return None
 
     seen_ids.add(pid)
@@ -155,12 +217,10 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
     discovered_chains = set()
     for s in all_stores:
         chain = normalize_chain_name(s["store_name"])
-        if chain != "その他" and chain != "不明":
+        if chain not in ("その他", "不明"):
             discovered_chains.add(chain)
 
-    # 既知チェーンのみ精査（発見済みを優先、未知店舗名はチェーン化しない）
     chains_to_search = sorted(set(KNOWN_CHAINS) | discovered_chains)
-    # ヒットのあった市区町村を優先。なければ全市区町村
     target_cities = sorted(cities_with_hits) if cities_with_hits else municipalities
 
     print(f"\n[2/2] チェーン別検索: {len(chains_to_search)}チェーン（先に県単位、ヒット時のみ市区町村精査）")
@@ -168,14 +228,12 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
         before = len(all_stores)
         norm = normalize_chain_name(chain)
 
-        # 県単位で存在確認（最大60件）
         pref_batch = search_places(
             gmaps, f"{chain} {prefecture}", prefecture, norm, seen_ids, max_pages=3
         )
         all_stores.extend(pref_batch)
         time.sleep(0.2)
 
-        # 県内に存在するチェーンのみ市区町村精査（網羅性向上）
         if pref_batch or norm in discovered_chains:
             for city in target_cities:
                 q = f"{chain} {city} {prefecture}"

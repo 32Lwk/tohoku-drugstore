@@ -33,16 +33,94 @@ def normalize_address(address: str, prefecture: str) -> str:
     addr = re.sub(r"^日本、?\s*", "", addr)
     addr = re.sub(r"〒?\d{3}-?\d{4}\s*", "", addr)
     addr = re.sub(r"\s+", "", addr)
+
+    # 他都道府県の住所には県名を無理に付与しない
+    other_prefs = [
+        "北海道",
+        "青森県",
+        "岩手県",
+        "宮城県",
+        "秋田県",
+        "山形県",
+        "福島県",
+        "茨城県",
+        "栃木県",
+        "群馬県",
+        "埼玉県",
+        "千葉県",
+        "東京都",
+        "神奈川県",
+        "新潟県",
+        "富山県",
+        "石川県",
+        "福井県",
+        "山梨県",
+        "長野県",
+        "岐阜県",
+        "静岡県",
+        "愛知県",
+        "三重県",
+        "滋賀県",
+        "京都府",
+        "大阪府",
+        "兵庫県",
+        "奈良県",
+        "和歌山県",
+        "鳥取県",
+        "島根県",
+        "岡山県",
+        "広島県",
+        "山口県",
+        "徳島県",
+        "香川県",
+        "愛媛県",
+        "高知県",
+        "福岡県",
+        "佐賀県",
+        "長崎県",
+        "熊本県",
+        "大分県",
+        "宮崎県",
+        "鹿児島県",
+        "沖縄県",
+    ]
+    for pref in other_prefs:
+        if pref != prefecture and pref in addr:
+            return addr  # 他県のまま返す（呼び出し側で除外）
+
     if not addr.startswith(prefecture):
         if prefecture.replace("県", "") in addr or prefecture in addr:
-            idx = addr.find(prefecture[0])
-            for i, c in enumerate(addr):
+            for i, _ in enumerate(addr):
                 if addr[i:].startswith(prefecture[:2]):
                     addr = addr[i:]
                     break
         if not addr.startswith(prefecture):
             addr = prefecture + addr
     return addr
+
+
+def address_in_prefecture(address: str, prefecture: str) -> bool:
+    """住所が対象県内か判定（正規化前の生住所向け）"""
+    if not address:
+        return False
+    addr = re.sub(r"^日本、?\s*", "", address.strip())
+    addr = re.sub(r"〒?\d{3}-?\d{4}\s*", "", addr)
+    if prefecture not in addr:
+        return False
+    # 「山形県福井県…」のような二重付与も除外
+    other = [
+        "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県",
+        "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県",
+        "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県",
+        "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県",
+        "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県",
+        "徳島県", "香川県", "愛媛県", "高知県", "福岡県", "佐賀県", "長崎県",
+        "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県",
+    ]
+    for pref in other:
+        if pref != prefecture and pref in addr:
+            return False
+    return True
 
 
 def is_pharmacy_only(store_name: str) -> bool:
