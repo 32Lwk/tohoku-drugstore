@@ -32,7 +32,7 @@ def get_municipalities_from_geojson(geojson_path: Path) -> list[str]:
 
 
 def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: set) -> list[dict]:
-    """Text Search（ページネーション対応）+ Place Details。"""
+    """Text Search（ページネーション対応）。Details不要（検索結果に住所・座標あり）。"""
     results = []
     page_token = None
 
@@ -60,40 +60,32 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
             if not pid or pid in seen_ids:
                 continue
 
+            if place.get("business_status") == "CLOSED_PERMANENTLY":
+                continue
+
+            store_name = place.get("name", "")
             types = place.get("types", [])
             if "pharmacy" in types and "drugstore" not in types and "store" not in types:
-                continue
+                from_name_pre = normalize_chain_name(store_name)
+                if from_name_pre in ("不明",) or from_name_pre == store_name.split(" ")[0]:
+                    continue
 
-            seen_ids.add(pid)
-            try:
-                details = gmaps.place(
-                    place_id=pid,
-                    language="ja",
-                    fields=["name", "formatted_address", "geometry", "types", "business_status"],
-                )
-            except Exception:
-                continue
-
-            if details.get("status") != "OK":
-                continue
-
-            r = details["result"]
-            if r.get("business_status") == "CLOSED_PERMANENTLY":
-                continue
-
-            address = normalize_address(r.get("formatted_address", ""), prefecture)
+            address = normalize_address(place.get("formatted_address", ""), prefecture)
             if prefecture not in address:
                 continue
 
-            store_name = r.get("name", "")
-            # 店舗名から判定できたチェーンを優先（検索クエリの誤分類を防ぐ）
             from_name = normalize_chain_name(store_name)
             if from_name and from_name != "不明" and from_name != store_name.split(" ")[0]:
                 chain = from_name
+            elif from_name and from_name != "不明" and any(
+                k in store_name for k in ("ドラッグ", "マツモト", "ウエルシア", "ツルハ", "ハッピー", "サンド", "コスモス", "アオキ", "スギ", "GENKY", "セイムス")
+            ):
+                chain = from_name
             else:
                 chain = company or from_name or normalize_chain_name(store_name, query)
-            geom = r.get("geometry", {}).get("location", {})
 
+            geom = place.get("geometry", {}).get("location", {})
+            seen_ids.add(pid)
             results.append(
                 {
                     "company": chain,
@@ -105,11 +97,11 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
                     "source": "google_places",
                 }
             )
-            time.sleep(0.12)
 
         page_token = resp.get("next_page_token")
         if not page_token:
             break
+        time.sleep(0.15)
 
     return results
 
