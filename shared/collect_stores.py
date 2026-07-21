@@ -75,14 +75,39 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
                 continue
 
             from_name = normalize_chain_name(store_name)
-            if from_name and from_name != "不明" and from_name != store_name.split(" ")[0]:
+            if from_name and from_name != "不明":
                 chain = from_name
-            elif from_name and from_name != "不明" and any(
-                k in store_name for k in ("ドラッグ", "マツモト", "ウエルシア", "ツルハ", "ハッピー", "サンド", "コスモス", "アオキ", "スギ", "GENKY", "セイムス")
-            ):
-                chain = from_name
+            elif company and company != "不明":
+                # チェーン検索: 店舗名にそのチェーンを示す語が必要
+                aliases = {
+                    "GENKY": ["GENKY", "ゲンキー"],
+                    "ハッピードラッグ": ["ハッピー", "ハッピードラッグ"],
+                    "マツモトキヨシ": ["マツモトキヨシ", "マツモト", "マツキヨ"],
+                    "ツルハドラッグ": ["ツルハ"],
+                    "ウエルシア": ["ウエルシア", "ウェルシア"],
+                    "サンドラッグ": ["サンドラッグ", "サンド"],
+                    "コスモス": ["コスモス"],
+                    "クスリのアオキ": ["アオキ"],
+                    "カワチ薬品": ["カワチ"],
+                    "スギ薬局": ["スギ"],
+                    "セイムス": ["セイムス"],
+                    "ココカラファイン": ["ココカラ"],
+                    "サツドラ": ["サツドラ"],
+                }
+                terms = aliases.get(company, [company])
+                if not any(t in store_name for t in terms):
+                    continue
+                # コスモスは誤ヒットが多いのでドラッグ系に限定
+                if company == "コスモス" and not any(
+                    k in store_name for k in ("ドラッグ", "Drug", "薬局", "コスモス薬品")
+                ):
+                    continue
+                chain = company
             else:
-                chain = company or from_name or normalize_chain_name(store_name, query)
+                # 広域検索の不明店舗はドラッグストアらしい名前のみ残す
+                if not any(k in store_name for k in ("ドラッグ", "Drug", "DRUG")):
+                    continue
+                chain = "その他"
 
             geom = place.get("geometry", {}).get("location", {})
             seen_ids.add(pid)
@@ -156,14 +181,24 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
     discovered_chains = set()
     for s in all_stores:
         chain = normalize_chain_name(str(s.get("store_name", "")))
-        if chain and chain != "不明":
-            discovered_chains.add(chain)
+        # 既知チェーンに正規化されたものだけを二次検索対象にする
+        from shared.config import CHAIN_NORMALIZE, KNOWN_CHAINS
+
+        known_set = set(KNOWN_CHAINS) | set(CHAIN_NORMALIZE.values()) | set(CHAIN_NORMALIZE.keys())
+        if chain in known_set:
+            discovered_chains.add(CHAIN_NORMALIZE.get(chain, chain))
 
     # 正規化後のチェーン名で検索（別名は CHAIN_NORMALIZE で統一）
     from shared.config import CHAIN_NORMALIZE
 
     raw_chains = set(KNOWN_CHAINS) | discovered_chains
-    chains_to_search = sorted({CHAIN_NORMALIZE.get(c, c) for c in raw_chains})
+    chains_to_search = sorted(
+        {
+            CHAIN_NORMALIZE.get(c, c)
+            for c in raw_chains
+            if c not in ("スギドラッグ", "ゲンキー", "マツキヨ", "カワachi", "ハッピー・ドラッグ", "サンドラック")
+        }
+    )
 
     print(f"\n[2/3] 県全体チェーン検索: {len(chains_to_search)}チェーン")
     for chain in chains_to_search:

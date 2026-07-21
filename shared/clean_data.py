@@ -28,15 +28,37 @@ def clean_stores(df: pd.DataFrame, prefecture: str) -> pd.DataFrame:
     df = df[df["address"].str.contains(prefecture, na=False)]
 
     before = len(df)
-    strict_pharmacy = df["store_name"].str.contains("薬局|調剤", na=False)
-    df = df[~strict_pharmacy]
-    print(f"  薬局除外（厳格）: {before - len(df)}件")
+    # 例外: チェーン名に薬局を含む正規ドラッグストア（スギ薬局等）は is_pharmacy_only で残す
+    from shared.utils import is_pharmacy_only
+
+    pharmacy_mask = df["store_name"].apply(is_pharmacy_only)
+    df = df[~pharmacy_mask]
+    print(f"  薬局除外: {before - len(df)}件")
+
+    # ドラッグストアらしさフィルタ（既知チェーン or 店名にドラッグ）
+    from shared.config import CHAIN_NORMALIZE, KNOWN_CHAINS
+
+    known = set(CHAIN_NORMALIZE.values()) | {
+        CHAIN_NORMALIZE.get(c, c) for c in KNOWN_CHAINS
+    }
+    known |= {"ハッピードラッグ", "サンドラッグ", "その他"}
+
+    def is_drugstore_like(row) -> bool:
+        name = str(row.get("store_name", ""))
+        company = str(row.get("company", ""))
+        if company in known and company != "その他":
+            return True
+        if any(k in name for k in ("ドラッグ", "Drug", "DRUG")):
+            return True
+        if company == "その他" and any(k in name for k in ("ドラッグ", "Drug", "DRUG")):
+            return True
+        return False
 
     before = len(df)
-    df = df[~df["store_name"].apply(is_pharmacy_only)]
-    print(f"  薬局除外（追加）: {before - len(df)}件")
+    df = df[df.apply(is_drugstore_like, axis=1)]
+    print(f"  非DS除外: {before - len(df)}件")
 
-    df = df.drop_duplicates(subset=["place_id"], keep="first")
+    df = df.drop_duplicates(subset=["place_id"], keep="first") if "place_id" in df.columns else df
     df = df.drop_duplicates(subset=["company", "address"], keep="first")
 
     # 同一住所で薬局系とドラッグストア系が混在 → ドラッグストア優先
@@ -62,7 +84,8 @@ def clean_stores(df: pd.DataFrame, prefecture: str) -> pd.DataFrame:
         print(f"  同一住所重複整理: {len(drop_indices)}件削除")
 
     df = df.sort_values(["company", "store_name"]).reset_index(drop=True)
-    return df[["company", "store_name", "address"]]
+    cols = [c for c in ["company", "store_name", "address"] if c in df.columns]
+    return df[cols]
 
 
 def clean_for_prefecture(slug: str) -> pd.DataFrame:

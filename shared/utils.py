@@ -93,7 +93,7 @@ def normalize_chain_name(name: str, search_query: str = "") -> str:
         return "スギ薬局"
     if "サンド" in text and "ドラッグ" in text:
         return "サンドラッグ"
-    return name.split(" ")[0] if name else "不明"
+    return "不明"
 
 
 def prefecture_paths(slug: str) -> dict:
