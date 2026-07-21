@@ -8,7 +8,7 @@ import googlemaps
 import pandas as pd
 
 from shared.config import KNOWN_CHAINS, PREFECTURES
-from shared.utils import ensure_dirs, load_api_key, normalize_address, normalize_chain_name
+from shared.utils import ensure_dirs, load_api_key, normalize_address, normalize_chain_name, address_in_prefecture
 
 
 def get_municipalities_from_geojson(geojson_path: Path) -> list[str]:
@@ -67,21 +67,15 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
         if r.get("business_status") == "CLOSED_PERMANENTLY":
             continue
 
-        address = normalize_address(r.get("formatted_address", ""), prefecture)
-        if prefecture not in address:
+        raw_address = r.get("formatted_address", "") or ""
+        if not address_in_prefecture(raw_address, prefecture):
             continue
+        address = normalize_address(raw_address, prefecture)
 
         store_name = r.get("name", "")
         # チェーン指定検索では店舗名にキーワードが含まれるものだけ採用（誤ヒット防止）
         if company:
-            keys = [company]
-            if company == "GENKY":
-                keys.append("ゲンキー")
-            if company == "マツモトキヨシ":
-                keys.extend(["マツキヨ", "matsukiyo"])
-            if company == "カワチ薬品":
-                keys.append("カワチ")
-            if not any(k.lower() in store_name.lower() for k in keys if k):
+            if not _store_matches_chain(store_name, company):
                 continue
             chain = company
         else:
@@ -102,6 +96,33 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
         time.sleep(0.12)
 
     return results
+
+
+def _store_matches_chain(store_name: str, company: str) -> bool:
+    """曖昧なチェーン名の誤マッチを防ぐ"""
+    name = store_name or ""
+    name_l = name.lower()
+    if company in ("コスモス",):
+        return any(
+            k in name
+            for k in ("ドラッグストアコスモス", "コスモス薬品", "コスモスドラッグ", "cosmos")
+        ) or (name.startswith("コスモス") and "ドラッグ" in name)
+    if company in ("クリエイト", "クリエイトSD", "クリエイトエス・ディー"):
+        return any(k in name for k in ("クリエイトエス", "クリエイトSD", "create sd", "Create SD")) or (
+            "クリエイト" in name and "ドラッグ" in name
+        )
+    if company == "キョーリン" or company == "キョーリン堂":
+        return "キョーリン堂" in name or ("キョーリン" in name and "ドラッグ" in name)
+    keys = [company]
+    if company == "GENKY":
+        keys.append("ゲンキー")
+    if company == "マツモトキヨシ":
+        keys.extend(["マツキヨ", "matsukiyo"])
+    if company == "カワチ薬品":
+        keys.append("カワチ")
+    if company == "セイムス":
+        keys.extend(["ドラッグセイムス", "ドラッグストアセイムス"])
+    return any(k.lower() in name_l for k in keys if k)
 
 
 def collect_for_prefecture(slug: str) -> pd.DataFrame:
