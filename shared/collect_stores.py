@@ -7,8 +7,56 @@ from pathlib import Path
 import googlemaps
 import pandas as pd
 
-from shared.config import KNOWN_CHAINS, PREFECTURES
+from shared.config import KNOWN_CHAINS, NON_DRUGSTORE_KEYWORDS, PREFECTURES
 from shared.utils import ensure_dirs, load_api_key, normalize_address, normalize_chain_name
+
+
+DRUGSTORE_NAME_HINTS = (
+    "ドラッグ",
+    "Drug",
+    "DRUG",
+    "ウエルシア",
+    "ウェルシア",
+    "マツモトキヨシ",
+    "ツルハ",
+    "コスモス",
+    "ゲンキー",
+    "GENKY",
+    "薬王堂",
+    "カワチ",
+    "サンドラッグ",
+    "サンドラック",
+    "ココカラ",
+    "セイムス",
+    "サツドラ",
+    "アオキ",
+    "スギ",
+    "クリエイト",
+    "杏林堂",
+    "トモズ",
+    "キリン堂",
+    "ハック",
+    "セキ薬品",
+    "よどや",
+    "なの花",
+    "コクミン",
+    "ダイコク",
+    "ハッピー",
+    "くすり",
+    "クスリ",
+)
+
+
+def _looks_like_drugstore(store_name: str, types: list[str]) -> bool:
+    name = store_name or ""
+    if any(kw in name for kw in NON_DRUGSTORE_KEYWORDS):
+        return False
+    if "drugstore" in types:
+        return True
+    if any(h in name for h in DRUGSTORE_NAME_HINTS):
+        return True
+    # pharmacy 単体は調剤薬局の可能性が高いので名前ヒント必須
+    return False
 
 
 def get_municipalities_from_geojson(geojson_path: Path) -> list[str]:
@@ -61,6 +109,8 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
 
             # Text Search 結果に geometry / address があれば Place Details を省略
             store_name = place.get("name", "")
+            if not _looks_like_drugstore(store_name, types):
+                continue
             raw_addr = place.get("formatted_address") or place.get("vicinity") or ""
             geom = place.get("geometry", {}).get("location", {})
             business_status = place.get("business_status")
@@ -150,7 +200,8 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
     discovered_chains = set()
     for s in all_stores:
         chain = normalize_chain_name(s["store_name"])
-        if chain != "不明":
+        # 既知チェーンのみ二次検索対象（店舗名先頭語の汚染を防止）
+        if chain in KNOWN_CHAINS or chain in ("スギ薬局", "薬王堂", "ハッピードラッグ", "GENKY"):
             discovered_chains.add(chain)
 
     chains_to_search = sorted(set(KNOWN_CHAINS) | discovered_chains)
@@ -158,7 +209,7 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
     present_chains: set[str] = set()
     for chain in chains_to_search:
         before = len(all_stores)
-        q = f"{chain} {prefecture}"
+        q = f"{chain} ドラッグストア {prefecture}"
         batch = search_places(gmaps, q, prefecture, normalize_chain_name(chain), seen_ids)
         all_stores.extend(batch)
         time.sleep(0.2)

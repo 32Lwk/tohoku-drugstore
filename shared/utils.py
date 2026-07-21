@@ -67,6 +67,9 @@ def is_pharmacy_only(store_name: str) -> bool:
                 "ココカラ",
                 "コスモス",
                 "ユタカ",
+                "薬王堂",
+                "ハッピー",
+                "カワチ",
             ]
         ):
             return True
@@ -77,12 +80,18 @@ def normalize_chain_name(name: str, search_query: str = "") -> str:
     from shared.config import CHAIN_NORMALIZE, KNOWN_CHAINS
 
     text = name or search_query
-    for chain in KNOWN_CHAINS:
+    # 長いチェーン名を優先マッチ（部分一致の誤爆を減らす）
+    for chain in sorted(KNOWN_CHAINS, key=len, reverse=True):
         if chain in text or chain.lower() in text.lower():
             return CHAIN_NORMALIZE.get(chain, chain)
-    if "スギ" in text and "薬局" not in text:
+    if "スギ" in text:
         return "スギ薬局"
-    return name.split(" ")[0] if name else "不明"
+    if "薬王堂" in text:
+        return "薬王堂"
+    if "ハッピー" in text and "ドラッグ" in text:
+        return "ハッピードラッグ"
+    # 未知チェーンは店舗名全体を返さず「その他」に統一（discovered_chains 汚染防止）
+    return "その他"
 
 
 def prefecture_paths(slug: str) -> dict:
