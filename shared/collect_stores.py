@@ -8,7 +8,7 @@ import googlemaps
 import pandas as pd
 
 from shared.config import KNOWN_CHAINS, NON_DRUGSTORE_KEYWORDS, PREFECTURES
-from shared.utils import ensure_dirs, load_api_key, normalize_address, normalize_chain_name
+from shared.utils import ensure_dirs, load_api_key, normalize_address, normalize_chain_name, is_in_prefecture
 
 
 DRUGSTORE_NAME_HINTS = (
@@ -31,7 +31,7 @@ DRUGSTORE_NAME_HINTS = (
     "サツドラ",
     "アオキ",
     "スギ",
-    "クリエイト",
+    "クリエイトSD",
     "杏林堂",
     "トモズ",
     "キリン堂",
@@ -40,12 +40,13 @@ DRUGSTORE_NAME_HINTS = (
     "よどや",
     "なの花",
     "コクミン",
-    "ダイコク",
+    "ダイコクドラッグ",
     "ハッピー",
     "くすり",
     "クスリ",
+    "サンドラッグ",
+    "サンドラック",
 )
-
 
 def _looks_like_drugstore(store_name: str, types: list[str]) -> bool:
     name = store_name or ""
@@ -76,9 +77,29 @@ def get_municipalities_from_geojson(geojson_path: Path) -> list[str]:
     return sorted(cities)
 
 
-def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: set, max_pages: int = 3) -> list[dict]:
+def address_matches_municipalities(address: str, municipalities: list[str]) -> bool:
+    """住所が対象県の市区町村のいずれかを含むか"""
+    if not address or not municipalities:
+        return True
+    # 長い名前から照合（「盛岡市」より「岩手郡岩手町」を優先）
+    for city in sorted(municipalities, key=len, reverse=True):
+        if city and city in address:
+            return True
+    return False
+
+
+def search_places(
+    gmaps,
+    query: str,
+    prefecture: str,
+    company: str,
+    seen_ids: set,
+    max_pages: int = 3,
+    municipalities: list[str] | None = None,
+) -> list[dict]:
     results = []
     page_token = None
+    municipalities = municipalities or []
 
     for _page in range(max_pages):
         try:
@@ -141,11 +162,23 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
                 continue
 
             address = normalize_address(raw_addr, prefecture)
-            if prefecture not in address:
+            if not is_in_prefecture(address, prefecture):
+                continue
+            if municipalities and not address_matches_municipalities(address, municipalities):
                 continue
 
+            derived = normalize_chain_name(store_name)
+            if company:
+                expected = normalize_chain_name(company)
+                # 店舗名に検索チェーン（または正規化名）が含まれない誤ヒットを除外
+                aliases = {company, expected}
+                if not any(a and a in store_name for a in aliases):
+                    continue
+                chain = expected if expected != "その他" else company
+            else:
+                chain = derived
+
             seen_ids.add(pid)
-            chain = company or normalize_chain_name(store_name, query)
             results.append(
                 {
                     "company": chain,
@@ -191,7 +224,7 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
     print(f"\n[1/2] 広域検索: ドラッグストア × {len(municipalities)}市区町村")
     for city in municipalities:
         q = f"ドラッグストア {city} {prefecture}"
-        batch = search_places(gmaps, q, prefecture, "", seen_ids)
+        batch = search_places(gmaps, q, prefecture, "", seen_ids, municipalities=municipalities)
         all_stores.extend(batch)
         if batch:
             print(f"    {city}: +{len(batch)}件 (累計{len(all_stores)})")
@@ -201,7 +234,7 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
     for s in all_stores:
         chain = normalize_chain_name(s["store_name"])
         # 既知チェーンのみ二次検索対象（店舗名先頭語の汚染を防止）
-        if chain in KNOWN_CHAINS or chain in ("スギ薬局", "薬王堂", "ハッピードラッグ", "GENKY"):
+        if chain in KNOWN_CHAINS or chain in ("スギ薬局", "薬王堂", "ハッピードラッグ", "GENKY", "クリエイトSD"):
             discovered_chains.add(chain)
 
     chains_to_search = sorted(set(KNOWN_CHAINS) | discovered_chains)
@@ -210,7 +243,9 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
     for chain in chains_to_search:
         before = len(all_stores)
         q = f"{chain} ドラッグストア {prefecture}"
-        batch = search_places(gmaps, q, prefecture, normalize_chain_name(chain), seen_ids)
+        batch = search_places(
+            gmaps, q, prefecture, normalize_chain_name(chain), seen_ids, municipalities=municipalities
+        )
         all_stores.extend(batch)
         time.sleep(0.2)
         added = len(all_stores) - before
@@ -224,7 +259,15 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
             before = len(all_stores)
             for city in municipalities:
                 q = f"{chain} {city} {prefecture}"
-                batch = search_places(gmaps, q, prefecture, normalize_chain_name(chain), seen_ids, max_pages=1)
+                batch = search_places(
+                    gmaps,
+                    q,
+                    prefecture,
+                    normalize_chain_name(chain),
+                    seen_ids,
+                    max_pages=1,
+                    municipalities=municipalities,
+                )
                 all_stores.extend(batch)
                 time.sleep(0.12)
             added = len(all_stores) - before

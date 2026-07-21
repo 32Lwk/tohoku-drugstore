@@ -26,6 +26,57 @@ def load_api_key(required: bool = True) -> str | None:
     return key
 
 
+PREFECTURE_NAMES = [
+    "北海道",
+    "青森県",
+    "岩手県",
+    "宮城県",
+    "秋田県",
+    "山形県",
+    "福島県",
+    "茨城県",
+    "栃木県",
+    "群馬県",
+    "埼玉県",
+    "千葉県",
+    "東京都",
+    "神奈川県",
+    "新潟県",
+    "富山県",
+    "石川県",
+    "福井県",
+    "山梨県",
+    "長野県",
+    "岐阜県",
+    "静岡県",
+    "愛知県",
+    "三重県",
+    "滋賀県",
+    "京都府",
+    "大阪府",
+    "兵庫県",
+    "奈良県",
+    "和歌山県",
+    "鳥取県",
+    "島根県",
+    "岡山県",
+    "広島県",
+    "山口県",
+    "徳島県",
+    "香川県",
+    "愛媛県",
+    "高知県",
+    "福岡県",
+    "佐賀県",
+    "長崎県",
+    "熊本県",
+    "大分県",
+    "宮崎県",
+    "鹿児島県",
+    "沖縄県",
+]
+
+
 def normalize_address(address: str, prefecture: str) -> str:
     if not address:
         return ""
@@ -33,16 +84,36 @@ def normalize_address(address: str, prefecture: str) -> str:
     addr = re.sub(r"^日本、?\s*", "", addr)
     addr = re.sub(r"〒?\d{3}-?\d{4}\s*", "", addr)
     addr = re.sub(r"\s+", "", addr)
+
+    found = [p for p in PREFECTURE_NAMES if p in addr]
+
+    # 「岩手県岐阜県…」のように対象県を誤前置した汚染 → 先頭の対象県を除去
+    if addr.startswith(prefecture):
+        rest = addr[len(prefecture) :]
+        others_in_rest = [p for p in PREFECTURE_NAMES if p != prefecture and p in rest]
+        if others_in_rest:
+            return rest  # 他県住所として返す（is_in_prefecture で除外）
+
+    if prefecture in found:
+        idx = addr.find(prefecture)
+        if idx > 0:
+            addr = addr[idx:]
+        return addr
+
+    if found:
+        # 対象県以外の都道府県住所
+        return addr
+
     if not addr.startswith(prefecture):
-        if prefecture.replace("県", "") in addr or prefecture in addr:
-            idx = addr.find(prefecture[0])
-            for i, c in enumerate(addr):
-                if addr[i:].startswith(prefecture[:2]):
-                    addr = addr[i:]
-                    break
-        if not addr.startswith(prefecture):
-            addr = prefecture + addr
+        addr = prefecture + addr
     return addr
+
+
+def is_in_prefecture(address: str, prefecture: str) -> bool:
+    if not address or prefecture not in address:
+        return False
+    others = [p for p in PREFECTURE_NAMES if p != prefecture and p in address]
+    return len(others) == 0
 
 
 def is_pharmacy_only(store_name: str) -> bool:
@@ -90,6 +161,10 @@ def normalize_chain_name(name: str, search_query: str = "") -> str:
         return "薬王堂"
     if "ハッピー" in text and "ドラッグ" in text:
         return "ハッピードラッグ"
+    if "クリエイトSD" in text or "クリエイト エスディー" in text:
+        return "クリエイトSD"
+    if "サンドラッグ" in text or "サンドラック" in text:
+        return "サンドラック"
     # 未知チェーンは店舗名全体を返さず「その他」に統一（discovered_chains 汚染防止）
     return "その他"
 

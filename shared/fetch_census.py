@@ -143,9 +143,38 @@ def _build_from_geojson(slug: str) -> tuple[pd.DataFrame, pd.DataFrame]:
     return pop_df, aging_df
 
 
-def _parse_city_name(code_name: str) -> str:
-    m = re.search(r"_(.+)$", code_name)
-    return m.group(1) if m else code_name
+def _city_key_from_props(props: dict) -> str:
+    prefix = props.get("N03_003") or ""
+    name = props.get("N03_004") or ""
+    if prefix and name:
+        return f"{prefix}{name}"
+    return name or prefix
+
+
+def _align_cities_to_geojson(df: pd.DataFrame, slug: str, col: str = "市区町村") -> pd.DataFrame:
+    """国勢調査の短縮名（矢巾町）を GeoJSON キー（紫波郡矢巾町）に揃える"""
+    if df.empty or col not in df.columns:
+        return df
+    paths = ensure_dirs(slug)
+    if not paths["geojson"].exists():
+        return df
+    with open(paths["geojson"], encoding="utf-8") as f:
+        geo = json.load(f)
+
+    short_to_full: dict[str, str] = {}
+    for feat in geo.get("features", []):
+        props = feat.get("properties", {})
+        full = _city_key_from_props(props)
+        short = props.get("N03_004") or ""
+        if full:
+            short_to_full[full] = full
+        if short:
+            # 同名が複数ある場合は先勝ち（通常は郡が違う）
+            short_to_full.setdefault(short, full)
+
+    df = df.copy()
+    df[col] = df[col].map(lambda x: short_to_full.get(str(x), x))
+    return df
 
 
 def _normalize_city(raw: str, prefecture: str) -> str:
@@ -206,6 +235,11 @@ def fetch_for_prefecture(slug: str) -> tuple[pd.DataFrame, pd.DataFrame]:
         pop_df.to_csv(pop_cache, index=False, encoding="utf-8-sig")
         aging_df.to_csv(aging_cache, index=False, encoding="utf-8-sig")
 
+    pop_df.to_csv(paths["population_csv"], index=False, encoding="utf-8-sig")
+    aging_df.to_csv(paths["aging_csv"], index=False, encoding="utf-8-sig")
+    # GeoJSON の市区町村名に揃える（コロプレスマッチ率向上）
+    pop_df = _align_cities_to_geojson(pop_df, slug)
+    aging_df = _align_cities_to_geojson(aging_df, slug)
     pop_df.to_csv(paths["population_csv"], index=False, encoding="utf-8-sig")
     aging_df.to_csv(paths["aging_csv"], index=False, encoding="utf-8-sig")
     print(f"  人口: {len(pop_df)}市区町村 / 高齢化率: {len(aging_df)}市区町村")
