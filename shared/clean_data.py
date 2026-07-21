@@ -25,7 +25,11 @@ def clean_stores(df: pd.DataFrame, prefecture: str) -> pd.DataFrame:
     df = df.copy()
     df["company"] = df["company"].apply(normalize_company)
     df["address"] = df["address"].apply(lambda a: normalize_address(a, prefecture))
+    # 他県住所や正規化失敗（空）を除外
+    before = len(df)
+    df = df[df["address"].str.len() > 0]
     df = df[df["address"].str.contains(prefecture, na=False)]
+    print(f"  住所フィルタ: {before - len(df)}件除外")
 
     before = len(df)
     strict_pharmacy = df["store_name"].str.contains("薬局|調剤", na=False)

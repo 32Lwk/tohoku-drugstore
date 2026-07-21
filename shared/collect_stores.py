@@ -37,11 +37,32 @@ def _place_from_result(place: dict, prefecture: str, company: str, query: str) -
         return None
 
     address = normalize_address(place.get("formatted_address", ""), prefecture)
-    if prefecture not in address:
+    if not address or prefecture not in address:
         return None
 
     store_name = place.get("name", "")
-    chain = company or normalize_chain_name(store_name, query)
+    detected = normalize_chain_name(store_name, query)
+
+    # チェーン精査検索時は、店名がそのチェーンを示すものだけ採用
+    if company:
+        if detected != "不明" and detected != company:
+            return None
+        if detected == "不明" and company not in store_name:
+            # 別名ゆれ（ゲンキー等）は normalize 側で吸収済み。それでも不明なら除外
+            aliases = {
+                "GENKY": ("ゲンキー", "GENKY"),
+                "マツモトキヨシ": ("マツキヨ", "マツモトキヨシ"),
+                "ツルハドラッグ": ("ツルハ",),
+                "サンドラッグ": ("サンド",),
+                "ハッピードラッグ": ("ハッピー", "ウエルシア"),
+            }
+            ok = any(a in store_name for a in aliases.get(company, ()))
+            if not ok:
+                return None
+        chain = company if detected == "不明" else detected
+    else:
+        chain = detected
+
     geom = place.get("geometry", {}).get("location", {})
 
     return {

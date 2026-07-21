@@ -26,23 +26,83 @@ def load_api_key(required: bool = True) -> str | None:
     return key
 
 
+_PREFECTURE_NAMES = [
+    "北海道",
+    "青森県",
+    "岩手県",
+    "宮城県",
+    "秋田県",
+    "山形県",
+    "福島県",
+    "茨城県",
+    "栃木県",
+    "群馬県",
+    "埼玉県",
+    "千葉県",
+    "東京都",
+    "神奈川県",
+    "新潟県",
+    "富山県",
+    "石川県",
+    "福井県",
+    "山梨県",
+    "長野県",
+    "岐阜県",
+    "静岡県",
+    "愛知県",
+    "三重県",
+    "滋賀県",
+    "京都府",
+    "大阪府",
+    "兵庫県",
+    "奈良県",
+    "和歌山県",
+    "鳥取県",
+    "島根県",
+    "岡山県",
+    "広島県",
+    "山口県",
+    "徳島県",
+    "香川県",
+    "愛媛県",
+    "高知県",
+    "福岡県",
+    "佐賀県",
+    "長崎県",
+    "熊本県",
+    "大分県",
+    "宮崎県",
+    "鹿児島県",
+    "沖縄県",
+]
+
+
 def normalize_address(address: str, prefecture: str) -> str:
+    """住所を正規化する。対象都道府県外なら空文字を返す。"""
     if not address:
         return ""
     addr = address.strip()
     addr = re.sub(r"^日本、?\s*", "", addr)
     addr = re.sub(r"〒?\d{3}-?\d{4}\s*", "", addr)
     addr = re.sub(r"\s+", "", addr)
-    if not addr.startswith(prefecture):
-        if prefecture.replace("県", "") in addr or prefecture in addr:
-            idx = addr.find(prefecture[0])
-            for i, c in enumerate(addr):
-                if addr[i:].startswith(prefecture[:2]):
-                    addr = addr[i:]
-                    break
-        if not addr.startswith(prefecture):
-            addr = prefecture + addr
-    return addr
+
+    # 他都道府県を含む場合は対象外（誤って県名を前置しない）
+    for p in _PREFECTURE_NAMES:
+        if p == prefecture:
+            continue
+        if p in addr:
+            return ""
+
+    if addr.startswith(prefecture):
+        return addr
+
+    # 「秋田市…」のように県名なしの場合のみ補完
+    short = prefecture.replace("県", "").replace("府", "").replace("都", "")
+    if short and short in addr[:10]:
+        return prefecture + addr if not addr.startswith(prefecture) else addr
+
+    # 県名が一切確認できない住所は採用しない
+    return ""
 
 
 def is_pharmacy_only(store_name: str) -> bool:
