@@ -28,6 +28,25 @@ def get_municipalities_from_geojson(geojson_path: Path) -> list[str]:
     return sorted(cities)
 
 
+def _chain_aliases(company: str) -> list[str]:
+    aliases = {
+        "GENKY": ["GENKY", "ゲンキー"],
+        "マツモトキヨシ": ["マツモトキヨシ", "マツキヨ"],
+        "スギ薬局": ["スギ薬局", "スギドラッグ", "スギ"],
+        "カワチ薬品": ["カワチ薬品", "カワチ", "カワachi"],
+        "ツルハドラッグ": ["ツルハ", "ツルハドラッグ"],
+        "ウエルシア": ["ウエルシア", "ウェルシア"],
+        "サンドラック": ["サンドラッグ", "サンドラック"],
+        "ココカラファイン": ["ココカラ", "ココカラファイン"],
+        "クスリのアオキ": ["クスリのアオキ", "アオキ"],
+        "コスモス": ["コスモス"],
+        "セイムス": ["セイムス"],
+        "Vドラッグ": ["Vドラッグ", "Ｖドラッグ"],
+        "ZIPドラッグ": ["ZIPドラッグ", "ジップドラッグ"],
+    }
+    return aliases.get(company, [company])
+
+
 def _parse_place(place: dict, prefecture: str, company: str, query: str, seen_ids: set) -> dict | None:
     pid = place.get("place_id")
     if not pid or pid in seen_ids:
@@ -44,8 +63,13 @@ def _parse_place(place: dict, prefecture: str, company: str, query: str, seen_id
     if prefecture not in address:
         return None
 
-    seen_ids.add(pid)
     store_name = place.get("name", "")
+    # チェーン指定検索時は店舗名にチェーン名が含まれるものだけ採用（誤ヒット防止）
+    if company and company not in ("その他", "不明", ""):
+        if not any(a.lower() in store_name.lower() for a in _chain_aliases(company)):
+            return None
+
+    seen_ids.add(pid)
     chain = company or normalize_chain_name(store_name, query)
     geom = place.get("geometry", {}).get("location", {})
 
@@ -131,9 +155,10 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
     discovered_chains = set()
     for s in all_stores:
         chain = normalize_chain_name(s["store_name"])
-        if chain != "不明":
+        if chain != "その他" and chain != "不明":
             discovered_chains.add(chain)
 
+    # 既知チェーンのみ精査（発見済みを優先、未知店舗名はチェーン化しない）
     chains_to_search = sorted(set(KNOWN_CHAINS) | discovered_chains)
     # ヒットのあった市区町村を優先。なければ全市区町村
     target_cities = sorted(cities_with_hits) if cities_with_hits else municipalities

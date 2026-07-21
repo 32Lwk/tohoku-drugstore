@@ -62,7 +62,11 @@ def clean_stores(df: pd.DataFrame, prefecture: str) -> pd.DataFrame:
         print(f"  同一住所重複整理: {len(drop_indices)}件削除")
 
     df = df.sort_values(["company", "store_name"]).reset_index(drop=True)
-    return df[["company", "store_name", "address"]]
+    cols = ["company", "store_name", "address"]
+    for optional in ("place_id", "latitude", "longitude", "source"):
+        if optional in df.columns:
+            cols.append(optional)
+    return df[cols]
 
 
 def clean_for_prefecture(slug: str) -> pd.DataFrame:
