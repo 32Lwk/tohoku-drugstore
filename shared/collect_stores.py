@@ -88,25 +88,26 @@ def search_places(gmaps, query: str, prefecture: str, company: str, seen_ids: se
 
             seen_ids.add(pid)
 
-            # Place Details（types は invalid field のため含めない）
+            # Text Search に住所・座標があれば Details を省略（API節約）
             detail_place = None
-            try:
-                details = gmaps.place(
-                    place_id=pid,
-                    language="ja",
-                    fields=["name", "formatted_address", "geometry", "business_status"],
-                )
-                if details.get("status") == "OK":
-                    detail_place = details["result"]
-                    detail_place["place_id"] = pid
-            except Exception as e:
-                print(f"    Place Details失敗(フォールバック): {pid[:12]}... -> {e}")
+            has_basics = place.get("formatted_address") and place.get("geometry", {}).get("location")
+            if not has_basics:
+                try:
+                    details = gmaps.place(
+                        place_id=pid,
+                        language="ja",
+                        fields=["name", "formatted_address", "geometry", "business_status"],
+                    )
+                    if details.get("status") == "OK":
+                        detail_place = details["result"]
+                        detail_place["place_id"] = pid
+                except Exception as e:
+                    print(f"    Place Details失敗(フォールバック): {pid[:12]}... -> {e}")
 
-            # Details失敗時は Text Search の結果を使う
             record = _place_from_result(detail_place or place, prefecture, company, query)
             if record:
                 results.append(record)
-            time.sleep(0.12)
+            time.sleep(0.05)
 
         next_page_token = resp.get("next_page_token")
         if not next_page_token:
@@ -144,8 +145,8 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
         batch = search_places(gmaps, q, prefecture, "", seen_ids)
         all_stores.extend(batch)
         if batch:
-            print(f"    {city}: +{len(batch)}件 (累計{len(all_stores)})")
-        time.sleep(0.2)
+            print(f"    {city}: +{len(batch)}件 (累計{len(all_stores)})", flush=True)
+        time.sleep(0.15)
 
     discovered_chains = set()
     for s in all_stores:
@@ -154,17 +155,19 @@ def collect_for_prefecture(slug: str) -> pd.DataFrame:
             discovered_chains.add(chain)
 
     chains_to_search = sorted(set(KNOWN_CHAINS) | discovered_chains)
-    print(f"\n[2/2] チェーン別検索: {len(chains_to_search)}チェーン")
+    print(f"\n[2/2] チェーン別検索: {len(chains_to_search)}チェーン（県単位＋主要市）")
+    # 主要市（店舗が多い市区町村）を追加検索して取りこぼしを減らす
+    major_cities = [c for c in municipalities if c.endswith("市")][:8]
     for chain in chains_to_search:
         before = len(all_stores)
-        for city in municipalities:
-            q = f"{chain} {city} {prefecture}"
+        queries = [f"{chain} {prefecture}"] + [f"{chain} {city} {prefecture}" for city in major_cities]
+        for q in queries:
             batch = search_places(gmaps, q, prefecture, normalize_chain_name(chain), seen_ids)
             all_stores.extend(batch)
-            time.sleep(0.15)
+            time.sleep(0.1)
         added = len(all_stores) - before
         if added:
-            print(f"    {chain}: +{added}件")
+            print(f"    {chain}: +{added}件", flush=True)
 
     df = pd.DataFrame(all_stores)
     if df.empty:
