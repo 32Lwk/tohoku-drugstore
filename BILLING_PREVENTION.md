@@ -62,8 +62,9 @@ Google Maps Support の指示に基づき、以下を実装・運用する。
 # [x] field mask を明示（Pro 以内の最小セット）
 # [x] 実行あたりのリクエスト上限を実装
 # [x] Place Details の不要呼び出しを廃止
-# [ ] Console で API キー制限を設定（手元で実施）
-# [ ] Console で日次クォータを設定（手元で実施）
-# [ ] Console で予算アラートを設定（手元で実施）
-# [ ] レガシー Places API を無効化（手元で実施）
+# [x] 問題発生時の Places API キーを無効化（2026-07-22 報告）
+# [x] Console で予算アラートを設定（2026-07-22 報告）
+# [ ] Console で日次クォータを設定（キー再発行前に必須）
+# [ ] 新規キー発行時のみ API 制限を設定（無効化キーは再利用しない）
+# [ ] medicine-recommend の Places 利用方針を見直し（進行中）
 #
