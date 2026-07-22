@@ -1,33 +1,25 @@
-Subject: Re: Case 73530481 — Implementation review and preventive measures completed
+Subject: Re: Case 73530481 — Understood: enabling Places API (New) with preventive measures
 
 Hi Ian,
 
-Thank you for your follow-up.
+Thank you for the clarification. I understand your point.
 
-I am writing to confirm that I have completed the required remediation and preventive measures, so you may begin monitoring my usage.
+Disabling the API key stops all traffic, so there is no usage for your team to monitor. I will therefore **enable Places API (New)** and apply the preventive measures first, then confirm back to you so monitoring can begin.
 
-## Implementation / migration status
+## Plan (before I ask you to start monitoring)
 
-- I have **stopped all Places API usage** on project **medicine-recommend** (Project ID: **340042923793**).
-- I have reviewed the application’s Places-related implementation.
-- I am **not currently using legacy Text Search**.
-- I am also **re-evaluating whether this application should use Places API at all**.
-- If Maps usage is resumed in the future, I will use **Places API (New) / Text Search (New)** only, with an explicit **minimal field mask**, and only for narrowly scoped lookups (e.g. nearby pharmacy). Until that decision is made, Places remains disabled.
+1. **Enable Places API (New)** on project medicine-recommend (Project ID: 340042923793)
+2. **Create / configure an API key** with restrictions:
+   - API restrictions: Places API (New) only (and Geocoding only if strictly needed)
+   - Application restrictions as appropriate
+3. **Set low daily quotas** so usage cannot spike again
+4. Keep **budget alerts** enabled
+5. Ensure the application uses **Text Search (New)** with an explicit **minimal field mask** only (no legacy Text Search, no wildcard `*`)
+6. Generate only a **small, controlled amount of test usage** under those limits, so you can validate that the preventive measures are effective
 
-## Preventive measures applied
+I will complete these steps carefully and reply again once everything is in place and ready for your 24–48 hour monitoring.
 
-1. **Places API key disabled (invalidated)** — the key involved in the July 21 spike can no longer generate traffic.
-2. **Budget alerts configured** on my Google Cloud billing account.
-3. **Daily quotas / API controls** — I am applying quota limits and will only issue a new key (if ever needed) with proper **API key restrictions**.
-4. **Application redesign** — I am revising the medicine-recommend app so Places is not called unintentionally during development/testing.
-
-Because the API key is disabled, current Places usage is effectively **zero**, and a similar spike cannot recur under the current setup.
-
-Please proceed with your **24–48 hour usage monitoring**. After validation, I would be deeply grateful if you could continue with the **one-time courtesy billing adjustment** review.
-
-As a university student in Japan using this project only for personal learning and development, the unexpected charge remains far beyond what I can afford. Thank you again for your support.
-
-Please let me know if you need screenshots of the disabled key, budget alert settings, quota configuration, or any other details.
+Thank you for your guidance, and for continuing to assist with the one-time courtesy billing adjustment review afterward.
 
 Best regards,
 Yuto Kawashima
