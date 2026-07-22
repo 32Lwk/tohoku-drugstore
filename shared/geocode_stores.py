@@ -1,5 +1,6 @@
 """座標取得・補完"""
 
+import os
 import pickle
 import time
 
@@ -58,15 +59,20 @@ def geocode_for_prefecture(slug: str) -> pd.DataFrame:
 
     lats, lons = [], []
     api_calls = 0
+    # Geocoding も課金対象のためハード上限（超過分は国土地理院へフォールバック）
+    max_geocode_calls = int(os.getenv("GEOCODE_MAX_REQUESTS_PER_RUN", "200"))
 
     for _, row in df.iterrows():
         addr = row["address"]
         coords = coord_from_raw.get(addr) or cache.get(addr)
 
-        if coords is None and api_key:
+        if coords is None and api_key and api_calls < max_geocode_calls:
             coords = geocode_google(addr, api_key)
             api_calls += 1
             time.sleep(0.1)
+        elif coords is None and api_key and api_calls >= max_geocode_calls:
+            # 予算超過後は Google Geocoding を呼ばない
+            pass
 
         if coords is None:
             coords = geocode_gsi(addr)

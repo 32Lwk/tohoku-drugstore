@@ -59,9 +59,11 @@ python shared/fetch_census.py {slug}
 ```bash
 python shared/collect_stores.py {slug}
 ```
-- Google Places API: 市区町村 × 「ドラッグストア」広域検索
-- 続けて存在チェーン別に精査検索
+- **Places API (New)** + 最小 field mask（レガシー Text Search 禁止）
+- 市区町村 × 「ドラッグストア」広域検索（件数上限あり）
+- 続けて存在チェーン別に精査検索（`PLACES_MAX_*` で制限）
 - チェーンは東北に存在するもののみ（自動判定）
+- 詳細: [`BILLING_PREVENTION.md`](BILLING_PREVENTION.md)
 
 ### Step 4: 二次調査（公式サイト補完）
 以下の公式サイトから不足チェーンを補完スクレイピング:

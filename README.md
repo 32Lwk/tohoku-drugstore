@@ -35,6 +35,22 @@ pip install -r requirements.txt
 Google_Place_API=your_api_key_here
 ```
 
+### 課金防止（必須）
+
+2026-07-21 の異常課金を受け、Places API (New) + field mask + リクエスト上限に移行済み。
+詳細は [`BILLING_PREVENTION.md`](BILLING_PREVENTION.md) を参照。
+
+| 環境変数 | 既定 | 説明 |
+|---------|------|------|
+| `PLACES_ENABLED` | `1` | `0` で Places 一次調査を停止 |
+| `PLACES_MAX_REQUESTS_PER_RUN` | `60` | 1県あたりの最大 API 呼び出し |
+| `PLACES_MAX_PAGES_PER_QUERY` | `2` | 1クエリのページネーション上限 |
+| `PLACES_MAX_MUNICIPALITIES` | `8` | 市区町村検索の上限 |
+| `PLACES_MAX_CHAINS` | `15` | チェーン別検索の上限 |
+| `PLACES_SKIP_IF_RAW_EXISTS` | `0` | `1` で既存 CSV を再利用（API なし） |
+
+**Console 側も必須**: API キー制限・日次クォータ・予算アラート（¥3,000 目安）。
+
 ## 実行方法
 
 ### 6県一括実行
@@ -80,7 +96,8 @@ prefectures/03_宮城県/
 - **薬局除外**: 店舗名に「薬局」「調剤」を含むものを除外
 - **重複**: 同一住所で薬局/ドラッグストア重複時はドラッグストアのみ残す（異なるチェーンは残す）
 - **国勢調査**: 2020年国勢調査
-- **座標**: Google Places API → Geocoding API → 国土地理院API（フォールバック）
+- **座標**: Places API (New) geometry → Geocoding API → 国土地理院API（フォールバック）
+- **Places**: レガシー Text Search は使用しない（Data SKU 一括課金を回避）
 
 ## GitHub
 
