@@ -12,24 +12,23 @@ sys.path.insert(0, str(ROOT))
 
 from shared.config import PREFECTURES
 from shared.summary import write_summary
+from shared.utils import prefecture_paths
 
 LOCK_FILE = ROOT / ".summary_generated.lock"
 
 
 def _prefecture_complete(slug: str) -> bool:
     cfg = PREFECTURES[slug]
-    base = ROOT / "prefectures" / slug
-    maps = base / "maps"
-    data = base / "data"
+    paths = prefecture_paths(slug)
     pref = cfg["name"]
 
     required = [
-        base / "report.md",
-        data / f"{pref}_ドラッグストア_座標付き.csv",
-        data / "市区町村別ドラッグストア分析.csv",
-        maps / f"{pref}_ドラッグストア地図.html",
-        maps / f"{pref}_ドラッグストア密度コロプレスマップ.html",
-        maps / f"{pref}_高齢化率コロプレスマップ.html",
+        paths["report"],
+        paths["coord_csv"],
+        paths["density_csv"],
+        paths["maps"] / f"{pref}ドラッグストア地図.html",
+        paths["maps"] / f"{pref}ドラッグストア密度コロプレスマップ.html",
+        paths["maps"] / f"{pref}高齢化率コロプレスマップ.html",
     ]
     return all(p.exists() for p in required)
 
@@ -49,14 +48,14 @@ def validate_prefecture(slug: str) -> dict:
     import pandas as pd
 
     cfg = PREFECTURES[slug]
-    base = ROOT / "prefectures" / slug
-    coord_csv = base / "data" / f"{cfg['name']}_ドラッグストア_座標付き.csv"
-    density_csv = base / "data" / "市区町村別ドラッグストア分析.csv"
-    maps = base / "maps"
+    paths = prefecture_paths(slug)
+    coord_csv = paths["coord_csv"]
+    density_csv = paths["density_csv"]
+    maps = paths["maps"]
+    pref = cfg["name"]
 
     coord = pd.read_csv(coord_csv, encoding="utf-8-sig")
     density = pd.read_csv(density_csv, encoding="utf-8-sig")
-    pref = cfg["name"]
 
     return {
         "total_stores": len(coord),

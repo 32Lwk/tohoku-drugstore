@@ -45,6 +45,17 @@ def normalize_address(address: str, prefecture: str) -> str:
     return addr
 
 
+def is_kusuri_no_pharmacy(store_name: str, company: str = "") -> bool:
+    """「くすりの○○」系の独立調剤薬局（ドラッグストアではない）を判定"""
+    import re
+
+    text = f"{company or ''} {store_name or ''}"
+    if not re.search(r"くすりの|クスリの", text):
+        return False
+    drugstore_kw = ["ドラッグ", "Drug", "DRUG", "ストア", "ディスカウント"]
+    return not any(kw in text for kw in drugstore_kw)
+
+
 def is_pharmacy_only(store_name: str) -> bool:
     from shared.config import EXCLUDE_NAME_KEYWORDS
 

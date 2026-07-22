@@ -5,7 +5,7 @@ import re
 import pandas as pd
 
 from shared.config import CHAIN_NORMALIZE, PREFECTURES
-from shared.utils import ensure_dirs, is_pharmacy_only, normalize_address
+from shared.utils import ensure_dirs, is_kusuri_no_pharmacy, is_pharmacy_only, normalize_address
 
 
 def normalize_company(company: str) -> str:
@@ -26,6 +26,10 @@ def clean_stores(df: pd.DataFrame, prefecture: str) -> pd.DataFrame:
     df["company"] = df["company"].apply(normalize_company)
     df["address"] = df["address"].apply(lambda a: normalize_address(a, prefecture))
     df = df[df["address"].str.contains(prefecture, na=False)]
+
+    before = len(df)
+    df = df[~df.apply(lambda r: is_kusuri_no_pharmacy(r["store_name"], r["company"]), axis=1)]
+    print(f"  くすりの○○薬局除外: {before - len(df)}件")
 
     before = len(df)
     strict_pharmacy = df["store_name"].str.contains("薬局|調剤", na=False)

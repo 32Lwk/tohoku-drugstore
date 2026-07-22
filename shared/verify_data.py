@@ -8,7 +8,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from shared.config import PREFECTURES
-from shared.utils import ensure_dirs, normalize_address
+from shared.utils import ensure_dirs, is_kusuri_no_pharmacy, normalize_address
 
 # 公式店舗検索URL（取得可能なチェーン）
 CHAIN_OFFICIAL_URLS = {
@@ -51,7 +51,10 @@ def cross_validate(slug: str) -> dict:
     report["duplicate_addresses"] = int((addr_counts > 1).sum())
 
     pharmacy_pattern = re.compile(r"薬局|調剤")
-    report["pharmacy_leak"] = int(df["store_name"].str.contains(pharmacy_pattern, na=False).sum())
+    report["pharmacy_leak"] = int(
+        df["store_name"].str.contains(pharmacy_pattern, na=False).sum()
+        + df.apply(lambda r: is_kusuri_no_pharmacy(r["store_name"], r["company"]), axis=1).sum()
+    )
 
     for chain, count in df["company"].value_counts().items():
         report["chain_coverage"][chain] = int(count)

@@ -1,770 +1,4 @@
 ﻿company,store_name,address,place_id,latitude,longitude,source
-ウエルシア,ウエルシア伊達国見店,福島県伊達郡国見町藤田中沢一１０−１,ChIJM3YjNOxjil8RGJbahG3MSzk,37.8728261,140.5420273,google_places
-不明,ハシドラッグ 国見店,福島県伊達郡国見町藤田中沢四１,ChIJHb7JVutjil8RsbCGFPEsiqo,37.87183900000001,140.5444588,google_places
-クスリのアオキ,クスリのアオキ国見店,福島県伊達郡国見町藤田五反田１−２２,ChIJ2Vrfghljil8RFughL2H2dHo,37.8737919,140.5416191,google_places
-不明,日本調剤 国見薬局,福島県伊達郡国見町塚野目下三本木２−１,ChIJq6_9Getjil8RL1dREV4zxlc,37.8718337,140.5419115,google_places
-ウエルシア,ウエルシア伊達国見店 (調剤薬局),福島県伊達郡国見町藤田中沢一10−１ウエルシア伊達国見店内,ChIJacfIRwFjil8RVF6oSEKqLJY,37.8728261,140.5420273,google_places
-不明,アイン薬局 国見店,福島県伊達郡国見町塚野目三本木14−１,ChIJg0w6n-tjil8RzsL8Z6p_ldk,37.871772,140.5412248,google_places
-不明,一心堂薬局,福島県伊達郡国見町藤田南６７,ChIJLw28Z-xjil8RaEFrom_Xih0,37.873909,140.543657,google_places
-ウエルシア,ウエルシア伊達桑折店,福島県伊達郡桑折町北町５０−１,ChIJF6rQrVtiil8R2mY25xnaF4U,37.8490824,140.517917,google_places
-不明,サンドラッグ 伊達店,福島県伊達市原島８−１,ChIJ12L2JCKIil8RoZGCWGOSwVw,37.8218896,140.5071759,google_places
-不明,くすりの高野,福島県伊達郡国見町藤田南３１,ChIJe9vJze1jil8RJnYbPox_db4,37.875218,140.544152,google_places
-不明,ふたば薬局藤田店,福島県伊達郡国見町塚野目三本木１１−１,ChIJbflADetjil8REHaWMPFnvak,37.8726201,140.5418367,google_places
-不明,保原薬局 国見店,福島県伊達郡国見町藤田北７−４,ChIJRbhmAe5jil8RsP575yyT1Uo,37.8756936,140.5445416,google_places
-ウエルシア,ウエルシア伊達新梁川店,福島県伊達市梁川町広瀬町４３,ChIJxbTFHlFjil8RZrxE4flJxgU,37.848887,140.602726,google_places
-不明,ファミリーマート 福島国見町店,福島県伊達郡国見町塚野目三本木５番地１,ChIJ6yd43Otjil8RsqUzZ6kCcDU,37.8733508,140.5394906,google_places
-ツルハドラッグ,ツルハドラッグ 川俣中央店,福島県伊達郡川俣町段ノ腰18番地,ChIJtQEA0NB-IGARZysPbSw7ZiI,37.6637382,140.5979822,google_places
-不明,ハシドラッグ 川俣店,福島県伊達郡川俣町鶴沢社前８７,ChIJXTG37rt5IGARiQAmWe3SYDM,37.6732454,140.5660621,google_places
-ツルハドラッグ,ツルハドラッグ 川俣店,福島県伊達郡川俣町鶴沢学校前20−１,ChIJIV1QO8B4IGARQLBMop0V-xc,37.6655926,140.5764657,google_places
-不明,薬王堂 福島川俣店,福島県伊達郡川俣町鶴沢堂ノ窪２２−１,ChIJgXJLs9h5IGARqAt0FGgPLzg,37.6671264,140.5816367,google_places
-不明,アイル薬局 川俣店,福島県伊達郡川俣町本町４１−８,ChIJj_XkgCV_IGARukgnDnjrbzM,37.6676942,140.6069126,google_places
-不明,有限会社 石井薬局,福島県伊達郡川俣町中丁48番地,ChIJsdEuMS5_IGARzB8rTLqUtfg,37.66818019999999,140.6037199,google_places
-不明,きりふや薬局,福島県伊達郡川俣町鉄炮町７６,ChIJB3J0DCl_IGARZnTYsIu_f50,37.6621578,140.6031119,google_places
-不明,けんこう薬局,福島県伊達郡川俣町鶴沢京田３８−１,ChIJ33mJwdJ4IGARpYEkjfSHU24,37.6640952,140.5952026,google_places
-不明,ダイユーエイト 川俣店,福島県伊達郡川俣町鶴沢社前１８,ChIJk7nJTpR4IGARe3i4FCT59VA,37.6686607,140.5727721,google_places
-不明,さくら調剤薬局,福島県伊達郡川俣町鶴沢川端３０−１９,ChIJx1GOptJ4IGAR-PRjoqF8Niw,37.665397,140.595572,google_places
-不明,リオン・ドール 川俣店,福島県伊達郡川俣町鶴沢鶴東６８,ChIJT2ZcS8B4IGAR6uPSumvhG8w,37.6651537,140.5772496,google_places
-不明,カインズ 川俣店,福島県伊達郡川俣町鶴沢学校前15番地,ChIJo6SScpV4IGAR67ldaijrOSo,37.667967,140.5745379,google_places
-不明,ファッションセンターしまむら 川俣店,福島県伊達郡川俣町新中町３０,ChIJJw0oSyh_IGARC2pXkFuGRsU,37.6610319,140.6043677,google_places
-不明,コスモ調剤薬局 瓦町店,福島県伊達郡川俣町瓦町４９−１,ChIJaZ1oQi5_IGARqHw9WwlZUXU,37.667041,140.60296,google_places
-ウエルシア,ウエルシア伊達桑折店（調剤薬局）,福島県伊達郡桑折町北町５０−１ウエルシア伊達桑折店内,ChIJv4s78tNjil8RggXEFLUGUFk,37.8490824,140.517917,google_places
-不明,保原薬局桑折店,福島県伊達郡桑折町南半田六角１５−３,ChIJzwai_E5iil8RlQWPolvsemU,37.8547066,140.5181839,google_places
-不明,ほばら薬局桑折本町店,福島県伊達郡桑折町沢34番4,ChIJT4NbCABjil8Rcm9lK-Brjso,37.8457085,140.5200196,google_places
-不明,ドラッグミナト,福島県伊達郡桑折町上町３５−２,ChIJN991wE9iil8RnQvSvFthE74,37.853092,140.518263,google_places
-不明,ファミリー薬局,福島県伊達郡桑折町堰合２１,ChIJD8IahVBiil8RDOHkU2bZCaM,37.8504323,140.5213135,google_places
-ウエルシア,ウエルシア伊達保原店,福島県伊達市保原町前田町２７−２,ChIJDzoihE59il8R_Q_ERLrkWDA,37.8143394,140.5515342,google_places
-不明,ハシドラッグ 伊達箱崎店,福島県伊達市箱崎布川８９,ChIJh_UipQqJil8RQfd5g8KMbwY,37.8203177,140.5185106,google_places
-不明,スーパーセンタートライアル伊達保原店,福島県伊達市保原町上保原正地内３７−１,ChIJx5dnxAl9il8RD9sRooEsID4,37.8134844,140.5446514,google_places
-ウエルシア,ウエルシア伊達保原北店,福島県伊達市保原町大和１０７−１,ChIJ917-Kdhjil8RER8ZSysNpUg,37.8299127,140.561782,google_places
-不明,コスモ調剤薬局桑折店,福島県伊達郡桑折町谷地石塚４４,ChIJp0F0Q0xiil8RK_mIwXLbBr4,37.8565487,140.5217332,google_places
-不明,ふよう薬局,福島県伊達郡桑折町上町７５−１２,ChIJh4MY6E9iil8R83IxuE1btxo,37.852764,140.518666,google_places
-ツルハドラッグ,ツルハドラッグ 南会津下郷店,福島県南会津郡下郷町中妻大百刈９５９５番地,ChIJzTQwrJ_6H2ARK-fAlyaFm8A,37.2617288,139.8774382,google_places
-ツルハドラッグ,ツルハドラッグ 南会津店,福島県南会津郡南会津町田島谷地甲５５−１１,ChIJUTp0drToH2ARz0k_YSYa3dw,37.2022922,139.7694558,google_places
-ツルハドラッグ,ツルハドラッグ 南会津バイパス店,福島県南会津郡南会津町田島田島柳31番地,ChIJv6YDKJbvH2ARFYCZCQzXmuQ,37.204821,139.778363,google_places
-不明,クオール薬局南会津店,福島県南会津郡南会津町永田字下川原81−４,ChIJ_4IZR6ToH2ARBHCDbrCQ-aI,37.2060035,139.7592663,google_places
-不明,リオン･ドール 田島店,福島県南会津郡南会津町田島東荒井８０,ChIJeUPMBzjvH2AR7aXrNVWBLXA,37.2035234,139.7836576,google_places
-不明,(有)十字堂薬局,福島県南会津郡南会津町田島中町甲３９４８−１,ChIJmUAC-ErvH2AR9uHvPUk6zlg,37.2015622,139.7753312,google_places
-不明,ヨークベニマル田島店,福島県南会津郡南会津町田島字行司21番地１,ChIJf82nkLPoH2ARdOBvDCS0B80,37.2033019,139.7698787,google_places
-不明,ファーマシーダイマル,福島県南会津郡南会津町永田風下2−３,ChIJq5lS64DpH2ARGYsiebFgehM,37.2035262,139.7596287,google_places
-不明,リオン･ドール 田島バイパス店,福島県南会津郡南会津町田島田島柳６５−１,ChIJT4Ro4wHvH2ARzwDgzrwARC8,37.2045934,139.7807715,google_places
-不明,ふるまち薬局,福島県南会津郡南会津町古町,ChIJVxynhwzRH2ARbIlXRizgBN8,37.170494,139.5228777,google_places
-不明,ファッションセンターしまむら 田島店,福島県南会津郡南会津町田島東荒井13−３,ChIJGe0770fvH2ARB2vGLoAsL48,37.2042658,139.7838815,google_places
-不明,樋口薬局,福島県南会津郡南会津町田島元八幡甲３１５−４,ChIJy56eYrPoH2ARSmZaxGkOuNg,37.20310449999999,139.771053,google_places
-不明,会津田島駅,福島県南会津郡南会津町田島西番場甲,ChIJ7ZTRakvvH2ARXhz81hwmZnw,37.203289,139.7744515,google_places
-不明,コスメティックサロンいのまた,福島県南会津郡南会津町田島行司２１−１ヨークベニマル田島店内,ChIJfSbwlrPoH2ARssSbX4TjELg,37.20303699999999,139.7698796,google_places
-不明,コスモ調剤薬局 南郷店,福島県南会津郡南会津町片貝根木屋向２２,ChIJKZFgebxi9V8RbPaCYFGoZBo,37.2741854,139.5317882,google_places
-不明,あいあい薬局 只見店,福島県南会津郡只見町長浜唱平２３−２,ChIJBTD6gat79V8RInOWE_bJZEo,37.3033623,139.3741258,google_places
-不明,ブイチェーン只見店,福島県南会津郡只見町只見沖１５０９,ChIJ76LeWE5w9V8RQPFR1P450os,37.3498357,139.321424,google_places
-不明,（株）川原田商店,福島県南会津郡只見町小林下前田４４５,ChIJs6tUtq5k9V8RxdKWYWln4KE,37.3081076,139.4554313,google_places
-不明,只見駅,福島県南会津郡只見町只見上ノ原,ChIJ_UUaaVJw9V8R195ZjSQ1WkU,37.3504538,139.314846,google_places
-ツルハドラッグ,ツルハドラッグ 会津南町店,福島県会津若松市南町２−６５−１,ChIJl7Jz0JFU9V8RLi7ValOF2O4,37.4844013,139.927101,google_places
-ツルハドラッグ,ツルハドラッグ さくらモールとみおか店,福島県双葉郡富岡町中央３丁目53番地,ChIJNQdzmFbfIGARQ8pZ2yv1B2s,37.3393913,141.0153868,google_places
-不明,浅野撚糸㈱ フタバスーパーゼロミル・エアーかおる双葉丸,福島県双葉郡双葉町中野舘ノ内1−１,ChIJ0SueRlfDIGARc72nxU9O6k4,37.4560285,141.0211285,google_places
-不明,ならは薬局,福島県双葉郡楢葉町北田中満２８９−４,ChIJEXYidxngIGARpWgke6iZJKY,37.2769539,140.9952541,google_places
-不明,イオン双葉店,福島県双葉郡双葉町長塚町西36−１,ChIJ76NXUADpIGARQbQzlvj091g,37.4535915,141.0066531,google_places
-不明,ニューヤマザキデイリーストアー 大熊町大川原店,福島県双葉郡大熊町大川原南平１２０７−１,ChIJtW8YQe7nIGARwrXty8sKKyQ,37.3828742,140.9610216,google_places
-不明,大熊町商業施設「おおくまーと」,福島県双葉郡大熊町大川原南平1207番1交流ゾーン,ChIJax5_3WXnIGAR3P1VraBZ6L8,37.3824181,140.961008,google_places
-不明,さくらモール とみおか,福島県双葉郡富岡町中央３丁目５３,ChIJXxLsTHXfIGARuBdDoX215cQ,37.3395512,141.0152614,google_places
-不明,ショッピングセンターYO-TASHI,福島県双葉郡川内村下川内宮ノ下２５−１,ChIJ2VEf1JT6IGAR2yeV7gDgjRA,37.3292379,140.8216781,google_places
-ツルハドラッグ,ツルハドラッグ 田村大越店,福島県田村市大越町下大越中田38番地1,ChIJbW1qqiJeIGARQChDgXz0X6s,37.4031224,140.6172844,google_places
-不明,（株）広野薬局,福島県双葉郡広野町下浅見川広長１００−５,ChIJ65S6hkMfIWAR7t9C2yVZCF8,37.2110296,140.9990754,google_places
-不明,薬王堂福島広野店,福島県双葉郡広野町広洋台２丁目１−２,ChIJuQErSAAfIWARb_juKuA57_8,37.2281882,141.0014408,google_places
-不明,イオン広野店,福島県双葉郡広野町下北迫苗代替２４−１,ChIJw49-x0EfIWAR93simefFBVA,37.2142736,140.9949436,google_places
-不明,イオン浪江店,福島県双葉郡浪江町幾世橋大添６０−１,ChIJBxh5KF7rIGARepgKhzO4rdM,37.493459,141.0015422,google_places
-不明,なみえ調剤薬局,福島県双葉郡浪江町幾世橋六反田７−６,ChIJ3_wIPgDrIGARsEO0mb_QnvE,37.4953803,140.9996469,google_places
-不明,葛尾村復興交流館あぜりあ,福島県双葉郡葛尾村落合落合２０−１,ChIJ74CtJxmNIGARgOh4ITSFh20,37.5020027,140.7649383,google_places
-ツルハドラッグ,ツルハドラッグ 田村常葉店,福島県田村市常葉町常葉平舘31番地,ChIJAQAA7F9gIGARiPGE3XxlLwM,37.438719,140.6392635,google_places
-不明,マルイチ商店,福島県双葉郡葛尾村落合菅ノ又３７,ChIJ-4_7JIKMIGARhcOLPIpeW0c,37.50116999999999,140.7640407,google_places
-不明,下葛尾のクリムゾンクローバー畑,福島県双葉郡葛尾村葛尾北平,ChIJ__uQGOmLIGARTSifuUG6H1Y,37.5241423,140.7427954,google_places
-ツルハドラッグ,ツルハドラッグ 郡山守山店,福島県郡山市田村町守山御殿河原１１７−１,ChIJZzZg9nJqIGAR_7IvH8oYX1g,37.33606169999999,140.4096324,google_places
-ツルハドラッグ,ツルハドラッグ いわき四倉店,福島県いわき市四倉町上仁井田南姥田６１番１,ChIJ__-v9aMXIWARt_tXli1nK6U,37.094304,140.976953,google_places
-ツルハドラッグ,ツルハドラッグ 福島丸子店,福島県福島市丸子富塚３番１,ChIJqRieQR-Gil8R5Lwa1z7OwPo,37.7849776,140.4730473,google_places
-ツルハドラッグ,ツルハドラッグ 福島方木田店,福島県福島市方木田前白家９−２,ChIJZR1f3KyFil8RkxOqNnanPuQ,37.7445889,140.4514149,google_places
-不明,ハシドラッグ 信陵店,福島県福島市笹谷出水頭１−２,ChIJR7bSC86Iil8RpcDjfnCY4Xw,37.79709,140.428387,google_places
-ツルハドラッグ,ツルハドラッグ 福島飯坂店,福島県福島市飯坂町平野上前田6番地1,ChIJM1WV4uWIil8RSMh8QBuESy0,37.8061072,140.4475793,google_places
-ツルハドラッグ,ツルハドラッグ 郡山日和田店,福島県郡山市日和田町財ノ木原１５−１,ChIJkam6mAxtIGARUzyFJgZbB5w,37.445161,140.3840414,google_places
-ツルハドラッグ,ツルハドラッグ いわき下神谷店,福島県いわき市平下神谷仲田98−１,ChIJ8XA0XgAXIWARiRK5129nuIU,37.0752233,140.9530356,google_places
-ウエルシア,ウエルシア福島鎌田店,福島県福島市鎌田西5−１,ChIJFXFeQyiGil8RH3FJ3MUi-xQ,37.7913013,140.484143,google_places
-カワチ薬品,カワチ薬品 福島西店,福島県福島市泉下鎌２９−１,ChIJgbctOgCGil8RBbSa-PjBAoU,37.7793891,140.4524123,google_places
-ツルハドラッグ,ツルハドラッグ 野田店,福島県福島市野田町４丁目１−３,ChIJy_UWhMGFil8RWHZ8CSsDED8,37.7609046,140.4540947,google_places
-ツルハドラッグ,ツルハドラッグ 八山田店,福島県郡山市富田東３丁目22番地,ChIJ56LDwCNtIGARdN833FTGdZQ,37.4257988,140.3652456,google_places
-不明,ハシドラッグ 船引店,福島県田村市船引町東部台４丁目３４,ChIJi6vzOtdmIGARFCyLlx5_SGo,37.440472,140.58781,google_places
-不明,ドラッグ・イガラシ,福島県大沼郡三島町宮下舘３８４,ChIJHXD0ueBE9V8R6M2vtcYz1oM,37.4707018,139.6434601,google_places
-不明,薬王堂 日立大沼店,福島県茨城県日立市大沼町１丁目１４−５,ChIJC5IxMAArImARLu5KV9E5zmU,36.5322885,140.6192969,google_places
-不明,みやした調剤薬局,福島県大沼郡三島町宮下居平１１３４,ChIJKUpgvh9F9V8RjZge7inypcU,37.4731447,139.6467136,google_places
-不明,薬王堂 福島会津美里店,福島県大沼郡会津美里町思堀７３番地,ChIJ96oIPjRV9V8Ry1PJ5uT0c48,37.4566958,139.8946683,google_places
-ウエルシア,ウエルシア会津美里店,福島県大沼郡会津美里町思堀２５,ChIJ8XOR4CVU9V8Rpq99unecask,37.4572976,139.8948464,google_places
-不明,薬王堂会津美里高田店,福島県大沼郡会津美里町高田前川原3495番2,ChIJ4dNLzYxR9V8RKi-aDZ8Dess,37.4695404,139.8534673,google_places
-ツルハドラッグ,ツルハドラッグ 会津美里店,福島県大沼郡会津美里町高田前川原３５５３,ChIJk21rTFJR9V8Rcl37kVkyjWc,37.47061679999999,139.8532937,google_places
-ツルハドラッグ,ツルハドラッグ 会津高田店,福島県大沼郡会津美里町布才地５８１−１,ChIJ8zeZ2DVR9V8RitWBcpUn4gE,37.463852,139.836387,google_places
-不明,アイン薬局 会津美里店,福島県大沼郡会津美里町高田甲２９６９−５,ChIJ5_0_TEpR9V8R0rvCfZe8dwg,37.4645476,139.841254,google_places
-不明,みさと薬局（会津美里町）駐車場,福島県大沼郡会津美里町高田道上２８４１,ChIJiZjgRQBR9V8RWweJJmwEPzs,37.4648732,139.8444534,google_places
-不明,佐藤薬店,福島県大沼郡会津美里町新屋敷柳台甲甲９２９,ChIJh1nXsWVS9V8RxA_5I5os6JQ,37.518865,139.8344728,google_places
-ウエルシア,ウエルシア会津美里店 (調剤薬局),福島県大沼郡会津美里町思堀２５ウエルシア会津美里店内,ChIJFd_sh-5V9V8RhctxQEmiIYY,37.4572976,139.8948464,google_places
-カワチ薬品,カワチ薬品会津若松南店,福島県会津若松市飯寺南２丁目１−８０,ChIJXRADkGlU9V8RR9Tr1oOecrI,37.4712848,139.906397,google_places
-不明,二木屋薬品,福島県大沼郡会津美里町高田甲２７７７−１,ChIJXaZfXgBX9V8RJ3agQ2D--GQ,37.4583737,139.8378639,google_places
-不明,フジヤ薬舗,福島県大沼郡会津美里町高田甲３０３４−４,ChIJx95nfABR9V8RsREfkc5pPkw,37.4690653,139.8418322,google_places
-不明,みさと薬局（会津美里町）,福島県大沼郡会津美里町高田道上２８４０−１,ChIJ0xcDTABR9V8R67Vfw2Ujhnc,37.4648407,139.8443099,google_places
-不明,昭和調剤薬局,福島県大沼郡昭和村小中津川石仏１８４２,ChIJXTwHs1Vg9V8Rj2Z4ieMtcrg,37.3316987,139.6186543,google_places
-不明,ふじや薬店,福島県大沼郡金山町大塩下屋敷９２３,ChIJmyCeCdhu9V8R23ZhNzmhLio,37.3941077,139.41463,google_places
-不明,コスモ調剤薬局 金山店,福島県大沼郡金山町川口金洗道下１４８１−３,ChIJjRbxWzhC9V8RsNOE9cRPdSk,37.4555946,139.5175527,google_places
-不明,薬王堂福島大玉店,福島県安達郡大玉村玉井袋内113番地,ChIJhxvA1HtzIGAR62NRr7BtZuU,37.5233132,140.3848739,google_places
-不明,PLANT-5 大玉店,福島県安達郡大玉村大山仲江２７１,ChIJWdvQpHh0IGARpV__mkns5fk,37.5416493,140.395619,google_places
-不明,アイランド薬局 大玉店,福島県安達郡大玉村大山玉貫１０６−１,ChIJE5vZgjlzIGAR73M1aHhkh-0,37.5396789,140.3949678,google_places
-ウエルシア,ウエルシア岩瀬鏡石店,福島県岩瀬郡鏡石町不時沼２０５,ChIJ2V8vQmI_IGAR-EDZccRLx1o,37.2558574,140.3469235,google_places
-不明,ウイン調剤薬局天栄店,福島県岩瀬郡天栄村飯豊上原３４−１,ChIJy-8AEvc-IGAR6EuMzhskgzI,37.2446519,140.2950591,google_places
-クスリのアオキ,クスリのアオキ 鏡石店,福島県岩瀬郡鏡石町中町１０５−１,ChIJvxaRd0E_IGARwDv6rujrSCU,37.2479034,140.3387637,google_places
-不明,コスモ調剤薬局天栄店,福島県岩瀬郡天栄村下松本四十壇１３−１,ChIJ-XAccfI9IGARBZNYw_Lyn6I,37.2562295,140.2484432,google_places
-ウエルシア,ウエルシア福島玉川店,福島県石川郡玉川村小高稲荷畷２４−１,ChIJP_n5TlhGIGARKi5QW_J2mZk,37.21213669999999,140.4065114,google_places
-ウエルシア,ウエルシア岩瀬鏡石店 (調剤薬局),福島県岩瀬郡鏡石町不時沼２０５ウエルシア岩瀬鏡石店内,ChIJRwxav6E_IGARzL0eqJxebfA,37.2558574,140.3469235,google_places
-不明,道の駅 季の里天栄,福島県岩瀬郡天栄村大里天房41−２,ChIJt2Qdhr89IGARyH9LToCxQQo,37.2436106,140.2438447,google_places
-不明,ドラッグわち,福島県須賀川市志茂字六角65,ChIJ-_Osz0MWIGARKtF2Pa8CpXU,37.2856284,140.2419702,google_places
-ツルハドラッグ,ツルハドラッグ 矢吹北店,福島県西白河郡矢吹町北町164番地5,ChIJe4XLtnc5IGAR5z_-DRmeqEw,37.2119431,140.325993,google_places
-ウエルシア,ウエルシア郡山小原田店,福島県郡山市小原田３丁目３−１４,ChIJ1XrMlHZrIGARS_K0xjxXG7M,37.3797706,140.3858732,google_places
-ツルハドラッグ,ツルハドラッグ 須賀川長沼店,福島県須賀川市志茂六角65番地,ChIJd0SSiEEWIGARg0hDiva8JaE,37.2852552,140.242869,google_places
-不明,森寿生堂薬品,福島県岩瀬郡天栄村牧之内児渡５６,ChIJ45KUW5MXIGARawk5oNlyyoU,37.263654,140.1984873,google_places
-不明,薬王堂 福島鏡石店,福島県岩瀬郡鏡石町東町３３３,ChIJ9WpgYwBBIGARf_rKdI7Ao7Q,37.24244830000001,140.3507706,google_places
-不明,くすりの勉強堂,福島県岩瀬郡鏡石町高久田１１５,ChIJrXhyv0RAIGARQ6qj1cCxdUE,37.268607,140.3572854,google_places
-不明,イオンスーパーセンター 鏡石店,福島県岩瀬郡鏡石町桜岡３７５−９,ChIJb3YINEI_IGARzSyHnSyqWCg,37.2422704,140.3336697,google_places
-不明,ベース薬局鏡石店,福島県岩瀬郡鏡石町本町２０１,ChIJARH-3mE_IGARaaSi4MegksI,37.2537799,140.3480709,google_places
-不明,なないろ薬局,福島県岩瀬郡鏡石町中町４２９,ChIJJYdqEQA_IGARQpEvTwRsTpo,37.2490423,140.343936,google_places
-不明,いとう薬局中央店,福島県岩瀬郡鏡石町中央４８,ChIJ1VLM_GY_IGARSVTbUDtYq2U,37.250255,140.341067,google_places
-不明,薬王堂 福島塙店,福島県東白川郡塙町塙本町１０６,ChIJoWxN8Iy3IWAR0ySq8IM4szs,36.9548995,140.4132413,google_places
-ツルハドラッグ,ツルハドラッグ 塙店,福島県東白川郡塙町塙大町１丁目13番地,ChIJp3PhS722IWARNvCk2CMe2C8,36.959051,140.409666,google_places
-不明,さくら薬局 塙店,福島県東白川郡塙町塙材木町１１−１,ChIJYe6pyJi2IWARdqi6oJYqMHw,36.9609812,140.4085563,google_places
-ウエルシア,ウエルシア東白川棚倉店,福島県東白川郡棚倉町流餅田１６−１,ChIJ_Zfcu9-0IWARsHnFrpg6Y6k,37.0152116,140.3913893,google_places
-不明,日本調剤 塙薬局,福島県東白川郡塙町塙大町１丁目7番,ChIJqapSDQC3IWARL3ZfaIyQ2TI,36.9597283,140.4088523,google_places
-ツルハドラッグ,ツルハドラッグ 矢祭店,福島県東白川郡矢祭町小田川恩岩36−１,ChIJdbgfnfi5IWARh4LWwYoaW7M,36.866392,140.425767,google_places
-カワチ薬品,カワチ薬品 棚倉店,福島県東白川郡棚倉町下山本愛宕平6,ChIJEZTh0QG1IWARzyrJGUMHW6w,36.9971656,140.3906198,google_places
-不明,丸正薬局,福島県東白川郡塙町塙大町１丁目２４−１１,ChIJ45FhSb22IWARijnvV16fMq4,36.957768,140.411214,google_places
-不明,菊地薬局,福島県東白川郡塙町塙本町６８,ChIJJQ_sIby2IWARUgk9xutTEAs,36.9548813,140.4141095,google_places
-不明,薬王堂 福島棚倉店,福島県東白川郡棚倉町棚倉日向前8番地1,ChIJyZndF8xKIGAR7klTRwfFh30,37.0295632,140.3757183,google_places
-ツルハドラッグ,ツルハドラッグ 棚倉店,福島県東白川郡棚倉町棚倉広畑５５,ChIJr-sFYpVLIGARmdzHdqysfK4,37.0289312,140.3736247,google_places
-不明,藤田薬局,福島県東白川郡塙町塙栄町３９,ChIJH6iaGb22IWAR8EV_z4p2dB4,36.957062,140.412206,google_places
-不明,エコス塙店,福島県東白川郡塙町塙材木町１６,ChIJC6Ctmpi2IWAROmeC7LBibKw,36.9601438,140.4095231,google_places
-不明,コスモ調剤薬局 塙厚生病院前店,福島県東白川郡塙町塙大町２丁目7番地5,ChIJ94-9BwC3IWARiSqoWNOR3-M,36.9594956,140.4082215,google_places
-不明,流薬局,福島県東白川郡棚倉町関口上志宝７３,ChIJdbk_O9-0IWARxD2cEADUFYY,37.0352259,140.3888277,google_places
-不明,Seria 棚倉店,福島県東白川郡棚倉町流餅田５−１,ChIJ7VBjg1a1IWARWFG2VXvPfC4,37.01579,140.39131,google_places
-不明,コスモ調剤薬局棚倉町店,福島県東白川郡棚倉町棚倉北町３５−６,ChIJ4YQgQdRKIGARZU67R1D5GKA,37.0349695,140.3849745,google_places
-不明,矢祭薬局,福島県東白川郡矢祭町戸塚山崎１１７−１,ChIJ2YvjUvu5IWARnZlPN0sOSiM,36.8907713,140.4197352,google_places
-ツルハドラッグ,ツルハドラッグ 浅川店,福島県石川郡浅川町浅川月斉陣場1番地の３,ChIJAQDQS51LIGARNjyoRQlNOd8,37.0807423,140.4200865,google_places
-不明,村民（みんな）の店 すまいる,福島県東白川郡鮫川村赤坂中野新宿６４−１,ChIJ38FfTYGyIWAR-jYmQ68kjRI,37.0455317,140.508566,google_places
-不明,薬王堂福島石川店,福島県石川郡石川町当町１３０,ChIJuwv7WwBPIGARs_YaW8c52Hg,37.1400011,140.4445142,google_places
-ツルハドラッグ,ツルハドラッグ 福島古殿店,福島県石川郡古殿町田口平舘40−１,ChIJi6AJ6bZSIGARBrXkDQTDNbE,37.0931026,140.5306201,google_places
-ツルハドラッグ,ツルハドラッグ 石川店,福島県石川郡石川町長久保82番,ChIJJZTxidxPIGART1kNUzD_v6U,37.152428,140.445889,google_places
-カワチ薬品,カワチ薬品 白河西店,福島県白河市中山南５−３５,ChIJ1W4NLdMlIGARTBSr4b4tcEc,37.1291474,140.1824472,google_places
-不明,鹿角平観光牧場,福島県東白川郡鮫川村青生野世々麦,ChIJjfEuah6vIWARXCQWfbKppTo,36.983666,140.5324559,google_places
-ツルハドラッグ,ツルハドラッグ 白河西店,福島県白河市和尚壇2−４５,ChIJq6pqytA6IGARbj79OO_TTLc,37.1290551,140.1921708,google_places
-ウエルシア,ウエルシア西白河中島店,福島県西白河郡中島村二子塚浦山３２−１６,ChIJSzFvzR9IIGARAjA8981Zo7s,37.1441724,140.3488203,google_places
-不明,薬王堂 白河高山店,福島県白河市高山１６７−１,ChIJZ-oW4eE7IGARqZMst36hqps,37.1176885,140.1887635,google_places
-不明,鮫川郵便局,福島県東白川郡鮫川村赤坂中野道少田５９−５９,ChIJ5fT5YYayIWARTqMfa53w1-I,37.0446141,140.5057999,google_places
-不明,おしゃべりｷｯﾁﾝ,福島県東白川郡鮫川村赤坂中野巡ケ作１９５,ChIJQbqVVnmyIWARqq1Bw7BfQOw,37.0365202,140.5085874,google_places
-ツルハドラッグ,ツルハドラッグ 会津坂下店,福島県河沼郡会津坂下町舘ノ下5−６,ChIJbYDx9tlM9V8RbHHBd2IJfGs,37.5649926,139.8190662,google_places
-ウエルシア,ウエルシア会津坂下東店,福島県河沼郡会津坂下町小川原９４５,ChIJ61DC4yRN9V8RtSpTdqauqEQ,37.5571978,139.829341,google_places
-ツルハドラッグ,ツルハドラッグ 会津坂下インター店,福島県河沼郡会津坂下町坂本下新田丁３１７,ChIJs7jINQ9N9V8Ry078pJoS-ME,37.5563041,139.7631202,google_places
-カワチ薬品,カワチ薬品 会津坂下店,福島県河沼郡会津坂下町舘ノ下７０,ChIJJ5HUM1dN9V8RhNq_nk7Vez8,37.5661265,139.8176626,google_places
-不明,薬王堂 メガステージ会津坂下店,福島県河沼郡会津坂下町気多宮柳田１００４,ChIJizwBP6VN9V8RXLEDfNvtgz4,37.5672165,139.8088383,google_places
-不明,アイン薬局 会津坂下町店,福島県河沼郡会津坂下町小川原１０６８−２,ChIJhfJHgoVN9V8RgXUvVcSpYfg,37.5574381,139.8260487,google_places
-不明,ケンコー堂,福島県河沼郡会津坂下町市中市中二番甲３６１０,ChIJNWxEuidN9V8RenexymRQgwM,37.5611433,139.8243972,google_places
-ウエルシア,ウエルシア会津坂下東店 (調剤薬局),福島県河沼郡会津坂下町小川原９４５ウエルシア会津坂下東店内,ChIJZfYrnuJN9V8RPNxYqQEGa6E,37.5571978,139.829341,google_places
-不明,アイランド薬局 会津坂下店,福島県河沼郡会津坂下町気多宮柳田982番地,ChIJ9WWPa0JN9V8R4bYIoZ0UH30,37.5670456,139.8088702,google_places
-不明,メガステージ会津坂下,福島県河沼郡会津坂下町気多宮柳田１０３５,ChIJTVY1IHFN9V8RKTcdUcB_otw,37.5671642,139.8083257,google_places
-不明,調剤薬局ゼネファーム 会津坂下店,福島県河沼郡会津坂下町五反田１１７９−２,ChIJTQp6XCFN9V8RQSORK7P_MwE,37.558889,139.824547,google_places
-不明,TSUTAYA 坂下店,福島県河沼郡会津坂下町舘ノ下１８,ChIJKU72HNhM9V8RtWUVd-Z0hZk,37.56635,139.81693,google_places
-不明,ダイユーエイト 会津坂下店,福島県河沼郡会津坂下町気多宮柳田１０１５,ChIJzQevcdpM9V8RiH_BMPpRJZo,37.5676621,139.8071649,google_places
-不明,ブイチェーン坂下店,福島県河沼郡会津坂下町字小川原９４９,ChIJDyQOvyRN9V8RY1D84Y8ErsI,37.5564903,139.8286802,google_places
-不明,ヨークベニマル会津坂下店,福島県河沼郡会津坂下町気多宮柳田９９０,ChIJXzd8e7xN9V8Rv9HlSRXyj60,37.567023,139.807338,google_places
-不明,太陽薬局,福島県河沼郡会津坂下町古市古市乙１４５,ChIJrZacBCZN9V8RNds8Od64JdU,37.560397,139.8281984,google_places
-ツルハドラッグ,ツルハドラッグ 会津真宮店,福島県会津若松市真宮新町北２丁目９,ChIJe4ueG95T9V8Rsw31fYHa3s0,37.5229557,139.8718973,google_places
-ツルハドラッグ,ツルハドラッグ 喜多方塩川店,福島県喜多方市塩川町東栄町５丁目6番３,ChIJ_QsHZsqzil8RdwWv_mX6nOQ,37.595429,139.892639,google_places
-不明,松屋薬店,福島県河沼郡柳津町柳津諏訪町甲１０５,ChIJa3Y5cY1O9V8RWo1Ylm40HHM,37.5307546,139.7257563,google_places
-ウエルシア,ウエルシア会津若松湯川店,福島県会津若松市湯川町４−１０,ChIJ54_DpNZV9V8RUakcgpgwwI8,37.4881184,139.920212,google_places
-ツルハドラッグ,ツルハドラッグ 会津湯川店,福島県会津若松市湯川町１−５８,ChIJrzisQ5xU9V8ReAq7KWN7QTw,37.490581,139.921091,google_places
-ツルハドラッグ,ツルハドラッグ 会津河東店,福島県会津若松市河東町広田南高野字向原12-1,ChIJI9gbVHWtil8RUwpC8_obMak,37.553079,139.9297722,google_places
-不明,アイン薬局 湯川店,福島県会津若松市湯川町１−５４,ChIJqQeeN5xU9V8RzKn71GGlmU4,37.4910659,139.9213983,google_places
-不明,（有）曾豊堂,福島県河沼郡湯川村湊奈良町丙７,ChIJ_aPhFlSyil8R5bNnASfvP4Q,37.5832519,139.8837095,google_places
-ツルハドラッグ,ツルハドラッグ 会津本町店,福島県会津若松市本町１０−１,ChIJbaFKZC9V9V8RGaOSc2MLOTA,37.493799,139.9224749,google_places
-不明,しおかわ調剤薬局,福島県喜多方市塩川町東栄町５丁目５−１２,ChIJa0K6J8qzil8Rk0GiPwZD57E,37.595519,139.893631,google_places
-不明,薬王堂 福島松川店,福島県福島市松川町本町１１１−１,ChIJNwYQ-N6dil8RYZSModYiYlA,37.6582351,140.459724,google_places
-ツルハドラッグ,ツルハドラッグ 会津七日町店,福島県会津若松市西七日町２１−１０,ChIJcxto_kJT9V8R61jzYLW4_lQ,37.50478,139.914746,google_places
-不明,浜田薬局,福島県田村郡三春町荒町６１,ChIJNZN-0TtvIGARJQBcaV6GIUw,37.4443451,140.4872916,google_places
-不明,サンドラッグ 田村店,福島県田村市船引町船引源次郎１１９−４,ChIJF-Wtp8ZmIGARssZtJbRJiAo,37.4477906,140.5816519,google_places
-不明,きよはし薬局 駅前店,福島県田村郡三春町担橋２丁目１−５,ChIJG1hjVhhvIGARYvvhyBk_I6Y,37.449958,140.4802199,google_places
-不明,さくら調剤薬局,福島県田村郡三春町六升蒔５０−１１,ChIJ3bBqrUdvIGARG9sqWU5SeCw,37.446822,140.495365,google_places
-不明,みはる調剤薬局,福島県田村郡三春町大町３２−１,ChIJE9VzcTdvIGARV-Jn7JTtl_0,37.4421686,140.4900329,google_places
-ツルハドラッグ,ツルハドラッグ 船引店,福島県田村市船引町船引川代3−９,ChIJ34lD8CtnIGARon2iA39YsZw,37.4340906,140.5920666,google_places
-不明,メガセンタートライアル郡山八山田店,福島県郡山市富久山町八山田土布池１１−７,ChIJHaBqNz5tIGARs3ZFDo5G5a8,37.4279546,140.3839298,google_places
-ウエルシア,ウエルシア田村船引店,福島県田村市船引町船引宮ノ前８１,ChIJn7i6qvVmIGARbquj2khV7e0,37.44035330000001,140.5576016,google_places
-不明,ルビー調剤薬局,福島県田村郡三春町貝山岩田８６−３,ChIJZWBg1jNvIGAR4s8lTvKGscg,37.4364719,140.4855055,google_places
-不明,ファッションセンターしまむら 三春店,福島県田村郡三春町貝山岩田４１−１,ChIJmcrLojFvIGARdv0DJuqVAPg,37.4373847,140.4845306,google_places
-ツルハドラッグ,ツルハドラッグ 小野店,福島県田村郡小野町飯豊坂東内前31番地,ChIJ77qrs9VZIGAREFOp6Fj5SgI,37.2986204,140.6185463,google_places
-不明,薬王堂 福島小野店,福島県田村郡小野町小野新町中通９０,ChIJz81cAPJZIGARKNGkdmoTwNo,37.2800866,140.6295677,google_places
-ウエルシア,ウエルシア小野新町店,福島県田村郡小野町小野新町品ノ木１−１,ChIJ14gVebxZIGAR_kde_HRCZFg,37.2933927,140.6221,google_places
-ツルハドラッグ,ツルハドラッグ 福島平田店,福島県石川郡平田村上蓬田馬道23−１,ChIJAQBAr5ZQIGARfmzh4PDxLlw,37.2353481,140.5710748,google_places
-不明,ダイユーエイト 小野店,福島県田村郡小野町飯豊五反田４８,ChIJD3vwmHRZIGARuG0Ki3DsIAw,37.3067515,140.6159851,google_places
-不明,Can★Do 小野プラザ店,福島県田村郡小野町飯豊柿人６３おのショッピングプラザ地元館1階,ChIJgVxDPXNZIGAR3zSNMFNiHNo,37.3083706,140.6158919,google_places
-不明,薬王堂 田村大越店,福島県田村市大越町上大越湯田１９−１,ChIJ8dxbd6hfIGARIoo-r2V0giA,37.3889619,140.6282136,google_places
-不明,くすりの会田,福島県田村市滝根町神俣梵天川滝根町神俣梵天川７６−６,ChIJwZ8uqoxYIGARtwi8XCv0eZ0,37.3243283,140.6588857,google_places
-不明,コスモ調剤薬局小野新町店,福島県田村郡小野町谷津作馬場１７−１,ChIJgXmqfdVZIGARQGLfeebh6EE,37.2744296,140.6357614,google_places
-不明,ヤナイ調剤薬局,福島県田村郡小野町小野新町品ノ木１３１,ChIJB42108dZIGAR4VGeQN7mxdM,37.2869103,140.6270071,google_places
-不明,おのショッピングプラザ・コムコム,福島県田村郡小野町飯豊五反田６３,ChIJu0yaanNZIGAR9dAZDz6950c,37.3082194,140.6158661,google_places
-不明,薬王堂 田村船引店,福島県田村市船引町船引小沢川代８８−３,ChIJZ43Uup5nIGARufhHFPuakC0,37.4348963,140.5938217,google_places
-不明,（有）大伸薬品,福島県田村郡小野町夏井夏井７３−３,ChIJLf24OblXIGARNgf3RJIN70E,37.258455,140.65495,google_places
-不明,杉田屋,福島県田村郡小野町小野新町中通１５１,ChIJv2ccfsVZIGARmOInsHMpFa4,37.282051,140.627497,google_places
-不明,アイランド薬局 平田店,福島県石川郡平田村上蓬田大隅28番５,ChIJPaz3WZxQIGARb_YwiVxW-20,37.2447355,140.5663005,google_places
-ツルハドラッグ,ツルハドラッグ 新地店,福島県相馬郡新地町谷地小屋樋ノ口36番地1,ChIJda9cbll1il8RVNDcKRB4tq4,37.8785059,140.9158007,google_places
-不明,薬王堂 福島新地店,福島県相馬郡新地町谷地小屋中田３５−１,ChIJ3zYKq-N1il8R7WD_kxO2zY0,37.878244,140.9174433,google_places
-不明,クオール薬局新地町店,福島県相馬郡新地町駒ケ嶺原９３−１,ChIJSw32hzZ0il8REUiGgKrcdYc,37.8579985,140.913905,google_places
-カワチ薬品,カワチ薬品 相馬店,福島県相馬市中野寺前３７７−１,ChIJpTYHhH-eIGAR9Ad48dgPjJA,37.7904071,140.9293367,google_places
-ツルハドラッグ,ツルハドラッグ 相馬店,福島県相馬市小泉根岸96番地1,ChIJKYFnxOOdIGARncHk0D4au98,37.8103773,140.9252572,google_places
-不明,薬王堂 相馬沖ノ内店,福島県相馬市沖ノ内３丁目３−７,ChIJITXRnNmfIGAR0wXU4UhGYMg,37.8065515,140.9333622,google_places
-不明,薬王堂 相馬松川浦店,福島県相馬市尾浜細田２３５,ChIJ5QUb516fIGARv-3GgNWOJIg,37.8203442,140.9466656,google_places
-不明,Can★Do 新地店,福島県相馬郡新地町谷地小屋樋ノ口３４−１,ChIJVano1-d1il8RQia63I25g80,37.8785219,140.9157595,google_places
-マツモトキヨシ,ドラッグストア マツモトキヨシ エイトタウン相馬店,福島県相馬市黒木源多田４４,ChIJL0adl-2dIGARxLuWcMReJTQ,37.8074492,140.9115902,google_places
-ツルハドラッグ,ツルハドラッグ 相馬南店,福島県相馬市馬場野雨田９−１,ChIJXeCjzn-eIGAR_5pkilCaP9w,37.79006690000001,140.9311394,google_places
-ツルハドラッグ,ツルハドラッグ 相馬桜ヶ丘店,福島県相馬市中村桜ケ丘１３０130番,ChIJY_c0V92dIGARPuBsRzkoX2o,37.802279,140.919063,google_places
-不明,太田薬品,福島県相馬郡新地町谷地小屋新地２７,ChIJuSR08Yp0il8RJbhxjVSkm4c,37.8753781,140.915634,google_places
-不明,ハシドラッグ 飯舘店,福島県相馬郡飯舘村草野大師堂１,ChIJ3dXIDgCBIGARl5r8vuJ_MHc,37.6953554,140.7460239,google_places
-不明,美保薬品古殿支店,福島県石川郡古殿町竹貫竹貫４４,ChIJW6sVvCutIWARlMkamtqtavg,37.092409,140.551346,google_places
-カワチ薬品,カワチ薬品 石川店,福島県石川郡石川町双里宮ノ前４３−２,ChIJGaSLGIhOIGARRZ2mh5c3rcc,37.14672400000001,140.4716936,google_places
-不明,コスモ調剤薬局古殿町店,福島県石川郡古殿町松川林１４−３,ChIJ24Fl_SutIWARzwl1qQOL4kA,37.090556,140.5503299,google_places
-マツモトキヨシ,ドラッグストア マツモトキヨシ メガステージ石川店,福島県石川郡石川町長久保２３,ChIJU9XBa9tOIGARNF-V_Fw8HVs,37.1546662,140.4454798,google_places
-不明,瀬谷医薬品店,福島県石川郡古殿町松川横川８８,ChIJ3X4UUdmsIWARVJM9CS5X_Ks,37.0854467,140.5597066,google_places
-不明,会田薬店,福島県石川郡平田村上蓬田揚土１３,ChIJpy047ZtQIGARnZdm0Vf1epQ,37.24271,140.569256,google_places
-不明,金沢薬局,福島県石川郡浅川町浅川本町４,ChIJMbT5S5xLIGARTUsr_jFN-wQ,37.081006,140.416917,google_places
-不明,ローソン 浅川東大畑店,福島県石川郡浅川町東大畑大名大塚７３−１,ChIJqRLYA3RLIGARXoeBuIFxNfo,37.0737922,140.4154486,google_places
-不明,リオン・ドール 浅川店,福島県石川郡浅川町浅川月斉１９−１,ChIJFexfmZtLIGARLZsOIN514HA,37.0837121,140.4177954,google_places
-不明,鈴木鶴生堂,福島県石川郡浅川町浅川本町５２,ChIJ86NajJ1LIGARM9qeshZNtOU,37.078823,140.416801,google_places
-不明,コスモ調剤薬局浅川店,福島県石川郡浅川町東大畑大名大塚１０−１,ChIJ57SYa3ZLIGAR7a_YP_veetI,37.076965,140.416359,google_places
-クスリのアオキ,クスリのアオキ 福島玉川店,福島県石川郡玉川村小高北畷35番地の1,ChIJF_cq2DZHIGARQcBqtBkOs7I,37.2102438,140.4065944,google_places
-ウエルシア,ウエルシア福島玉川店 (調剤薬局),福島県石川郡玉川村小高稲荷畷24−１ウエルシア福島玉川店内,ChIJbQW0CvdHIGARVNElUqEhJls,37.21213669999999,140.4065114,google_places
-不明,たまかわ薬局,福島県石川郡玉川村小高中畷１８−７,ChIJ5dlFK0NGIGARz1lhXQoi8Fc,37.210725,140.407283,google_places
-不明,サンドラッグ 須賀川店,福島県須賀川市高久田境９５−１,ChIJGY-72YpAIGARE7smKwJfcE4,37.2745984,140.3681426,google_places
-不明,メガステージ石川,福島県石川郡石川町長久保,ChIJreDGOdtOIGARlm125KoAdfo,37.153732,140.444953,google_places
-不明,アイランド薬局石川店,福島県石川郡石川町下泉１７２,ChIJTZDF1pVOIGARXeaU76dnV40,37.1432136,140.4536867,google_places
-不明,アイン薬局 福島石川店,福島県石川郡石川町立ケ岡５０−１１,ChIJ80RfRrlOIGARszlS4lQ1DaM,37.1407298,140.4455045,google_places
-不明,リオン・ドール 玉川店,福島県石川郡玉川村小高北畷１０−１,ChIJF_fc30JGIGAR7aBcBcup1ns,37.2099519,140.4075593,google_places
-不明,サンキュー薬局,福島県石川郡石川町双里字本宮７１ー１,ChIJV78wUYxOIGARe8SIw4L5L5M,37.1481561,140.4617904,google_places
-不明,サンドラッグ 須賀川森宿店,福島県須賀川市森宿北向８８,ChIJFyk28x5AIGARpU7Cr74HcLU,37.3098304,140.3636157,google_places
-不明,コスモ調剤薬局玉川店,福島県石川郡玉川村川辺二ノ鳥居３４−１,ChIJjz73ZRhGIGARYzSV2srAVlw,37.192419,140.41107,google_places
-不明,石川調剤薬局,福島県石川郡石川町新町５３−１,ChIJPwC_zJROIGARULscTkRezLk,37.148058,140.4549446,google_places
-不明,リオン･ドール 石川店,福島県石川郡石川町双里赤沼5,ChIJC8T4oI5OIGARymGGctbw9Ls,37.1476132,140.465603,google_places
-不明,ダイソー メガステージ石川店,福島県石川郡石川町長久保３１３,ChIJyws3FttOIGARVRSnc2wCTJk,37.1541486,140.4446781,google_places
-不明,ファッションセンターしまむら 石川店（福島県）,福島県石川郡石川町長久保１０２メガステージ石川内,ChIJwRPTTdtOIGARloWstlFWa_g,37.1536046,140.4456526,google_places
-不明,コスモ調剤薬局 石川町店,福島県石川郡石川町形見尾巻１９１−１,ChIJiQiIqXBOIGARog8TMYYDCBw,37.1457473,140.4825411,google_places
-ツルハドラッグ,ツルハドラッグ いわき湯本店,福島県いわき市常磐水野谷町諏訪ケ崎５−１,ChIJm2vftx0SIWARE4McOBbYqoo,36.9964822,140.8600114,google_places
-ウエルシア,ウエルシアいわき中央台東店,福島県いわき市中央台高久２丁目25−１,ChIJzaGFfewVIWARDNY4Y5CcynM,37.0092534,140.9286231,google_places
-ツルハドラッグ,ツルハドラッグ いわきニュータウン店,福島県いわき市中央台飯野４丁目１,ChIJTc_SvOUTIWAR9xsx5jJuqdg,37.0121341,140.9152298,google_places
-ウエルシア,ウエルシアいわき錦店,福島県いわき市錦町花ノ井３０−１,ChIJa8BuYtUNIWARCKjT9dZxuTI,36.9112516,140.7771176,google_places
-なの花ドラッグ,なの花ドラッグ いわき店,福島県いわき市平田町38−１６エスパルいわき1階,ChIJg4GMBDARIWARLq14JGugZOw,37.0579194,140.8918228,google_places
-ツルハドラッグ,ツルハドラッグ いわき童子町店,福島県いわき市平童子町3−１４,ChIJi3DXJlYQIWARsbUET_0wj1Y,37.0514345,140.8871325,google_places
-ツルハドラッグ,ツルハドラッグ いわき三倉店,福島県いわき市平三倉66番5,ChIJyc0sgR0RIWAR7hhOoEgW_uY,37.0508037,140.9004598,google_places
-ツルハドラッグ,ツルハドラッグ いわき鹿島SC店,福島県いわき市鹿島町米田手倉7番地2内鹿島SCノース,ChIJNWeWrCATIWARaSE8ePwYAnc,36.9964895,140.905735,google_places
-ツルハドラッグ,ツルハドラッグ いわき泉店,福島県いわき市泉町滝尻御前田46番,ChIJy1S9y5YSIWARIsHjALOrHJQ,36.947892,140.859706,google_places
-不明,ドラッグＭ＆Ａラトブ店,福島県いわき市平田町１２０,ChIJ2ZtqRfcQIWAR9jGWpeAAuMU,37.0569257,140.8915283,google_places
-マツモトキヨシ,ドラッグストアマツモトキヨシ いわき平ペッペ店,福島県いわき市平六町目6−２,ChIJTbQUBgARIWAR7xRSqNsFQLI,37.057458,140.8988559,google_places
-ツルハドラッグ,ツルハドラッグ 神谷店,福島県いわき市平塩出口２−１１,ChIJq6qaR9YQIWAR9btzJ8MPpZI,37.0601252,140.9219031,google_places
-マツモトキヨシ,ドラッグストア マツモトキヨシ いわき泉町店,福島県いわき市泉町下川薬師前１１３−１,ChIJGXNg6JgSIWARxt5E3pVsntg,36.9419089,140.8529146,google_places
-ウエルシア,ウエルシアいわき平中神谷店,福島県いわき市平中神谷六本榎9−３,ChIJvTkHnYURIWARZlM57izpOaE,37.0632539,140.9270181,google_places
-ツルハドラッグ,ツルハドラッグ いわき好間店,福島県いわき市好間町下好間鬼越１３１,ChIJa53almkQIWARJ0KbaW3oV7A,37.0595638,140.8726998,google_places
-カワチ薬品,カワチ薬品 湯本店,福島県いわき市常磐西郷町落合４１,ChIJSTI6iw8SIWARs8rYwJ_ddUY,36.9868584,140.8547344,google_places
-ウエルシア,ウエルシアヨークタウンいわき泉玉露店,福島県いわき市泉玉露２丁目10−１ヨークタウン内,ChIJN_fODiETIWAR6l4tSYUaREc,36.9556263,140.8497339,google_places
-クスリのアオキ,クスリのアオキ 平店,福島県いわき市平月見町３３−５,ChIJ17VbuEsRIWAROVOE0jsrEmE,37.0514613,140.8973787,google_places
-ウエルシア,ウエルシア二本松安達店,福島県二本松市油井濡石２７−１,ChIJu_tfP1p2IGAR8NPODrfx11Y,37.6087674,140.461115,google_places
-不明,薬王堂 二本松本町店,福島県二本松市本町１丁目２１２−４,ChIJSw-sCyF3IGARly2VfrUNfNY,37.591928,140.4376517,google_places
-ツルハドラッグ,ツルハドラッグ 二本松上竹店,福島県二本松市上竹２丁目275番地1,ChIJFwpq0q53IGAR0ckhYXyA3Y0,37.585242,140.449197,google_places
-ツルハドラッグ,ツルハドラッグ 二本松店,福島県二本松市若宮２丁目９３,ChIJvcfso9R1IGARNI7iHEdOdDI,37.5899854,140.4260697,google_places
-セイムス,ドラッグセイムス 二本松店,福島県二本松市若宮２丁目１５２−１,ChIJ20EjMdN1IGAR9ZGNpshfe4g,37.5886603,140.4239519,google_places
-不明,薬王堂 メガステージ二本松店,福島県二本松市作田２３７−２,ChIJpUFSu7Z3IGAR8KG2YPWey0M,37.58694020000001,140.4444391,google_places
-クスリのアオキ,クスリのアオキ 二本松店,福島県二本松市油井内走石２０−１,ChIJNcPfgIV3IGARRNBUmZmd2dg,37.59995970000001,140.4539716,google_places
-不明,ハシドラッグ 安達店,福島県二本松市油井腰巻７,ChIJAf54aU92IGARUuMmoFevvz0,37.61598,140.462725,google_places
-不明,サンドラッグ あだたら店,福島県二本松市油井中田１−１コープマートあだたら店内,ChIJP1wAUFh2IGARt7tc-KS5oPY,37.6040604,140.4597311,google_places
-不明,サンドラッグ 二本松インター店,福島県二本松市成田町１丁目８１０,ChIJF1fLu7R1IGAR1tNIB9xlpfY,37.5891217,140.422281,google_places
-ウエルシア,ウエルシア福島本宮店,福島県本宮市本宮舘町１９４,ChIJa2TFnqRzIGARt_g9wwat-kA,37.51905989999999,140.3983437,google_places
-不明,山口薬局 二本松店,福島県二本松市本町１丁目４８−４８,ChIJOfEZqIB2IGARaKYORMTveEk,37.592768,140.435409,google_places
-不明,鈴木薬舗,福島県二本松市杉田町１丁目１２８−３５,ChIJH36QjRR0IGARh4yTj1cDKac,37.5619346,140.412284,google_places
-不明,アイン薬局 二本松店,福島県二本松市成田町１丁目８１２−３,ChIJ1Te399J1IGARcQvP9FRQFh4,37.5897406,140.4223209,google_places
-クスリのアオキ,クスリのアオキ松川店,福島県福島市松川町鼓ケ岡３番地の２,ChIJZfmIpbedil8Rn8lCQrDQLEo,37.6551377,140.4597214,google_places
-ツルハドラッグ,ツルハドラッグ 本宮中央店,福島県本宮市本宮万世195番1,ChIJ9ZgACqZzIGARWNcWvOFk1kQ,37.5141486,140.394676,google_places
-不明,TSUTAYA 二本松店,福島県二本松市油井福岡１３３−１,ChIJpUHkhU92IGARTPjIgj5c1rM,37.61447,140.46226,google_places
-不明,アイランド薬局 二本松店,福島県二本松市住吉１０２−３,ChIJiSvkE250IGARTvbMGBHDES8,37.554077,140.40403,google_places
-不明,伊達市,福島県伊達市,ChIJdS2rrK59il8RYBDkqNi8faM,37.8191423,140.5628749,google_places
-ココカラファイン,ココカラファイン 会津若松店,福島県会津若松市飯寺南４丁目６−２２,ChIJV8H6NWlU9V8Ryr7KpF-dG-M,37.4730792,139.904193,google_places
-ツルハドラッグ,ツルハドラッグ 会津滝沢店,福島県会津若松市北滝沢２丁目１−３８,ChIJnaxqr6-sil8RzmKGjDKPANA,37.51116640000001,139.9461945,google_places
-ツルハドラッグ,ツルハドラッグ 会津門田店,福島県会津若松市北青木２−６１,ChIJPUM_4exU9V8RHDaIRtxjRaQ,37.48106569999999,139.9372138,google_places
-マツモトキヨシ,ドラッグストア マツモトキヨシ 会津西若松店,福島県会津若松市住吉町２４−３,ChIJn8nLmIBU9V8RC8kB33wbb80,37.4852625,139.9086666,google_places
-不明,サンドラッグ 会津若松アピオ店,福島県会津若松市インター西１１６116,ChIJYftK29Ksil8RO3N1Cgx6fC8,37.5205378,139.9166628,google_places
-ツルハドラッグ,ツルハドラッグ 会津旭町店,福島県会津若松市旭町７,ChIJVYthNKhU9V8RJvvfgvnR4NI,37.499965,139.938304,google_places
-ツルハドラッグ,ツルハドラッグ 会津扇町店,福島県会津若松市白虎３丁目８−１４,ChIJBRMpmLKsil8Rr0ZSk38LvVk,37.5097366,139.9368753,google_places
-カワチ薬品,カワチ薬品 会津若松中央店,福島県会津若松市中央２丁目３−７,ChIJZwe6VFdT9V8RFFXUfWBleKY,37.5019888,139.930574,google_places
-マツモトキヨシ,ドラッグストア マツモトキヨシ 会津門田店,福島県会津若松市東年貢２丁目３−１,ChIJc1ykRl9U9V8RpOf0cIkPvMs,37.4737722,139.925326,google_places
-クスリのアオキ,クスリのアオキ白虎町店,福島県会津若松市白虎町335番地,ChIJhQTDkJatil8RxjuqxsD6Qxc,37.5097232,139.9320687,google_places
-カワチ薬品,カワチ薬品花春店,福島県会津若松市花春町５−１,ChIJa1U8ErxU9V8RqU0TFoDOIxQ,37.4895774,139.9421857,google_places
-カワチ薬品,カワチ薬品 会津アピオ店,福島県会津若松市町北町大字始宮前１０−３,ChIJfQqUZS1T9V8RMFGcTfyIs40,37.519064,139.915313,google_places
-クスリのアオキ,クスリのアオキ 城西町店,福島県会津若松市城西町８−１８−１２,ChIJY6HsEcRV9V8R_iorGy514WM,37.4851063,139.9159222,google_places
-ウエルシア,ウエルシア南相馬原ノ町駅前店,福島県南相馬市原町区旭町２丁目52−１,ChIJDYQul-qXIGARDbdLTrjif3o,37.6376777,140.9686173,google_places
-ツルハドラッグ,ツルハドラッグ 原町中央店,福島県南相馬市原町区南町１丁目4番１,ChIJSdmT4eyWIGARXUp09rlmtvA,37.6379863,140.956992,google_places
-カワチ薬品,カワチ薬品 原町店,福島県南相馬市原町区北町２９３,ChIJZdfUaueWIGARgX7DFHrFaqE,37.6464907,140.951065,google_places
-ツルハドラッグ,ツルハドラッグ 原町店,福島県南相馬市原町区北原境堀２５６,ChIJCU-19t6VIGARI-VmLQkh1KA,37.6276312,140.9885665,google_places
-ツルハドラッグ,ツルハドラッグ 原町西店,福島県南相馬市原町区国見町２丁目１２０−１,ChIJWfUD15aWIGARTIYqaTFsiL0,37.628924,140.9544956,google_places
-不明,薬王堂 南相馬原町店,福島県南相馬市原町区中太田天狗田93番２,ChIJk-5k9_WXIGARNNxW6MX1dZ8,37.618877,140.9565638,google_places
-ツルハドラッグ,ツルハドラッグ 原町錦店,福島県南相馬市原町区錦町２丁目60‐1,ChIJq6raHmCWIGAR0JbNc3DXllI,37.6409898,140.9709674,google_places
-不明,薬王堂 南相馬鹿島店,福島県南相馬市鹿島区寺内本屋敷３９,ChIJRzWrVACZIGARK39-FzgHKvc,37.7000945,140.9641144,google_places
-ツルハドラッグ,ツルハドラッグ 鹿島寺内店,福島県南相馬市鹿島区寺内本屋敷２８−１,ChIJdY0dUtCZIGARmFkU7wfMpaU,37.700135,140.962553,google_places
-ツルハドラッグ,ツルハドラッグ 原町牛越店,福島県南相馬市原町区牛越高田60番地の１,ChIJFWTSeNWXIGARiOoPbHSm4XE,37.6409675,140.9448213,google_places
-カワチ薬品,カワチ薬品 原町本陣前店,福島県南相馬市原町区本陣前２丁目６０−１,ChIJkWe8rlSXIGARe3FRF2Bs7Fc,37.62174419999999,140.9517604,google_places
-不明,アイン薬局 南相馬店,福島県南相馬市原町区旭町１丁目４７,ChIJmXhhoIuWIGARWM44sImwEpE,37.6380161,140.9668153,google_places
-不明,薬王堂 原町大木戸店,福島県南相馬市原町区大木戸松島２１５−１,ChIJyYmDwiOXIGAR-jms5QcZQB4,37.6263921,140.9430321,google_places
-不明,薬王堂 原町大木戸北店,福島県南相馬市原町区大木戸八方内７９−１,ChIJzbICY8-WIGARP9nMUZBgHpI,37.6352243,140.939208,google_places
-不明,さくら薬局 南相馬原町店,福島県南相馬市原町区南町４丁目26-の3,ChIJsS67SJCWIGARW9Tf_5KcL-4,37.6294593,140.9583348,google_places
-ココカラファイン,ココカラファイン 喜多方店,福島県喜多方市江中子４１７９,ChIJyTlWPu62il8RLNE05qibaGw,37.64822230000001,139.8804289,google_places
-ツルハドラッグ,ツルハドラッグ 喜多方上江店,福島県喜多方市上江3647番地4,ChIJhzRdEfy2il8RdfdKy-swaG0,37.6549855,139.8853928,google_places
-ウエルシア,ウエルシア喜多方常盤台店,福島県喜多方市常盤台４６−１,ChIJO3KQRrO3il8R2bmK2bt-KRU,37.6676138,139.871893,google_places
-ツルハドラッグ,ツルハドラッグ 喜多方西店,福島県喜多方市押切南２丁目５１−２,ChIJoTbJ4mG2il8Rc0fDDzImNkY,37.64553799999999,139.8585653,google_places
-ツルハドラッグ,ツルハドラッグ 喜多方南店,福島県喜多方市関柴町上高額前田１７５０−７,ChIJDapKzsG2il8RsE6tuwhPsWo,37.6416119,139.8858264,google_places
-クスリのアオキ,クスリのアオキ 喜多方西店,福島県喜多方市町西９０３９−１,ChIJgVVFDMG3il8RAZAnyTvc_bk,37.6473469,139.8637958,google_places
-不明,薬王堂喜多方松山店,福島県喜多方市松山町鳥見山上天神5番,ChIJIw6dXgC3il8RzbdykTOTgt4,37.6659451,139.8765829,google_places
-カワチ薬品,カワチ薬品喜多方西店,福島県喜多方市押切南２丁目１２,ChIJGYhvG_e3il8RrsqXrasY52w,37.64837320000001,139.859063,google_places
-不明,冠木薬店,福島県喜多方市三丁目４８００,ChIJNQfzGPS2il8R-gNYgrPQ_ZA,37.651233,139.871867,google_places
-不明,クオール薬局喜多方店,福島県喜多方市松山町村松北原３６４３−５,ChIJgbg8Xtu3il8R9GVynOiw4wM,37.6825257,139.8706385,google_places
-不明,清水薬草店,福島県喜多方市三丁目４８３５,ChIJKfvHOPS2il8RkZVtYE9PQGA,37.6512203,139.8706835,google_places
-不明,クオール薬局さつき店,福島県喜多方市松山町村松北原３６３９−５,ChIJ_Vu2Sdu3il8R71jh9ycpiBs,37.6816953,139.8703783,google_places
-不明,さくら薬局 喜多方店,福島県喜多方市長面３０８６,ChIJM01OTfm2il8RxeWXOMjYV1s,37.65534900000001,139.883038,google_places
-不明,きたかた薬局,福島県喜多方市関柴町上高額境田６８１−４,ChIJQ0jIJuy2il8R0Ky25VcKt_g,37.646233,139.880939,google_places
-ウエルシア,ウエルシア喜多方常盤台店 (調剤薬局),福島県喜多方市常盤台４６−１ウエルシア喜多方常盤台店内,ChIJ0zVGJsu3il8Rzu-d-2B7aMw,37.6676138,139.871893,google_places
-不明,ひので薬局,福島県喜多方市永久７７１５−１,ChIJRwPGVY22il8RrQochFrtAJA,37.646011,139.872492,google_places
-不明,本宮市,福島県本宮市,ChIJQfRRdDNyIGARRY3KtUMZZ80,37.51313870000001,140.393895,google_places
-不明,アイランド薬局 船引店,福島県田村市船引町船引馬場62番１,ChIJ2dzg0-BnIGARsmRbr3OY5e0,37.4417332,140.56887,google_places
-不明,TSUTAYA 船引店,福島県田村市船引町船引川代７８,ChIJ5WwA7itnIGARFT0Oq75c4TA,37.4340079,140.5917081,google_places
-不明,さくら薬局 田村常葉店,福島県田村市常葉町常葉内町１３,ChIJz6MwCmdgIGAR8orYk5tKLCE,37.4399399,140.6456732,google_places
-不明,すず薬局 船引店,福島県田村市船引町船引下大平１０１−１,ChIJTc4Zj75nIGAREGAlnZjbe6U,37.4466537,140.571106,google_places
-不明,カタソネ堂薬局,福島県田村市船引町東部台３丁目,ChIJR0ug0qhnIGAR4HAfPfjym-c,37.4446657,140.5857056,google_places
-不明,げんじろう調剤薬局 船引店,福島県田村市船引町船引源次郎１２５−３７,ChIJgfG5sMVmIGARhy9prw4UxrE,37.447157,140.584021,google_places
-不明,サンドラッグ 白河横町店,福島県白河市横町１１４,ChIJJSFsQ_M6IGARV5ZL-Jbo-Aw,37.1272083,140.2185126,google_places
-ツルハドラッグ,ツルハドラッグ 白河表郷店,福島県白河市表郷金山前沢田３番地,ChIJ-wxdCjQ0IGARpKgCbfFB3VI,37.0555533,140.3028705,google_places
-カワチ薬品,カワチ薬品 白河店,福島県白河市昭和町１８８,ChIJe9b-dH47IGARgoRIPFfQrFs,37.1289939,140.201999,google_places
-ツルハドラッグ,ツルハドラッグ 白河大信店,福島県白河市大信町屋朴田61番３,ChIJWfFL35M9IGARbPBXJYOzRhs,37.2044205,140.2488943,google_places
-ツルハドラッグ,ツルハドラッグ 白河東店,福島県白河市東釜子田町１９０−１,ChIJB1K4BIRJIGARC1FSqeMZp4I,37.1053917,140.3483022,google_places
-マツモトキヨシ,ドラッグストア マツモトキヨシ メガステージ白河店,福島県白河市新高山８,ChIJVT_4Y8g6IGARGhuqxERE0fA,37.1177215,140.1926886,google_places
-ツルハドラッグ,ツルハドラッグ 白河モール店,福島県白河市老久保７３−１白河モール内,ChIJydwBvr46IGARiYgyZtXd6Sg,37.1153211,140.2002497,google_places
-ツルハドラッグ,ツルハドラッグ 白河白坂店,福島県白河市白坂三輪台16−１,ChIJu9rBEQA7IGAR-ezgosWDuuE,37.1005461,140.1965959,google_places
-ウエルシア,ウエルシア西白河西郷店,福島県西白河郡西郷村米中山前８４−１０,ChIJLyyyadY6IGAR384pGsWiTZY,37.13131449999999,140.1896803,google_places
-コスモス,ドラッグストアコスモス 白河老久保店,福島県白河市老久保１２,ChIJVT82FQA7IGARSo4T7nvmBps,37.117154,140.200598,google_places
-カワチ薬品,カワチ薬品 白河東店,福島県白河市中田２３−１,ChIJf17os3w6IGARyuvRQKckWhA,37.1198773,140.2318106,google_places
-ツルハドラッグ,ツルハドラッグ 白河結城店,福島県白河市結城44番地,ChIJxyNHoGA7IGARt2JJsC45T8I,37.1194817,140.2284076,google_places
-クスリのアオキ,クスリのアオキ 白河西郷店,福島県西白河郡西郷村米西原14番地1,ChIJ4WTWegklIGARm1xSr4WSNgY,37.1332558,140.1674886,google_places
-ツルハドラッグ,ツルハドラッグ 福島泉崎店,福島県西白河郡泉崎村泉崎八丸165番1,ChIJ1xRVvs05IGARxSTd2m6RyZs,37.1522836,140.3031336,google_places
-不明,トミードラッグ,福島県白河市一番町２９,ChIJjVKvy-k6IGARhT2QqDrGEDk,37.12747,140.2049321,google_places
-不明,薬王堂 福島西郷店,福島県西白河郡西郷村米西原２８−２,ChIJ-Ws6a_4lIGARQ7D-cEyRqKM,37.1322381,140.1703331,google_places
-不明,そうごう薬局 相馬店,福島県相馬市大曲大毛内77ｰ5,ChIJuUfpjX6eIGARoMfZjuwXXHU,37.7927478,140.9331368,google_places
-不明,さくら薬局 相馬桜ケ丘店,福島県相馬市中村桜ケ丘２１２−１,ChIJuW22jumdIGARXt29MscJsIU,37.8019843,140.9138481,google_places
-不明,大寺薬店,福島県相馬市中村大手先５６,ChIJ9bjSS8SdIGARRJmSpn93g74,37.794341,140.914742,google_places
-不明,フロンティア薬局 相馬店,福島県相馬市石上南蛯沢６２２−３,ChIJvRXlp5edIGARLbCO2EE-kIY,37.8116646,140.9207542,google_places
-不明,アイン薬局 相馬中村店,福島県相馬市中村荒井町４４,ChIJd16Cdd2dIGARlB5Cvfq6fr4,37.8023377,140.9211335,google_places
-不明,福島市,福島県福島市,ChIJ2U06KtGOil8RRuNPwQ9NBgw,37.7607991,140.4747856,google_places
-ウエルシア,ウエルシア郡山桑野店,福島県郡山市桑野４丁目６−２,ChIJSf0GhNFsIGARZJJ8iguLHyU,37.4085546,140.353706,google_places
-ツルハドラッグ,ツルハドラッグ 郡山島店,福島県郡山市島２丁目４４−２９,ChIJT8LmWjQTIGARVh7ETN_QcKg,37.3979982,140.3469135,google_places
-ウエルシア,ウエルシア郡山開成店,福島県郡山市開成６丁目１４９−１,ChIJSzjq-K5sIGAR3K-MKJncZOM,37.38758470000001,140.3549769,google_places
-ウエルシア,ウエルシア郡山駅東口店,福島県郡山市谷島町６−１８,ChIJ__-vrnhsIGARyog3U3OIXgA,37.3963294,140.395006,google_places
-ツルハドラッグ,ツルハドラッグ 郡山さくら通り店,福島県郡山市虎丸町２−１,ChIJOyrgSWJtIGARWTtM5RS0xFE,37.399108,140.376434,google_places
-ツルハドラッグ,ツルハドラッグ 郡山安積店,福島県郡山市安積４丁目２０３番,ChIJlwNuCyRrIGARuHu5PsxqVHs,37.3528634,140.3634953,google_places
-ツルハドラッグ,ツルハドラッグ 郡山深沢店,福島県郡山市深沢１丁目８−２７,ChIJNYju0Z5sIGARU84nL1bDHNM,37.390921,140.3720158,google_places
-ツルハドラッグ,ツルハドラッグ 郡山菜根店,福島県郡山市菜根屋敷４１７番地,ChIJAVz346hsIGARFlGQ8SeFVpk,37.383566,140.3562038,google_places
-ツルハドラッグ,ツルハドラッグ 郡山富田店,福島県郡山市名郷田１丁目１ツルハドラッグ郡山富田店,ChIJR792m_xtIGARGSNYSiq6H70,37.4174639,140.363288,google_places
-ウエルシア,ウエルシア郡山富田店,福島県郡山市名郷田２丁目４８,ChIJw7D-sABtIGAR_AjrwHIZ0yk,37.4189796,140.3595734,google_places
-マツモトキヨシ,薬 マツモトキヨシ エスパル郡山店,福島県郡山市燧田195番地,ChIJYVP2wIBsIGARLzv8jud1Jvk,37.3975182,140.3881295,google_places
-不明,サンドラッグ 郡山堤下店,福島県郡山市堤下町１−７５,ChIJv68UGZ1sIGARtkzXysLdSGY,37.3909465,140.3777104,google_places
-ウエルシア,ウエルシア郡山長者店,福島県郡山市長者１丁目６−２０,ChIJ2Tz3uiptIGAR5b8zBUbxG7s,37.3991863,140.3669081,google_places
-ツルハドラッグ,ツルハドラッグ 郡山金屋店,福島県郡山市田村町金屋字マセロ−２０番地２,ChIJ3SNm66drIGAR4BO9RsA-Jfo,37.3681039,140.3905927,google_places
-ツルハドラッグ,ツルハドラッグ 郡山堤店,福島県郡山市堤１丁目1−２６,ChIJ7zHlZTATIGARe6T2XOcmZA8,37.3989356,140.3388399,google_places
-マツモトキヨシ,ドラッグストア マツモトキヨシ 郡山桑野店,福島県郡山市桑野２丁目３６−８,ChIJzWpKzM1sIGARIIqOaMDpMjw,37.40418,140.3524446,google_places
-ツルハドラッグ,ツルハドラッグ 須賀川西店,福島県須賀川市岡東町193番地,ChIJgScHnBFAIGAR2XAutJ24rZY,37.2973345,140.361194,google_places
-ツルハドラッグ,ツルハドラッグ 須賀川南店,福島県須賀川市高久田境１３２−６,ChIJMWGh9YpAIGAR12rN38KKiF0,37.2746502,140.366208,google_places
-ツルハドラッグ,ツルハドラッグ 須賀川店,福島県須賀川市仲の町87番,ChIJeYhIZklAIGARtsRBrWMGkNU,37.297798,140.383653,google_places
-カワチ薬品,カワチ薬品 須賀川店,福島県須賀川市陣場町1−１,ChIJYan12SlBIGARthKvb_w6Xz0,37.2984937,140.3667941,google_places
-ツルハドラッグ,ツルハドラッグ 須賀川大袋店,福島県須賀川市大袋町57番地1,ChIJIw91PqRBIGAR74cMjBeLmtU,37.284417,140.358639,google_places
-カワチ薬品,カワチ薬品 須賀川東店,福島県須賀川市南上町２３８−１,ChIJ0am9qfhAIGARom4D7aD_NcA,37.2826252,140.3835738,google_places
-不明,薬王堂 須賀川木之崎店,福島県須賀川市木之崎寺前７１−４,ChIJhQXNWgAVIGARDsPpVV11aj4,37.2789225,140.2722751,google_places
-不明,アイランド薬局 須賀川店,福島県須賀川市北町９,ChIJD8PYtkZAIGARwHjGh1u6DWs,37.293707,140.374446,google_places
-不明,アイランド薬局 丸田店,福島県須賀川市丸田町４７−１,ChIJCQIikGtAIGARLpymjd5glQM,37.2903613,140.3643217,google_places
-不明,メガステージ 須賀川,福島県須賀川市高久田境９１,ChIJB6GA0vRAIGAR-XsKo42c8bk,37.274071,140.3693905,google_places
-不明,サンキュー薬局すわまち店,福島県須賀川市諏訪町７−１,ChIJVf46d0RAIGARz1StZ5V8xac,37.2911293,140.3742522,google_places
-不明,ドン・キホーテ 須賀川店,福島県須賀川市山寺道７６,ChIJad6DiYRBIGARIjeaZ-P0adI,37.3027577,140.3680638,google_places
-不明,クオール薬局須賀川南店,福島県須賀川市南上町１１５−２,ChIJAQBPh1VAIGARAc3bWAyUljc,37.284089,140.38654,google_places
-不明,ヤマザキＹショップ 裏磐梯店,福島県耶麻郡北塩原村檜原剣ケ峯１０９３−３４８,ChIJe8JUEmS7il8R0mNOxLfllUc,37.6575963,140.0885868,google_places
-不明,サンドラッグ 猪苗代店,福島県耶麻郡猪苗代町芦原９７,ChIJuTX5oruoil8RsufKp-Kxv60,37.5575852,140.1085129,google_places
-不明,裏磐梯物産館,福島県耶麻郡北塩原村檜原湯平山１１７１−１,ChIJY8zrgRC7il8Rxb5iu-N3YzI,37.65123200000001,140.0650756,google_places
-不明,道の駅 裏磐梯,福島県耶麻郡北塩原村大字檜原南黄連沢山１１５７,ChIJZdBLF7y7il8RDcD5bgBsGl8,37.6650112,140.0440332,google_places
-カワチ薬品,カワチ薬品 福島南店,福島県福島市鳥谷宮畑５１−５３,ChIJwWSE0F2Eil8ROTTIdhm1dpE,37.7335499,140.4674638,google_places
-ツルハドラッグ,ツルハドラッグ 猪苗代店,福島県耶麻郡猪苗代町梨木西１１,ChIJkStfTruoil8RidTRImkruVQ,37.5575633,140.1139086,google_places
-カワチ薬品,カワチ薬品猪苗代店,福島県耶麻郡猪苗代町町字梨木西１７,ChIJqS505ryoil8R4BcWn7YbDgE,37.5563167,140.1138119,google_places
-不明,ムナカタ薬局,福島県耶麻郡猪苗代町本町２５−１,ChIJ5zdpj7qoil8Rg9zN9-pyMS0,37.5596676,140.1071168,google_places
-不明,アイン薬局 猪苗代店,福島県耶麻郡猪苗代町千代田油地62−９,ChIJX7l1t72oil8RNm0xDmRy5BE,37.5537517,140.1114706,google_places
-不明,ほほえみ薬局,福島県耶麻郡猪苗代町芦原８６−３,ChIJZzdHr76oil8RpSx7dpzANQs,37.5556021,140.1082574,google_places
-不明,（有）すこやか薬局,福島県耶麻郡猪苗代町古城町６６−２,ChIJ82Jb1a-oil8RDLOJntv4vok,37.562098,140.106471,google_places
-不明,（株）いなわしろ薬局,福島県耶麻郡猪苗代町梨木西６３−６,ChIJeVhk-Lyoil8Rht8GPR6iz7c,37.5560268,140.1125963,google_places
-不明,TSUTAYA 猪苗代店,福島県耶麻郡猪苗代町芦原９７リオン・ドール猪苗代店内,ChIJR9iFvLuoil8RarWIplv4JzE,37.55763150000001,140.1090298,google_places
-不明,コスモ調剤薬局 磐梯町店,福島県耶麻郡磐梯町磐梯諏訪山２８９８−２５,ChIJgQszYRStil8R35RKsZO3t1Y,37.556191,139.9815892,google_places
-ウエルシア,ウエルシア西会津店,福島県耶麻郡西会津町野沢原町６１１,ChIJx5i1dO5J9V8RbcQk4_drSdQ,37.58345389999999,139.6441228,google_places
-不明,さゆり調剤薬局,福島県耶麻郡西会津町登世島田畑乙2042-65,ChIJSxDY1f819V8RjeoMZHBC85c,37.598257,139.6395588,google_places
-不明,福島屋,福島県耶麻郡西会津町奥川大字飯里関根２９７３,ChIJ0XOBtJvMil8RqhQ0tL7amfg,37.68784120000001,139.6700213,google_places
-不明,薬王堂福島中島店,福島県西白河郡中島村二子塚弘法塚山１−３６,ChIJmdapEgBJIGAR8p_w0Arejhk,37.1406178,140.3492887,google_places
-ウエルシア,ウエルシア西白河中島店 (調剤薬局),福島県西白河郡中島村二子塚浦山３２−１６ウエルシア西白河中島店内,ChIJ0YGxFs9JIGARuUHbpEsJS3M,37.1441724,140.3488203,google_places
-不明,エール薬局 中島店,福島県西白河郡中島村滑津二ツ山３７−１１,ChIJW_o7nx1IIGARMBC1sj7ZmYM,37.1494307,140.3482225,google_places
-ツルハドラッグ,ツルハドラッグ 矢吹中央インター店,福島県西白河郡矢吹町八幡町７７８,ChIJXSwt3GI4IGARsCBaTyWA7iM,37.1896488,140.3369294,google_places
-不明,菊池薬品,福島県西白河郡中島村滑津中ツ島５５−２,ChIJEWHyOB5IIGARhzmw7Wx2vI4,37.1453461,140.3493822,google_places
-不明,いずみざき薬局,福島県西白河郡泉崎村泉崎山ケ入６９−６,ChIJCarY2bg5IGARdyb9YBUwYEU,37.157794,140.292082,google_places
-ツルハドラッグ,ツルハドラッグ 矢吹店,福島県西白河郡矢吹町八幡町418番の2,ChIJySOxGIw4IGARLIzL555A5x4,37.1956166,140.3323538,google_places
-カワチ薬品,カワチ薬品 矢吹店,福島県西白河郡矢吹町八幡町４３４−１,ChIJ-U2Ab4w4IGARFcrGQRntzK8,37.19454,140.330776,google_places
-不明,ローソン 泉崎踏瀬店,福島県西白河郡泉崎村踏瀬町尻１５,ChIJgSqpvLg5IGARFd6h6c5mx-M,37.1841479,140.2910325,google_places
-不明,キャンドゥ 福島泉崎店,福島県西白河郡泉崎村泉崎八丸１６５,ChIJi83iEW05IGARfHQZwgOPhsM,37.1520897,140.3033031,google_places
-不明,クオール薬局矢吹本町店,福島県西白河郡矢吹町本町２５１,ChIJlTzz8sA4IGARG74e30AKmFA,37.209453,140.3244571,google_places
-不明,くすりののぎ,福島県西白河郡矢吹町北町２１０,ChIJwc0X88c4IGAR47MetuIeh5E,37.2139699,140.3271497,google_places
-不明,アイランド薬局 矢吹店,福島県西白河郡矢吹町本町２２３−１,ChIJx8JJ1LY5IGARkwEV_2IgOas,37.2091963,140.3255904,google_places
-不明,クオール薬局文京店,福島県西白河郡矢吹町文京町２２７−３６,ChIJA4swWXs4IGARpbilDfRVYpk,37.1877557,140.3387243,google_places
-不明,長尾薬品,福島県西白河郡矢吹町中町２５４,ChIJLaLBleo4IGARz1L_Bk1gP68,37.204685,140.326168,google_places
-不明,セブン-イレブン 福島矢吹北町店,福島県西白河郡矢吹町北町１９０−２,ChIJ5wIYu8c4IGAR6bxc2cVLB4k,37.2125781,140.3257835,google_places
-不明,コスモ調剤薬局 矢吹店,福島県西白河郡矢吹町八幡町５６３−５,ChIJZT1UP4k4IGARaCml5sSzh7Y,37.1942649,140.333987,google_places
-ツルハドラッグ,ツルハドラッグ 西郷店,福島県西白河郡西郷村熊倉折口原２５４番１,ChIJw4qDDJIkIGARS9yHEF53DWM,37.1394342,140.152691,google_places
-ウエルシア,ウエルシア西白河西郷店 (調剤薬局),福島県西白河郡西郷村米中山前８４−１０ウエルシア西白河西郷店内,ChIJLSiGOi47IGARF1cghelFpgM,37.13131449999999,140.1896803,google_places
-不明,すず薬局 西郷店,福島県西白河郡西郷村小田倉山神裏15−２,ChIJL9DlTgAlIGARkgJqHUcF6WM,37.1247079,140.1668515,google_places
-不明,イオン 白河西郷店,福島県西白河郡西郷村小田倉岩下１１−１,ChIJXSfifS4lIGARcSNVMq1P-qM,37.1210643,140.1776222,google_places
-不明,ウイン調剤薬局 西郷店,福島県西白河郡西郷村熊倉折口原４３番８,ChIJG5Bhlq8lIGAR4SRj3xwgZt4,37.1412389,140.1570066,google_places
-不明,さくら薬局 新白河店,福島県西白河郡西郷村道南東１２,ChIJy_YpRLk7IGARfrW_shNWL4Q,37.1226315,140.1901018,google_places
-GENKY,ゲンキー昭和店,福島県愛知県津島市良王町１丁目１,ChIJFeXzDwCZA2ARzfKtGngub10,35.1796389,136.7274444,google_places
-GENKY,ゲンキー江頭店,福島県滋賀県近江八幡市江頭町438-2,ChIJH54QUwB7AWARgoRr-6MZyxc,35.1130724,136.0566558,google_places
-GENKY,ゲンキー 安曇川店,福島県滋賀県高島市安曇川町五番領字六反田128番1,ChIJqSdayKeRAWAR9PCw-08a89M,35.3376965,136.0205748,google_places
-GENKY,ゲンキー勝野店,福島県滋賀県高島市勝野字尾萱248-1,ChIJLxG_XwCbAWARUh_nxYZPKhg,35.3004312,136.0161088,google_places
-GENKY,ゲンキー深沢店,福島県岐阜県中津川市茄子川字坂本１５３４−１６,ChIJ3_S_QLi0HGARHac1Dvof2AE,35.4683582,137.4603497,google_places
-GENKY,ゲンキー今津弘川店,福島県滋賀県高島市今津町弘川字宮ノ下291番1,ChIJl0LmC8qTAWARezJIOotdr3I,35.4089648,136.0268894,google_places
-GENKY,ゲンキー吉良下横須賀店,福島県愛知県西尾市吉良町下横須賀河原35番1,ChIJ31YEZQCVBGARlvMASEG-yKA,34.8264489,137.0660339,google_places
-GENKY,ゲンキー一本木店,福島県愛知県津島市一本木町１８,ChIJ8ZQ56YyYA2ARsejg2MC7o-0,35.1804939,136.71553,google_places
-GENKY,ゲンキー 土山頓宮店,福島県滋賀県甲賀市土山町前野字松ノ尾117番1,ChIJo74lPuXhA2ARqvTSwEwb9Sw,34.938173,136.267284,google_places
-GENKY,ゲンキー甲南野田店,福島県滋賀県甲賀市甲南町野田字上河原７９１−１,ChIJVwdeEQBfAWAR2Sd7id6tqSE,34.9243657,136.1735057,google_places
-GENKY,ゲンキー杉澤店,福島県滋賀県米原市杉澤９１６,ChIJmSFPSQAzAmARpC-V3Lwcw6Y,35.3683237,136.3882812,google_places
-GENKY,ゲンキー愛宕店,福島県愛知県津島市愛宕町７丁目113番,ChIJL6anjSWZA2ARUaccOo2pVUk,35.1655073,136.7377886,google_places
-GENKY,ゲンキー 山東店,福島県滋賀県米原市坂口清水川１５５,ChIJvXsO-fMvAmARHFWxHltLFaU,35.398159,136.3433214,google_places
-GENKY,ゲンキー [本社/戦略本部],福島県福井県坂井市丸岡町下久米田３８−３３,ChIJiTh3yPCU-F8R9lJmAEMLX04,36.119242,136.298947,google_places
-GENKY,ゲンキー五個荘店,福島県滋賀県東近江市五個荘石塚町字190番4,ChIJncH2yUp9AWARx5hceVh0ENU,35.144162,136.1785036,google_places
-GENKY,ゲンキー小牧市民会館前店,福島県愛知県小牧市小牧１丁目２４３番1,ChIJfclCnIENA2ARpaEnxRFcKfc,35.2932712,136.9218835,google_places
-ZIPドラッグ,Zipドラッグ白沢 矢形店,福島県愛知県瀬戸市矢形町１３１,ChIJpXQ6d7NnA2AR02TN0jHrAQg,35.1993873,137.0994022,google_places
-ZIPドラッグ,Zipドラッグ白沢 瑞浪店,福島県岐阜県瑞浪市穂並１丁目５２,ChIJ8ef6QylEA2ARr4lKCI4oT7I,35.3555636,137.2476026,google_places
-ZIPドラッグ,Zipドラッグ白沢 高針店,福島県愛知県名古屋市名東区勢子坊１丁目１１２,ChIJuSp1EA5lA2AReuyWpxLLx4A,35.160367,137.0102436,google_places
-ZIPドラッグ,Zipドラッグ白沢 権現通店,福島県愛知県名古屋市中村区権現通３丁目４,ChIJ17JoVPt2A2ARk4ucgCvRXxc,35.1640436,136.8735522,google_places
-なの花ドラッグ,なの花ドラッグストア 南茨木店,福島県大阪府茨木市沢良宜西１丁目１−３南茨木第2阪急ビル内,ChIJNd09YYPjAGARqceNEM2gDbU,34.801777,135.5651998,google_places
-なの花ドラッグ,なの花ドラッグストア 箕面瀬川店,福島県大阪府箕面市瀬川４丁目３−４３KTVライフビル箕面1F,ChIJp3ddBwD7AGARV4dzbj228D4,34.8110253,135.4537402,google_places
-よどやドラッグ,よどやドラッグ高知朝倉店,福島県高知県高知市朝倉横町23番8−３,ChIJZbQFRmUYTjURu7hJbE3Fcgw,33.5439158,133.4939801,google_places
-よどやドラッグ,よどやドラッグ高知福井店,福島県高知県高知市福井町７３８,ChIJHZVCOtsYTjURclos6UZ54Qg,33.567891,133.513283,google_places
-よどやドラッグ,よどやドラッグ高知南金田店,福島県高知県高知市南金田３−１２,ChIJy-nqh6seTjURDnHzBKh35Fs,33.564179,133.555946,google_places
-よどやドラッグ,よどやドラッグ高知比島店,福島県高知県高知市比島町１丁目１５−１３,ChIJm8OQaXofTjURna5BrLwNWxY,33.5690104,133.5514217,google_places
-よどやドラッグ,よどやドラッグ南国大埇店,福島県高知県南国市大そね甲１８７４−１,ChIJoyz5288CTjURipY-FYFfuB0,33.5676929,133.6456658,google_places
-よどやドラッグ,よどやドラッグ高知塩屋崎店,福島県高知県高知市塩屋崎町２丁目１１−８,ChIJ-y97zhQZTjURYxWJNn3dths,33.546622,133.5410941,google_places
-よどやドラッグ,よどやドラッグ野市店,福島県高知県香南市野市町西野２２０２−１,ChIJvzRFoRQCTjURcA8Sf1nqO4I,33.5585878,133.6960221,google_places
-よどやドラッグ,よどやドラッグ高知石立店,福島県高知県高知市石立町９４−３,ChIJ50AyxOQYTjURR19bXszIrc4,33.5523335,133.5159465,google_places
-よどやドラッグ,よどやドラッグ高知青柳店,福島県高知県高知市青柳町５９−２,ChIJPx3Ukv4bTjURhHa3bKtzCbI,33.5548176,133.5637998,google_places
-よどやドラッグ,よどやドラッグ高知土佐道路店,福島県高知県高知市朝倉甲４９３−１,ChIJZ2DTK24YTjURdDrSyJ-JbSs,33.5406573,133.4934947,google_places
-よどやドラッグ,よどやドラッグ高知城北店,福島県高知県高知市八反町１丁目４−２８,ChIJN-c2jSgZTjURquPVpXnonJA,33.566838,133.525226,google_places
-ウエルシア,ウエルシア福島早稲店,福島県福島市早稲町８−２２一番丁キャッスル1F,ChIJaxBNY8qFil8R1ncf0zc2FeI,37.7512176,140.4636709,google_places
-ウエルシア,ウエルシア伊達保原店 (調剤薬局),福島県伊達市保原町前田町27−２ウエルシア伊達保原店内,ChIJCcYWpTh9il8R99BmSTcPpJg,37.8143394,140.5515342,google_places
-ウエルシア,ウエルシア福島八島田店,福島県福島市八島田中干損田８−１,ChIJoZ4ouHGFil8RNcg8y4gCYA8,37.767822,140.4313475,google_places
-ウエルシア,ウエルシア新潟小出店,福島県新潟県魚沼市井口新田１００３−６,ChIJkcIxbMOQ9V8R0kekbwaPNEQ,37.2298059,138.967031,google_places
-ウエルシア,ウエルシア宇都宮双葉店 (調剤薬局),福島県栃木県宇都宮市双葉３丁目１５−２ウエルシア宇都宮双葉店内,ChIJ94XWwx9nH2ARvTSV8WTweQk,36.5292012,139.857845,google_places
-ウエルシア,ウエルシア福島八島田店 (調剤薬局),福島県福島市八島田中干損田８−１ウエルシア福島八島田店内,ChIJo9RV6eaFil8RsswpWYo1baU,37.767822,140.4313475,google_places
-ウエルシア,ウエルシア福島早稲店 (調剤薬局),福島県福島市早稲町８−２２一番丁キャッスル1Fウエルシア福島早稲店内,ChIJN87sTX-Fil8R7pDMSTDlo3k,37.7512176,140.4636709,google_places
-ウエルシア,ウエルシア福島本宮店 (調剤薬局),福島県本宮市本宮舘町１９４ウエルシア福島本宮店内,ChIJ_d7XxVZzIGARpdN7t26dUxg,37.51905989999999,140.3983437,google_places
-ウエルシア,ウエルシア郡山桑野店 (調剤薬局),福島県郡山市桑野４丁目６−２ウエルシア郡山桑野店内,ChIJKWLv2kFtIGAREAHMPdEKQ_M,37.4086001,140.3537391,google_places
-ウエルシア,ウエルシア郡山富田店 (調剤薬局),福島県郡山市名郷田２丁目４８ウエルシア郡山富田店内,ChIJhw9s0jZtIGARmUAtSGihhk4,37.4189796,140.3595734,google_places
-ウエルシア,ウエルシア福島飯坂店,福島県福島市飯坂町月崎町１２−４,ChIJbRvF96aJil8RPrIrmn-XAFY,37.8255735,140.446147,google_places
-ウエルシア,ウエルシア宇都宮双葉店,福島県栃木県宇都宮市双葉３丁目１５−２,ChIJoeS1BP9nH2ARAaAdQVn2OZM,36.5292012,139.857845,google_places
-ウエルシア,ウエルシア三島加茂川店,福島県静岡県三島市若松町４３４９−１,ChIJtxFnmX6aGWARDnm3ERXqRR8,35.1283819,138.9237263,google_places
-ウエルシア,ウエルシア二本松安達店 (調剤薬局),福島県二本松市油井濡石27−１ウエルシア二本松安達店内,ChIJnbbBMZl3IGAR3P3PzyyCH1w,37.6085538,140.46158,google_places
-ウエルシア,ウエルシアいわき錦店 (調剤薬局),福島県いわき市錦町花ノ井30−１ウエルシアいわき錦店内,ChIJSRZAJ_cNIWARn1yg9O_IXC0,36.9112516,140.7771176,google_places
-ウエルシア,ウエルシアヨークタウンいわき泉玉露店 (調剤薬局),福島県いわき市泉玉露２丁目10−１ヨークタウン内ウエルシアヨークタウンいわき泉玉露店内,ChIJQ1mqVNgTIWARlxWHDnGRMGs,36.955525,140.849584,google_places
-ウエルシア,ウエルシア伊達新梁川店 (調剤薬局),福島県伊達市梁川町広瀬町４３ウエルシア伊達新梁川店内,ChIJVefs_mljil8RIsgRnVJnpIA,37.848887,140.602726,google_places
-ウエルシア,ウエルシア福島鎌田店 (調剤薬局),福島県福島市鎌田西5−１ウエルシア福島鎌田店内,ChIJdysilLqHil8RucjsIFSpcaI,37.7913013,140.484143,google_places
-ウエルシア,ウエルシア福島大森店 (調剤薬局),福島県福島市大森堂ノ裏６２,ChIJWUqrchmFil8RD_ORqRv-TjI,37.7317827,140.4431809,google_places
-ウエルシア,ウエルシア郡山朝日２丁目店,福島県郡山市朝日２丁目５−１６,ChIJq38vt99tIGAR99qphNKIqt4,37.405682,140.361628,google_places
-ウエルシア,ウエルシア郡山駅東口店 (調剤薬局),福島県郡山市谷島町６−１８ウエルシア郡山駅東口店内,ChIJxdFrFphtIGARiwdTSQkK6nY,37.3963294,140.395006,google_places
-ウエルシア,ウエルシア 郡山富田店,福島県郡山市名郷田２丁目４８ウエルシア郡山富田店,ChIJn0xY6idtIGARjE64fZJtdcc,37.4190325,140.3596568,google_places
-ウエルシア,ウエルシア郡山開成店 (調剤薬局),福島県郡山市開成６丁目１４９−１ウエルシア郡山開成店内,ChIJF0GdYqRtIGARzC_-urcIXMg,37.38758470000001,140.3549769,google_places
-ウエルシア,ウエルシア郡山小原田店内,福島県郡山市小原田３丁目３−１４ウエルシア郡山小原田店内,ChIJXavPlHZrIGARn9vc2ddL-i4,37.3798733,140.3858375,google_places
-ウエルシア,ウエルシア郡山朝日２丁目店 (調剤薬局),福島県郡山市朝日２丁目５−１６ウエルシア郡山朝日２丁目店内,ChIJ2UgvjuNtIGARshqn6CyTpW8,37.405682,140.361628,google_places
-ウエルシア,ウエルシア西会津店お客様駐車場,福島県耶麻郡西会津町野沢原町６１４−２,ChIJQSA_eQBJ9V8RoF5jpuXY5A4,37.583841,139.6442546,google_places
-カワチ薬品,カワチ薬品 笹谷店,福島県福島市笹谷字中谷地１１−１,ChIJ_83T-8eIil8Rshyk0-ZqKxE,37.7946768,140.4415828,google_places
-カワチ薬品,カワチ薬品 鎌田店,福島県福島市鎌田舟戸９−８,ChIJf5xBOCqGil8R2Abc9BZTwCE,37.7931556,140.4889373,google_places
-カワチ薬品,カワチ薬品 福島東店,福島県福島市高野河原下１６−２,ChIJseQrcWmGil8ROXPrA4CdU5w,37.7724858,140.491229,google_places
-カワチ薬品,カワチ薬品 福島さくら店,福島県福島市さくら３丁目7−３,ChIJEx6nkhGbil8RJZMkKlQvLQY,37.7261563,140.3854541,google_places
-カワチ薬品,カワチ薬品 那須高原店,福島県栃木県那須郡那須町高久丙４１１−１８,ChIJNQ4SLJMnIGARwppbBcYmyTg,37.0515508,140.0317999,google_places
-カワチ薬品,カワチ薬品 塩原関谷店,福島県栃木県那須塩原市関谷２０４６−２,ChIJWdAC2uiFH2AR5feubgmPaEs,36.94720909999999,139.9049982,google_places
-カワチ薬品,カワチ薬品富田店,福島県郡山市富田町西１丁目３,ChIJvTyz9tESIGARvGWFratx0DQ,37.4192828,140.3425998,google_places
-カワチ薬品,カワチ薬品 那須塩原店,福島県栃木県那須塩原市前弥六98,ChIJ_cBcjvKBH2ARd02fMiYUnUM,36.9374061,140.0136642,google_places
-カワチ薬品,カワチ薬品 西那須野店,福島県栃木県那須塩原市西三島１丁目１５５−４,ChIJe8HmybOBH2ARZryeCskEbOs,36.8893389,139.9738311,google_places
-カワチ薬品,カワチ薬品 安積店,福島県郡山市安積町荒井雁股８−１０１,ChIJp1DIN1FrIGARTyQybjX9HEo,37.3749633,140.3547338,google_places
-カワチ薬品,カワチ薬局 福島南調剤,福島県福島市鳥谷野宮畑51,ChIJc9pA2l2Eil8RzS_-IB_VWrs,37.73355040000001,140.467366,google_places
-カワチ薬品,カワチ薬品 今市店,福島県栃木県日光市瀬尾４９−２,ChIJw-GkzbQKH2AR4QIsrOr4Kuk,36.7350286,139.6910355,google_places
-カワチ薬品,カワチ薬品 富久山店,福島県郡山市富久山町久保田太郎殿前１８５,ChIJDf-Z3npsIGARCLsVuXwCgKY,37.40512,140.3973999,google_places
-カワチ薬品,カワチ薬品 大槻店,福島県郡山市御前南１丁目１９,ChIJJ8n4uEYTIGAR-VV6_aDkh-o,37.3859893,140.3334835,google_places
-カワチ薬品,カワチ薬品 塩谷店,福島県栃木県塩谷郡塩谷町玉生５５５−１,ChIJ-SQ14GJ3H2AR3ISXzE6pu7A,36.7690797,139.8523412,google_places
-カワチ薬品,カワチ薬品 黒磯店,福島県栃木県那須塩原市末広町６５−２,ChIJD18Ep44pIGARhN3_EEL7uuE,36.97105639999999,140.0446214,google_places
-カワチ薬品,カワチ薬品 上荒川店,福島県いわき市平上荒川堀ノ内１,ChIJ6R_V2ggRIWARZwANZ1SiADo,37.0370676,140.8922992,google_places
-カワチ薬品,カワチ薬品 泉店,福島県いわき市泉町７丁目20−２２,ChIJ788kppMSIWARBrkcMR7Xiw8,36.9519417,140.8593852,google_places
-カワチ薬品,カワチ薬品 桑野店,福島県郡山市桑野１丁目６−１０,ChIJ-eQ088hsIGARAM23rsrOxx8,37.4014107,140.3572463,google_places
-カワチ薬品,カワチ薬品 富岡店,福島県群馬県富岡市富岡２１０６−１,ChIJCxaamT-QHmARMsEIWs6-V6U,36.2636635,138.9022183,google_places
-カワチ薬品,カワチ薬品 城清水店,福島県郡山市城清水１８,ChIJ_W2g72hrIGARObAoju_9VYE,37.3762519,140.3719148,google_places
-カワチ薬品,カワチ薬品 原町東店,福島県南相馬市原町区北原前田２５−３,ChIJU4PCvkWVIGARWsWk8kwzq8U,37.6265711,140.9855868,google_places
-カワチ薬品,カワチ薬品 大沼店,福島県茨城県日立市大沼町２丁目２０−６,ChIJ0er753QqImARlX_-REOdNik,36.5350273,140.6184501,google_places
-カワチ薬品,カワチ会津若松南店,福島県会津若松市飯寺南２丁目１−８５８,ChIJy0xjm2lU9V8R5Y05jQEeMig,37.4714328,139.9059891,google_places
-カワチ薬品,カワチ薬品 本宮店,福島県本宮市本宮舘町１９８−１,ChIJpSoINT1zIGAROE1MfdWca3M,37.5189702,140.3975155,google_places
-カワチ薬品,カワチ薬局 須賀川調剤,福島県須賀川市陣場町１,ChIJsQjY1hVAIGARE8Bb2WUUJVk,37.2985206,140.3667327,google_places
-カワチ薬品,証明写真/カワチ薬品棚倉店,福島県東白川郡棚倉町下山本愛宕平６,ChIJKxqU-CS1IWARMS6PbMOhEmI,36.996946,140.390305,google_places
-カワチ薬品,カワチ薬品 戸祭店,福島県栃木県宇都宮市上戸祭２丁目１−１２,ChIJ1eB-xBlmH2ARuOkHIGpRgxI,36.587526,139.8641665,google_places
-カワチ薬品,カワチ薬品 戸祭南店,福島県栃木県宇都宮市戸祭町３０２０−６,ChIJlX4o7wpnH2ARP2J0wi1G0PE,36.5748072,139.8774468,google_places
-キョーリン,キョーリン製薬グループ工場株式会社 滋賀工場,福島県滋賀県甲賀市水口町笹が丘１−４,ChIJmdG0XR1hAWARBF1qPW4Mrw4,34.9847214,136.1602958,google_places
-キリン堂,キリン堂 福島店,福島県福島１丁目４−３６,ChIJwatk_WptUzURZRcSCycf8fs,34.0664201,134.5670907,google_places
-クスリのアオキ,クスリのアオキ太平寺店,福島県福島市太平寺沖高５５,ChIJ9Wg1xpaFil8RilsfRCF4LA4,37.7301778,140.4594465,google_places
-クスリのアオキ,クスリのアオキ 福島野田店,福島県福島市野田町４丁目１１−11番3号,ChIJDUvcwGKFil8RQhWrHNhj62Y,37.7631259,140.4440236,google_places
-クスリのアオキ,クスリのアオキ御山店,福島県福島市御山稲荷田９３番地の１,ChIJo2rzLsyHil8RIAM0nDaLlYE,37.774485,140.4645664,google_places
-クスリのアオキ,クスリのアオキ 磐城守山店,福島県郡山市田村町守山小性町１３９,ChIJiTYHBABrIGARGVriekUvRVU,37.3354805,140.4088471,google_places
-クスリのアオキ,クスリのアオキ 八角店,福島県会津若松市八角町１３−５０,ChIJUVnKPXKril8R76YosdvajbY,37.503744,139.946628,google_places
-クスリのアオキ,クスリのアオキ天寧寺店,福島県会津若松市天寧寺町２−２０,ChIJEdNG-3dV9V8RKYcbw1ii9WY,37.487534,139.9486944,google_places
-クスリのアオキ,クスリのアオキ東年貢店お客様及び従業員駐車場,福島県会津若松市東年貢１丁目１−１７,ChIJBSqzNgBV9V8Rf_HJbhFhgTg,37.4755158,139.9246544,google_places
-クスリのアオキ,クスリのアオキ 栃尾店,福島県新潟県長岡市金町２丁目６−２１,ChIJjw5HNv0F9V8R84s-au_eSWo,37.4819502,138.9941063,google_places
-クスリのアオキ,クスリのアオキ 見附店,福島県新潟県見附市上新田町466番地34,ChIJP2AmcXwD9V8RUQ-rvwZNDlY,37.542513,138.8899518,google_places
-クスリのアオキ,クスリのアオキ 高橋場店,福島県群馬県沼田市高橋場町３０４−１４,ChIJDxJk7phCHmARO5JVrEEDbQ4,36.6498968,139.0487947,google_places
-クスリのアオキ,クスリのアオキ 沼田栄店,福島県群馬県沼田市栄町２０１−３,ChIJva3i9jpDHmARfnpe7ekUQyE,36.636341,139.0463783,google_places
-クスリのアオキ,クスリのアオキ 上原店,福島県群馬県沼田市上原町１６０５−４,ChIJ7Z9ENcZCHmARzZwu3HZ2UI0,36.6472882,139.0641134,google_places
-クスリのアオキ,クスリのアオキ 高根沢店,福島県栃木県塩谷郡高根沢町光陽台６丁目２−１,ChIJKbCR8AxhH2ARN17gl4-yfAc,36.62230479999999,139.9819662,google_places
-クスリのアオキ,クスリのアオキ 美佐島店,福島県新潟県南魚沼市美佐島１８０１,ChIJDX4PMN7z9V8RNSX7xcct3Us,37.0823598,138.8868417,google_places
-クスリのアオキ,クスリのアオキ いわき遠野店,福島県いわき市遠野町上遠野太田６４−１,ChIJ6TvEcwAJIWARDqCVyL2xaWQ,37.0061817,140.7435862,google_places
-クスリのアオキ,クスリのアオキ 湯本店,福島県いわき市常磐関船町迎47番地の1,ChIJD1dZkEwRIWARUJtUVCH1d0A,37.000632,140.8521211,google_places
-クスリのアオキ,クスリのアオキ 平窪店,福島県いわき市平下平窪六角２９−１,ChIJNcgyvskbIWARLnxC58Z6UEk,37.079434,140.8803359,google_places
-クスリのアオキ,クスリのアオキ 桑野大島店,福島県郡山市桑野４丁目５−２０,ChIJewkFLn1tIGARnt4fVj6doaY,37.4088891,140.3552331,google_places
-クスリのアオキ,クスリのアオキ 小名浜リスポ店,福島県いわき市小名浜蛭川南５−６,ChIJ_03cXzcTIWARxQahdfxv9XE,36.9512411,140.9041921,google_places
-クスリのアオキ,クスリのアオキ 好間店,福島県いわき市好間町下好間鬼越７４,ChIJcUEqg7URIWARXUw9gv5Mmgo,37.0588724,140.8702538,google_places
-クスリのアオキ,クスリのアオキ岩根店,福島県本宮市岩根北原田68−１,ChIJZ8yArb9zIGARg37eKdQT0vw,37.4811738,140.3528989,google_places
-クスリのアオキ,クスリのアオキ佐川店,福島県高知県高岡郡佐川町甲４５７,ChIJ_WmMDQA3TjURbTFuT6GLKjM,33.4998781,133.300298,google_places
-クスリのアオキ,クスリのアオキ 三島店,福島県栃木県那須塩原市三島１丁目１５−３,ChIJAQAssrKBH2AR9UJjFij98OU,36.8927218,139.9774131,google_places
-クスリのアオキ,クスリのアオキ 北島田店,福島県徳島県徳島市北島田町２丁目２５,ChIJu6zwSgBzUzURLpHPLRwX9XY,34.0859657,134.5118126,google_places
-クスリのアオキ,クスリのアオキ 西那須野南町店,福島県栃木県那須塩原市南町３−３１,ChIJ9S3BUo-BH2ARoXcx7SwIvhY,36.881127,139.9883052,google_places
-クスリのアオキ,クスリのアオキ喜多方桜ガ丘店,福島県喜多方市東桜ガ丘１丁目２,ChIJO3Y3TAC3il8Rd7B4fTXcOdY,37.6655566,139.876913,google_places
-クスリのアオキ,むすんでひらいて クスリのアオキ東年貢店,福島県会津若松市東年貢１丁目１−１２,ChIJ4RqNe_VU9V8RLh6rE3EXKWA,37.4755517,139.9250145,google_places
-クスリのアオキ,クスリのアオキ 城西店 駐車場,福島県会津若松市城西町８−１３,ChIJi8Zb11FV9V8Rl4Oq9_0byD0,37.4852068,139.9160557,google_places
-クスリのアオキ,クスリのアオキ東年貢店お客様駐車場,福島県会津若松市東年貢１丁目１−８,ChIJaQkacNJV9V8RioTXQEpjwwY,37.476044,139.9249183,google_places
-クスリのアオキ,クスリのアオキ 佐沼店,福島県宮城県登米市迫町佐沼萩洗２丁目１２−１０,ChIJ0y8KNgAdiV8RGyczVf3Ikcw,38.6860972,141.1845195,google_places
-クスリのアオキ,クスリのアオキ 米沢林泉寺店,福島県山形県米沢市林泉寺２丁目２−８３,ChIJ1bT8JgDvil8REwy3pbOS5jg,37.9026121,140.0968164,google_places
-クスリのアオキ,クスリのアオキ 金池店,福島県山形県米沢市金池６丁目４−４２,ChIJMzvJnEjxil8RrdUzWZXeb9E,37.9257533,140.1145048,google_places
-クスリのアオキ,クスリのアオキ 二本松店お客様駐車場,福島県二本松市智恵子の森４丁目３−１,ChIJ3-lFGAB3IGARv6QkpJjAKpU,37.5996871,140.4537024,google_places
-クスリのアオキ,クスリのアオキ太平寺店 駐車場,福島県福島市太平寺沖高５４,ChIJHZ-xfgCFil8R821j4fxnnJ8,37.7299495,140.4593686,google_places
-クスリのアオキ,クスリのアオキ 喜連川店,福島県栃木県さくら市喜連川４１３５,ChIJy5MwagDZIWARrFSaKXcoeGY,36.716445,140.0308987,google_places
-クスリのアオキ,クスリのアオキ 川尻店,福島県茨城県日立市川尻町４丁目１１−９,ChIJJzyQKgB5IWARLZetYoxQMO8,36.6590758,140.6965241,google_places
-クスリのアオキ,クスリのアオキ城里店,福島県茨城県東茨城郡城里町石塚1660番地4,ChIJHZVoPh-LIWARk-s0UAGp6Dg,36.4830409,140.3773276,google_places
-クスリのアオキ,クスリのアオキ 山の手店,福島県栃木県大田原市山の手２丁目１５−２９,ChIJFzE8SPbVIWARYlx6qgQjc7s,36.8711669,140.0259844,google_places
-クスリのアオキ,クスリのアオキ那珂川店,福島県栃木県那須郡那珂川町小川２０５−１,ChIJjwyjL9jbIWARS1avT-8YOt8,36.7535605,140.1288198,google_places
-クスリのアオキ,クスリのアオキ 山方店,福島県茨城県常陸大宮市山方822番地の1,ChIJL7jsp-STIWARVTeZQW32KvA,36.6267778,140.4015502,google_places
-クスリのアオキ,クスリのアオキ大和郡山小泉店,福島県奈良県大和郡山市小泉町２０７１,ChIJqZPWDAA7AWAR9OwtcX8Ffr8,34.6290185,135.7539583,google_places
-クスリのアオキ,クスリのアオキ 川崎店,福島県宮城県柴田郡川崎町前川裏丁８０,ChIJUTSYcAAxil8RGl58gwzvxZE,38.17864110000001,140.6449687,google_places
-クスリのアオキ,クスリのアオキ 逢隈店,福島県宮城県亘理郡亘理町逢隈牛袋南谷地添１７,ChIJDaCmZQAXil8R6p-2AwfFneQ,38.0722753,140.8694724,google_places
-クスリのアオキ,クスリのアオキ 二木店,福島県宮城県岩沼市二木２丁目１−１,ChIJheCA0E49il8RE-zJKzORv94,38.10575,140.8614247,google_places
-クスリのアオキ,クスリのアオキ白石東町店,福島県宮城県白石市東町３丁目５−６５,ChIJJU9TQwBpil8R30DjbLVxkkk,37.9934583,140.6274953,google_places
-クスリのアオキ,クスリのアオキ角田梶賀店,福島県宮城県角田市梶賀高畑南１２６,ChIJ52IqWABtil8RmA1KOPlO13w,37.9785956,140.7917405,google_places
-クスリのアオキ,クスリのアオキ 藤浪店,福島県宮城県岩沼市藤浪１丁目４−１０,ChIJg0PFBvA9il8RACGPIfOefZA,38.1027498,140.8705877,google_places
-クスリのアオキ,クスリのアオキ 喜多方西店お手洗い,福島県喜多方市町西９０２５,ChIJR17pXwC3il8RtSIEmmkz8GY,37.6471179,139.8640395,google_places
-クリエイト,クリエイト㈱ 郡山営業所,福島県郡山市日和田町日向１３８−８,ChIJ3d4AZjwTIGARvAn0fyr1kX8,37.44964580000001,140.3911219,google_places
-クリエイト,（株）クリエイト 福島営業所,福島県郡山市喜久田町松ケ作１６−１５５,ChIJ5RMMoq8SIGARJnyLxKPIz4E,37.43888,140.339176,google_places
-クリエイト,（株）福島クリエイト,福島県双葉郡富岡町上郡山太田２２９,ChIJFzWsu4PgIGARRKYyl494d4c,37.3176453,141.0092761,google_places
-クリエイト,（株）クリエイト,福島県郡山市菜根屋敷４１６−１,ChIJH2TM56hsIGAR6xtuGdBxtt0,37.383906,140.356476,google_places
-クリエイト,(有)クリエイト,福島県郡山市緑ケ丘東３丁目２−１,ChIJHXL94ZdsIGARKTOFs5Sme5M,37.3818768,140.4358444,google_places
-クリエイト,オフィス・クリエイト福島,福島県郡山市菜根５丁目７−１３,ChIJd5h8BchtIGARz2263N0d5Dk,37.383009,140.3621578,google_places
-クリエイト,（株）ＪＡライフクリエイト福島 郡山営業所,福島県郡山市田村町金屋下タ川原７６−１ＪＡパールライン福島郡山,ChIJEXOZfaNrIGARJkhcktDPpwo,37.3745229,140.3977249,google_places
-クリエイト,（株）クリエイト,福島県いわき市四倉町東１丁目６９−２６,ChIJzS9W1b0XIWARwx9isgX421A,37.1001143,140.9862293,google_places
-クリエイト,（株）ＪＡライフクリエイト福島 総務管理課,福島県郡山市田村町金屋下タ川原７６−１,ChIJCXl0o6RrIGARNvt-aFy3GOE,37.3741458,140.3975291,google_places
-クリエイト,株式会社 福島クリエイト,福島県双葉郡双葉町中野高田1−１,ChIJnb4J8IrDIGARWOiPjcKrWWM,37.4574301,141.027221,google_places
-クリエイト,（株）ジャパンクリエイト 郡山営業所,福島県郡山市中町１−２２郡山大同生命ビル8F,ChIJPVKKnqVtIGARtYPd_fujP9c,37.39507870000001,140.3825099,google_places
-クリエイト,株式会社 福島クリエイト 富岡事務所,福島県双葉郡富岡町本岡赤木１００−２,ChIJ7bNAYm_nIGARbSaWsVVI-Ks,37.3362686,140.966706,google_places
-クリエイト,クリエイト一栄,福島県郡山市田村町岩作西川原１６７−８,ChIJi59GeHVqIGARnyY-aqXWtQo,37.3291137,140.4075659,google_places
-クリエイト,アースクリエイト（株）,福島県郡山市静町４１−５,ChIJsdDoX0YTIGARxKeXn7kY4qw,37.386897,140.3353507,google_places
-クリエイト,税理士法人クリエイト,福島県郡山市方八町２丁目１４−１６,ChIJA1KoM4drIGARVgCDHdPHTqE,37.3944041,140.3949043,google_places
-クリエイト,(有)クリエイト,福島県郡山市朝日２丁目６−４竹内ビル101,ChIJzUeC0cVsIGARJfjZbntbqFk,37.40533569999999,140.3607421,google_places
-クリエイト,クリエイト福島オフィス,福島県福島市野田町２丁目２−１７クリエイト福島オフィス,ChIJOUOuX8eFil8RQqZS5NU4SpY,37.7568629,140.453092,google_places
-クリエイト,株式会社クリエイト.K,福島県福島市渡利絵馬平３４−２０,ChIJ49O8FByFil8R2BoWDoAt6LE,37.72814899999999,140.4836817,google_places
-GENKY,ゲンキー 上志比店,福島県福島１５字南五石田10番1,ChIJYYeFsumX-F8R1w6S7bWwqHE,36.0812357,136.3894963,google_places
-コクミン,コクミンドラッグ 福島駅店,福島県福島市栄町１−１駅西口パワーシティピボット内,ChIJizRecsiFil8RWkoqRXqpA7k,37.7549427,140.4585958,google_places
-ココカラファイン,ココカラファイン 小出店,福島県新潟県魚沼市井口新田８６７−１,ChIJ2bD6oemQ9V8RY0C7g48Rs3E,37.2276698,138.9749856,google_places
-ココカラファイン,ココカラファイン 長岡来迎寺店,福島県新潟県長岡市浦６０７−１,ChIJWzSnqsil9V8RllsSQWIHt6g,37.3950881,138.791864,google_places
-ココカラファイン,ココカラファイン 今朝白店,福島県新潟県長岡市今朝白２丁目５−１５,ChIJxXbEfU6o9V8RzJ5S85PplMI,37.4481988,138.8597544,google_places
-ココカラファイン,ココカラファイン 津川店,福島県新潟県東蒲原郡阿賀町津川６３０−１,ChIJpelpeyMu9V8RG74NWQLu75U,37.6748517,139.4601702,google_places
-ココカラファイン,ココカラファイン 豊里店,福島県大阪府大阪市東淀川区豊里７丁目１０−２５,ChIJSzyjctnjAGARTEo0jbD5zrg,34.74326860000001,135.5444971,google_places
-ココカラファイン,ココカラファイン 柏崎茨目店,福島県新潟県柏崎市茨目１丁目４−１２,ChIJlSyXSIW29V8RRVruWWlQ6v4,37.3624833,138.5790606,google_places
-ココカラファイン,ココカラファイン 田村店,福島県福岡県福岡市早良区田村４丁目７−２５,ChIJf2zzneiUQTURLw2E5kiEy4A,33.5392229,130.3327013,google_places
-ココカラファイン,ココカラファイン 二子新地店,福島県神奈川県川崎市高津区二子２丁目２−３,ChIJ-SV6Vjz0GGARk_W70jyUxsg,35.607311,139.6223632,google_places
-ココカラファイン,ココカラファイン 柴田店,福島県宮城県柴田郡柴田町船岡新栄４丁目6−２１,ChIJC5uOio4Vil8RuR-k6L-WFtg,38.05024239999999,140.7825506,google_places
-ココカラファイン,ココカラファイン薬局 JR大阪駅店,福島県大阪府大阪市北区梅田３丁目１−１JR大阪駅構内,ChIJUyN6GybnAGAR1t0dAXScVS8,34.7023645,135.4966309,google_places
-ココカラファイン,ココカラファイン 小国店,福島県山形県西置賜郡小国町小国小坂町３丁目５８,ChIJVY1CzGYai18RPaV98CT-g18,38.0614518,139.7421404,google_places
-ココカラファイン,ココカラファイン 仙台イービーンズ店,福島県宮城県仙台市青葉区中央４丁目１−１イービーンズ1F,ChIJbcs0ihcoil8RycDZ9DrieWE,38.2586233,140.8797421,google_places
-ココカラファイン,ココカラファイン 五橋店,福島県宮城県仙台市若林区連坊小路１４２−１コンフォート五橋ステーション1F,ChIJFfy5Ig4oil8RZH20IkiFaYc,38.252017,140.8843647,google_places
-ココカラファイン,ココカラファイン 高松駅店,福島県香川県高松市高松市浜町１−２０高松オルネ2F,ChIJ-3UjJADrUzURyvaYHJaLdrE,34.350856,134.0465183,google_places
-ココカラファイン,ココカラファイン 田町店,福島県香川県高松市田町１−１,ChIJtUMH55nrUzUR2GCMsXbD3Bc,34.3387051,134.0489414,google_places
-ココカラファイン,ココカラファイン 高松丸亀町店,福島県香川県高松市丸亀町４−９,ChIJqTgiNYXrUzURdpJnQMvV_L4,34.343849,134.0498017,google_places
-ココカラファイン,ココカラファイン 清澄白河店,福島県東京都江東区白河１丁目６−３クレール清澄公園1F,ChIJO0tM2z2JGGARyDUubOfUt8E,35.6823158,139.7989971,google_places
-ココカラファイン,ココカラファイン 福島大開物流センター事務所,福島県福島区大阪市大阪府日本,ChIJW15m8Q3mAGARFOzYLA3gGcA,34.6916285,135.4645871,google_places
-ココカラファイン,ココカラファイン ウイステ野田店,福島県福島区海老江１丁目１−２３ウイステ2F,ChIJJQ6j2W7mAGARBL9EkaBOWX8,34.6952759,135.4754847,google_places
-ココカラファイン,ココカラファイン イオンモール大和郡山店,福島県奈良県大和郡山市下三橋町７４１−１０１イオンモール大和郡山1F,ChIJsT-BNHA6AWARwRih88HcF7s,34.6515734,135.8025588,google_places
-コスモス,コスモス直売所,福島県伊達市梁川町東大枝町頭１−２,ChIJv0KgtmBkil8RN-tF7GfxdN4,37.8773874,140.5948932,google_places
-コスモス,会津コスモス電機(株),福島県会津若松市門田町工業団地３５,ChIJeXP-A0RU9V8R-6rBMtc5j1Y,37.467808,139.912415,google_places
-コスモス,白河コスモス電機(株),福島県白河市夏梨１０,ChIJWxh8FowwIGARUn6faqjoemE,37.0984802,140.2308212,google_places
-コスモス,ドラッグストアコスモス 黒磯店,福島県栃木県那須塩原市清住町９５−４４,ChIJJ2xJZEQpIGARbhvsiAIyvVI,36.9710572,140.0420648,google_places
-コスモス,ドラッグストアコスモス 西三島店,福島県栃木県那須塩原市西三島５丁目１６８−３,ChIJmdKx0WeBH2ARlZgVxBew8-I,36.8918859,139.9678893,google_places
-コスモス,ドラッグストアコスモス 下永田店,福島県栃木県那須塩原市下永田７丁目１０５９−４,ChIJJd62zuKBH2AR4gWPkr3Rifc,36.879734,140.000266,google_places
-コスモス,上原コスモス園,福島県新潟県魚沼市吉平６４３,ChIJvQsaK8qZ9V8R8C22ZDuySrM,37.275132,138.9673389,google_places
-コスモス,北産業団地コスモスガーデン,福島県双葉郡浪江町北幾世橋北中谷地６−６７,ChIJzxzcy2TrIGARMSoLXopvDK0,37.5085474,141.0107533,google_places
-コスモス,喫茶コスモス,福島県双葉郡浪江町川添南大坂83,ChIJH4VnQs7rIGARfBCnIZLb77E,37.4900742,140.9780842,google_places
-コスモス,コスモス保育園,福島県双葉郡浪江町権現堂矢沢町４０−１,ChIJH_GFuSPqIGARQxPLPjzZbh8,37.4914741,140.9880908,google_places
-コスモス,なみえアートプロジェクト [なみえの記憶・なみえの未来]「コスモスマラソン」「モビリティでつくるなみえ」,福島県双葉郡浪江町権現上続町11−３,ChIJ3zShKwDrIGARjyEme9XK6KU,37.4919729,140.9912179,google_places
-コスモス,ドラッグストアコスモス 板野店,福島県徳島県板野郡板野町犬伏東１２,ChIJjecEVl10UzUResczW3yY9x8,34.1411813,134.4563708,google_places
-コスモス,ドラッグストアコスモス 新合川店,福島県福岡県久留米市新合川２丁目５−２,ChIJdcMSSwClQTURBgE4CvujeNk,33.31836,130.540655,google_places
-コスモス,コーポコスモス,福島県会津若松市東山町大字石山院内３２９コーポコスモス,ChIJ32MXgMRU9V8RoLs-buvp91E,37.4828001,139.9552315,google_places
-コスモス,コーポコスモス,福島県会津若松市石堂町５−２３コーポコスモス,ChIJydDicEtT9V8RiDyS0gxxaWM,37.5111049,139.9286153,google_places
-コスモス,会津コスモス電機株式会社第二工場,福島県会津若松市門田町工業団地３１５,ChIJVY9sdABV9V8RNPYGdPz627c,37.4713839,139.9122429,google_places
-コスモス,コーポ・コスモス,福島県会津若松市石堂町５−２３,ChIJBamUCjFT9V8Rvufa1RRaLaw,37.5110895,139.9286117,google_places
-コスモス,コスモス美容室,福島県大沼郡昭和村大芦下川原１３７３,ChIJzcuQAmTfH2ARmE1LZVDyOuk,37.3000667,139.6350533,google_places
-コスモス,不二家ヨークベニマルコスモス通り店,福島県郡山市御前南６丁目３,ChIJJQXLJEETIGAR1TLDf8aV_a8,37.3860209,140.3318275,google_places
-コスモス,ザ・コスモス郡山モルティ店,福島県郡山市駅前２丁目１１−１,ChIJoYgQ0IBsIGARCO4HpIyWG5E,37.4002569,140.3881995,google_places
-コスモス,コスモス A-1,福島県郡山市土瓜１丁目４７コスモスA-1,ChIJK1mllCQTIGARIZgKTjmSurE,37.4001113,140.3339749,google_places
-コスモス,グリーンパーク・コスモスＤ,福島県郡山市静西１丁目グリーンパーク・コスモスＤ,ChIJAfJfxD8TIGARl19eZ7knRb4,37.3889459,140.3282324,google_places
-コスモス,グリーンパーク・コスモスD,福島県郡山市静西１丁目グリーンパーク・コスモスD,ChIJI1D0xD8TIGARJOXOQLjVJ2A,37.3889394,140.3283287,google_places
-コスモス,コスモススクエア Ⅰ,福島県二本松市表１丁目５５２−１２コスモススクエアⅠ,ChIJJZ2xaGV2IGAR__3CNnD7HFo,37.604121,140.4426679,google_places
-コスモス,コスモス,福島県二本松市本町２丁目１０７−１,ChIJv0Qu-IZ2IGARKtpPmwPbSqE,37.591232,140.438437,google_places
-コスモス,グリーンパーク・コスモスA,福島県郡山市静西１丁目グリーンパーク・コスモスA,ChIJuw4Twz8TIGARnnTZkQ9dY_8,37.3887468,140.3282884,google_places
-コスモス,コスモ石油 コスモスロード大槻SS（北日本エネルギー）,福島県郡山市谷地本町,ChIJTT2yNUcTIGARqeijwp2MfiQ,37.3878989,140.3329643,google_places
-コスモス,コスモス,福島県郡山市富田町舘南５８−７コスモス,ChIJ2cvUQNYSIGARybQVqlOtQmU,37.4120201,140.3414135,google_places
-コスモス,コスモス・ハイツ1,福島県本宮市青田孫市１０４コスモス・ハイツ1,ChIJORjNKP5yIGARVMnwaOm8QpE,37.5006428,140.3866565,google_places
-コスモス,グリーンパーク・コスモスC,福島県郡山市静西１丁目グリーンパーク・コスモスC,ChIJkyu62j8TIGARpmG6171KGRQ,37.389,140.3281272,google_places
-コスモス,Dias コスモス B,福島県郡山市静西１丁目DiasコスモスB,ChIJp65Hlj8TIGARJLEiPw6J_Wg,37.3888734,140.3291962,google_places
-コスモス,コスモスホーム５号,福島県郡山市大槻町室ノ木北コスモスホーム５号,ChIJvZiAwlwTIGARUfxEN7-k5IQ,37.3783379,140.3309354,google_places
-コスモス,コスモススクエア II,福島県二本松市表１丁目コスモススクエアII,ChIJGzv8bmV2IGARZuysKiv2oVE,37.6040947,140.4429094,google_places
-コスモス,コスモスふれあいセンター,福島県郡山市七ッ池町２６−２０コスモスふれあいセンター,ChIJfyr1KGBrIGARH2TVRfaPLVI,37.3862109,140.3708151,google_places
-コスモス,コスモス,福島県西白河郡矢吹町曙町２３６−２,ChIJGzz5D5M4IGARxtIW1kGibLA,37.2006913,140.3294573,google_places
-コスモス,コーポ コスモス,福島県須賀川市六郎兵衛コーポコスモス,ChIJAaKDoLJBIGARx6-1O3rx5sI,37.2947262,140.3905954,google_places
-コスモス,コーポコスモス2,福島県須賀川市前川４５−１コーポコスモス2,ChIJL4XFPk9AIGARWt-PBHXZIJY,37.294382,140.380722,google_places
-コスモス,コスモス,福島県東白川郡塙町塙本町３７,ChIJlcY117i2IWARPUSThurqkeo,36.9528182,140.415674,google_places
-コスモス,コスモス調剤薬局植田店,福島県いわき市佐糠町東１丁目１７−８,ChIJZ4-WmiANIWARgmZcvLikzKc,36.9188707,140.8046286,google_places
-コスモス,ドラッグストアコスモス 益子店,福島県栃木県芳賀郡益子町益子１３８７−１,ChIJLU0IpA_9IWARLf6aeNZzNF4,36.463147,140.086682,google_places
-コスモス,ドラッグストアコスモス 上水戸店,福島県茨城県水戸市上水戸３丁目７−６,ChIJ35wmbN0lImARA8xvztQubbk,36.3912463,140.4488255,google_places
-コスモス,ドラッグストアコスモス 日立金沢店,福島県茨城県日立市金沢町１丁目５−１０,ChIJzRcSmB6BIWARSltO2SRyX8U,36.5438269,140.6246443,google_places
-コスモス,ドラッグストアコスモス 常陸大宮店,福島県茨城県常陸大宮市泉２４９番地,ChIJp4XWj1CLIWARymlNmrfJ9Lg,36.5327383,140.4252612,google_places
-コスモス,ドラッグストアコスモス 北茨城店,福島県茨城県北茨城市中郷町上桜井２２７７−１,ChIJmUiPtrd3IWARsb_yxrE9buE,36.783588,140.734523,google_places
-コスモス,ドラッグストアコスモス 田村店,福島県香川県丸亀市田村町８４１−３,ChIJG5UvtHbYUzUR-KCyAr-HMUA,34.26293220000001,133.7941082,google_places
-コスモス,コスモス調剤薬局,福島県いわき市常磐湯本町三函47,ChIJUdL4mN8RIWARrNdz15QNyNM,37.013188,140.8467783,google_places
-コスモス,いわきコスモスの会,福島県いわき市平北白土宮田８,ChIJ20U9Pi8RIWARe4Htt0tq4cA,37.0526318,140.9202519,google_places
-コスモス,いわきコスモスの会,福島県いわき市平上荒川桜町６０,ChIJFQCmF6YRIWARRNXG1QAwcic,37.0340791,140.8832445,google_places
-コスモス,コスモス湯本調剤薬局,福島県いわき市常磐湯本町台山５５−４,ChIJkYMNVyzhAGARjsSnNydWCUE,37.0110237,140.8493208,google_places
-コスモス,医和生会コスモス訪問看護ステーション,福島県いわき市平谷川瀬１丁目16−５,ChIJp8liEv4QIWARNiIQ7byNYdY,37.0482137,140.8920603,google_places
-コスモス,レオパレスコスモス,福島県いわき市好間町今新田宮下２９−１レオパレスコスモス,ChIJ7e-AYmYQIWARmk-HLGQ_ip4,37.0645112,140.8794793,google_places
-コスモス,レオパレスコスモス,福島県いわき市好間町今新田宮下２９−１,ChIJuavJ_BgRIWARV1mdGbHxk3Q,37.0645112,140.8794793,google_places
-コスモス,コスモス,福島県本宮市本宮下町２６,ChIJI38Sv7BzIGARi4hiwDIXH80,37.5160636,140.4037084,google_places
-コスモス,ハイツ コスモス,福島県会津若松市飯盛３丁目１４−１２ハイツコスモス,ChIJH1EeVVSril8R5-aKSim1FZk,37.5033379,139.9503215,google_places
-コスモス,アルカンシエル2コスモス,福島県南相馬市鹿島区西町３丁目８５アルカンシエル2コスモス,ChIJ868fhMeZIGARBlJ3AH7z4x4,37.70902969999999,140.958009,google_places
-コスモス,コスモス・ハイツ3,福島県本宮市青田孫市コスモス・ハイツ3,ChIJWyOK0v9yIGARkZWSqNh0gtE,37.5007528,140.3870448,google_places
-コスモス,介護タクシーコスモス,福島県本宮市本宮葭ヶ入７０−３,ChIJ18xVRKlzIGARbkk8GQNS5LA,37.509204,140.393807,google_places
-コスモス,コスモス,福島県田村市船引町東部台２丁目コスモス,ChIJ9f3jT9pmIGAReuwp5dMex_s,37.4412491,140.5840461,google_places
-コスモス,(株)コスモス 福島支店,福島県福島市北中央２丁目１５−１,ChIJrxAXkpCFil8R8JKHCU5Luvc,37.7645548,140.4322085,google_places
-コスモス,コスモスHouse,福島県福島市岡部大下コスモスHouse,ChIJwRNO3jCGil8RHUxziuZRSg0,37.7851739,140.4959891,google_places
-コスモス,コスモスサイン,福島県福島市吉倉名倉１０６コスモスサイン,ChIJETXoQwCFil8RKbzxf5Jvo7k,37.7413804,140.4419596,google_places
-コスモス,ビル・コスモス,福島県福島市瀬上町本町１１８ビル・コスモス,ChIJHapYm3uIil8RaCwegBxYTE8,37.8020388,140.4905959,google_places
-コスモス,コスモスサイン,福島県福島市吉倉名倉１０６−５,ChIJV4p8QQCFil8RqiVGSfiIkQo,37.7413961,140.442208,google_places
-コスモス,（株）コスモスウェブ 福島デザインセンター,福島県福島市鎌田御仮家７６,ChIJ4ZAncyqJil8R98I-j4TYTEI,37.7977473,140.4818759,google_places
-コスモス,グループホームコスモスハウス,福島県福島市八島町１５グループホームコスモスハウス,ChIJG_aVV26Gil8R_CCWNlxOcgU,37.7698647,140.4873501,google_places
-コスモス,コスモス通り,福島県郡山市コスモス通り,ChIJWxjW70MTIGARytVGIyqpF4A,37.3853548,140.3321549,google_places
-コスモス,コスモス皮膚科・内科クリニック,福島県郡山市御前南５丁目１５０,ChIJ9VoyzUETIGAR2E_tOsl0EtM,37.385158,140.328301,google_places
-コスモス,コスモス畑,福島県郡山市三穂田町野田北原１６−３,ChIJvx1USlEVIGAR3GojtjvSzYg,37.34644249999999,140.3011454,google_places
-コスモス,ヨークベニマルコスモス通り店,福島県郡山市御前南６丁目3番地,ChIJm9Y-JEETIGARJFiciQpDDgQ,37.3859603,140.3318047,google_places
-コスモス,コーポコスモスⅡ,福島県須賀川市前川４５−１,ChIJfXlOuKJBIGARTMsA5UfX8Ws,37.2943225,140.3807262,google_places
-コスモス,スターバックス コーヒー 郡山コスモス通り店,福島県郡山市堤２丁目４１,ChIJReksqTsTIGARslp5qbOPuzQ,37.3974911,140.3340603,google_places
-コスモス,コスモス通り心身医療クリニック,福島県郡山市鳴神３丁目６９,ChIJzzoglDsTIGARvAmFvtRATJc,37.3955217,140.3337597,google_places
-コスモス,ヴィラコスモス,福島県郡山市大槻町小山田前ヴィラコスモス,ChIJ7ar5zSUTIGAR0qt9TODMnD8,37.4033153,140.3355866,google_places
-コスモス,フラワーズコスモス,福島県郡山市中野１丁目４−８フラワーズコスモス,ChIJZ2YjUTkTIGARkMbUIMxGc58,37.393535,140.3331485,google_places
-サツドラ,サツドラ伊達インター店,福島県北海道伊達市舟岡町２３６−１,ChIJnVPfRMHgn18R8y8fAkfiYLE,42.4688757,140.8790196,google_places
-サツドラ,サツドラ留萌潮静店,福島県北海道留萌市潮静１丁目1番地3,ChIJaybsK7FnDF8R_PmEf-V-pOc,43.9223326,141.6755381,google_places
-サツドラ,サツドラ中の島店,福島県北海道札幌市豊平区中の島２条２丁目３−３,ChIJxZlsZT4qC18RZoEd_PHYggk,43.03612940000001,141.3624375,google_places
-サツドラ,サツドラ函館高盛店,福島県北海道函館市高盛町１７−３,ChIJ7xD9gmDznl8R2GB6WrelIjs,41.77413079999999,140.7434456,google_places
-サツドラ,サツドラ函館美原店,福島県北海道函館市美原３丁目１３−２２,ChIJY9Oe2Cn0nl8RHcOEQJYEm8I,41.8188399,140.7524131,google_places
-サツドラ,サツドラ宝来店,福島県北海道函館市宝来町１０−２０,ChIJpWz0GwTznl8RtFqK_XEnTls,41.760108,140.7196782,google_places
-サツドラ,サツドラ静内店,福島県北海道日高郡新ひだか町静内木場町１丁目１−１２８,ChIJuwImZ_DKdV8RCI7apwmMGOk,42.3410421,142.3620127,google_places
-サツドラ,サツドラ函館戸倉店,福島県北海道函館市戸倉町１２−１７,ChIJm21HGF31nl8RKuGUzRw7yqE,41.7830976,140.7988353,google_places
-サツドラ,サツドラ富岡中央店,福島県北海道函館市富岡町３丁目３２−１,ChIJlWX9byT0nl8RhlcADPtGgQg,41.8111948,140.7493183,google_places
-スギ薬局,スギ薬局 野田阪神店,福島県福島区海老江５丁目１−２さくら野田ビル１階,ChIJdfxGHq_nAGAR2K7aUHR6WfI,34.694879,135.4743288,google_places
-スギ薬局,スギ薬局金沢野田店,福島県石川県金沢市野田町チ−１１６,ChIJYwMQdOY1-F8ROLku5TJJOkA,36.5367153,136.6668269,google_places
-セイムス,ドラッグセイムス 大槻店,福島県郡山市大槻町池上西４−２,ChIJW-66dD0TIGARytw-LwgPvHQ,37.3946793,140.3285451,google_places
-セイムス,ドラッグセイムス 八山田店,福島県郡山市八山田５丁目３８４−２,ChIJKQojOgNtIGARU_h0bXrWLZg,37.4291847,140.3798533,google_places
-セイムス,ドラッグセイムス 米沢金池店,福島県山形県米沢市金池２丁目６−１３,ChIJBdVyhmnwil8RSP4cRaLqzrI,37.9191182,140.1143844,google_places
-セイムス,ドラッグセイムス 米沢本町店,福島県山形県米沢市本町２丁目７−２７,ChIJyTZIcxrxil8RBe-nxcCytMs,37.901364,140.107711,google_places
-セイムス,ドラッグセイムス 米沢春日店,福島県山形県米沢市春日５丁目２−３０4,ChIJxVa2bMrxil8R6l9eQqnfTOc,37.9315495,140.115211,google_places
-セイムス,ドラッグセイムス 福山柳津店,福島県広島県福山市柳津町２丁目３−２８,ChIJAQDwBG8EUTURsJYQ_R3O90I,34.4390508,133.2647501,google_places
-セイムス,ドラッグストアセイムス,福島県宮城県仙台市若林区若林４丁目１−１２,ChIJcXg7HwAnil8RLayLa0OUuJE,38.2309971,140.8996482,google_places
-セイムス,ドラッグセイムス 石川町駅前店,福島県神奈川県横浜市中区吉浜町１−６,ChIJa7VsyuVcGGARfh8c9Y6sCLc,35.439914,139.6425095,google_places
-セイムス,セイムス直方駅東口店,福島県福岡県直方市古町１７−１７エバーライフ直方駅前,ChIJT99MMADRQzURkp01I7n8NFM,33.7476145,130.7259962,google_places
-セイムス,Amazon ロッカー - ドラッグセイムス_大槻店,福島県郡山市大槻町池上西４−２ドラッグセイムス大槻店,ChIJrd1-5hETIGARPVxCATlj-NE,37.3946776,140.3285798,google_places
-ダイコクドラッグ,ダイコクドラッグ 福島駅前店,福島県福島区福島７丁目１１−５１福島市場ふくろうじ1F,ChIJ2wXxxGHmAGARB5N_oXrOYVE,34.6983246,135.4869607,google_places
-ツルハドラッグ,ツルハドラッグ 伊達店,福島県北海道伊達市末永町7番1,ChIJx9FutuLhn18R3xxNn1XRufE,42.473657,140.860984,google_places
-ツルハドラッグ,ツルハドラッグ 福島笹木野店,福島県福島市笹木野大金谷南５−５,ChIJ5S8XbayFil8RSjtk7YoZW-w,37.7679113,140.4265925,google_places
-ツルハドラッグ,ツルハドラッグ 福島南矢野目店,福島県福島市南矢野目中江12番地の６,ChIJy60amKWIil8RxSnx5AExPwg,37.78760949999999,140.455006,google_places
-ツルハドラッグ,ツルハドラッグ 野田西店,福島県福島市野田町７丁目３−８,ChIJRe-I_r2Fil8RypJPWxEvqEU,37.7578444,140.4422347,google_places
-ツルハドラッグ,ツルハドラッグ 岩沼南店,福島県宮城県岩沼市藤浪２丁目４−１１,ChIJ3SwL1rE9il8RTFmF_Ks8rJ0,38.1010723,140.8722317,google_places
-ツルハドラッグ,ツルハドラッグ郡山荒井店,福島県郡山市安積北井２丁目ツルハドラッグ郡山荒井店,ChIJYxIk9URrIGARjAbrFLi72qw,37.3717721,140.3623431,google_places
-ツルハドラッグ,ツルハドラッグ 郡山笹川店,福島県郡山市笹川３丁目25番地1,ChIJJSdvlSVtIGARKVQmR0ohzco,37.356402,140.3699476,google_places
-ツルハドラッグ,ツルハドラッグ 富久山福原店,福島県郡山市富久山町福原陣場193番2,ChIJr-J2DkJsIGARwNSKqzT7_dQ,37.4181579,140.4040897,google_places
-ツルハドラッグ,ツルハドラッグ 小名浜店,福島県いわき市小名浜岡小小館19−６,ChIJN_hWDj4TIWAR5P1QoQaNWbc,36.9597085,140.9034243,google_places
-ツルハドラッグ,ツルハドラッグ いわき久之浜店,福島県いわき市久之浜町久之浜堀ノ内９9番地,ChIJ1VV3oEwZIWARq8GMaVV1EHw,37.14465879999999,140.9957446,google_places
-ツルハドラッグ,ツルハドラッグ いわき下湯長谷店,福島県いわき市常磐下湯長谷町シザ−７１番地,ChIJ6wx7cKoTIWAR9wQm1Ika6QQ,36.990715,140.853585,google_places
-ツルハドラッグ,ツルハドラッグ いわき錦店,福島県いわき市錦町中央２丁目8番地1,ChIJSUXCkrANIWARo6Fi3QQ9B8I,36.9058688,140.7891643,google_places
-ツルハドラッグ,ツルハドラッグ いわき玉露店,福島県いわき市泉玉露５丁目7−６,ChIJm-fumX0SIWAR7XciiWXZ2gc,36.9599296,140.8520385,google_places
-ツルハドラッグ,ツルハドラッグ 平窪店,福島県いわき市平下平窪山土内町1−１,ChIJTfa-uIQaIWARWeIQqTybkEE,37.0838636,140.8778143,google_places
-ツルハドラッグ,ツルハドラッグ 小名浜神白店,福島県いわき市小名浜下神白字狩亦59-15,ChIJE3tXUKpsIWAR3o_ESNMBhGA,36.948651,140.926899,google_places
-ツルハドラッグ,ツルハドラッグ いわき内郷店,福島県いわき市内郷高坂町八反田２−２１,ChIJDQ97DToQIWARTxXRlK-DFMs,37.0444804,140.8601295,google_places
-ツルハドラッグ,ツルハドラッグ 内郷みまや店,福島県いわき市内郷御厩町３丁目１２２,ChIJS3lqhUUQIWARXArGKCLxDV8,37.0494979,140.8737844,google_places
-ツルハドラッグ,ツルハドラッグ いわき中岡店,福島県いわき市中岡町４丁目5−１０,ChIJFXBPjpIMIWARi1H_VdtrJss,36.920947,140.781394,google_places
-ツルハドラッグ,ツルハドラッグ 福島庭坂店,福島県福島市町庭坂町尻14番２,ChIJh8iNkpuPil8R-6PJQQ8MnE4,37.7671285,140.3895744,google_places
-ツルハドラッグ,ツルハドラッグ 郡山久保田店,福島県郡山市富久山町久保田大久保1−１,ChIJldztfvJsIGARfzPa2mhf1KY,37.410191,140.3794031,google_places
-ツルハドラッグ,ツルハドラッグ 郡山荒井店,福島県郡山市安積北井２丁目291番地,ChIJmSYs9URrIGARzTZZbfcoSpg,37.3717803,140.3623873,google_places
-ツルハドラッグ,ツルハドラッグ 郡山片平店,福島県郡山市中ノ目１丁目17番,ChIJWW1IesQSIGAR1v5HOnf5LSE,37.4190735,140.3331054,google_places
-ツルハドラッグ,ツルハドラッグ 郡山台新店,福島県郡山市台新２丁目３３−２６,ChIJqWm6vEkTIGARh-tF2c2qpvU,37.3910398,140.3414717,google_places
-ツルハドラッグ,調剤薬局ツルハドラッグ 郡山駅東店,福島県郡山市向河原町４−４０,ChIJbT_FcHxsIGARKdd4AC-8tf8,37.4018244,140.3944979,google_places
-ツルハドラッグ,ツルハドラッグ 喜多方西店お客様専用駐車場,福島県喜多方市押切南２丁目５１,ChIJXZdOMAC3il8RSg0J_wztufo,37.6457279,139.8588106,google_places
-ツルハドラッグ,ツルハドラッグ 会津坂下店お客様駐車場,福島県河沼郡会津坂下町舘ノ下１２９,ChIJBVW2NABN9V8RtfwG_W31teY,37.564733,139.8190555,google_places
-ツルハドラッグ,ツルハドラッグ 会津高田店お客様駐車場,福島県大沼郡会津美里町布才地５８１,ChIJpV45eQBR9V8RwB6UFS1DRYM,37.4637329,139.8363695,google_places
-トモズ,トモズ エスパル仙台店,福島県宮城県仙台市青葉区中央１丁目１−１エスパル仙台東館2F,ChIJM9AO8Bgoil8Rh294JmJrPfQ,38.2602397,140.8834627,google_places
-ドラッグスギヤマ,ドラッグスギヤマ 植田店,福島県愛知県名古屋市天白区元植田１丁目９０６,ChIJcTCmJNhkA2ARd283CAMPmqw,35.1375395,136.9908173,google_places
-ドラッグスギヤマ,ドラッグスギヤマ 津島北店,福島県愛知県津島市松原町28番地3,ChIJxU7HReuYA2AR56y84V3WDP4,35.1823983,136.7245062,google_places
-ドラッグスギヤマ,ドラッグスギヤマ 豊田浄水店,福島県愛知県豊田市浄水町１丁目５６−６,ChIJtaBDedhfA2ARPC0nQPJKADQ,35.1197796,137.136439,google_places
-ドラッグスギヤマ,ドラッグスギヤマ 赤重店,福島県愛知県瀬戸市幡野町295番1,ChIJsbl8uiZmA2ARq1J1TAC9Mw0,35.2116782,137.0832018,google_places
-ドラッグスギヤマ,ドラッグスギヤマ 安城店,福島県愛知県安城市城南町１丁目4−９,ChIJcxiGlaKZBGARv9x85mS1ECU,34.9535014,137.0787932,google_places
-ドラッグスギヤマ,ドラッグスギヤマ 長久手店,福島県愛知県長久手市武蔵塚７０４,ChIJd6VxXs9lA2ARkXAkW_Mt7JI,35.1713761,137.0448332,google_places
-ドラッグスギヤマ,ドラッグスギヤマ 本地店,福島県愛知県瀬戸市西原町２丁目９５,ChIJhxmYvaloA2AR0daX6p-cItQ,35.2086937,137.0644871,google_places
-ドラッグスギヤマ,ドラッグスギヤマ 藤が丘北店,福島県愛知県長久手市荒田11番地1,ChIJJeoF4YVlA2ARJjzWjsKci_s,35.186641,137.028108,google_places
-ドラッグスギヤマ,ドラッグスギヤマ ユータウンながくて店,福島県愛知県長久手市市が洞２丁目1313番地,ChIJn1Bg6LFlA2ARu_pFfU5hkZU,35.1621212,137.0293981,google_places
-ドラッグユタカ,ドラッグユタカ 黒野店,福島県岐阜県岐阜市折立８７３−３,ChIJjRveb4usA2ARysOA_iAHtIk,35.457926,136.7302609,google_places
-ドラッグユタカ,ドラッグユタカ 今津店,福島県滋賀県高島市今津町今津１７００,ChIJC_B_ihWSAWARAjsbf7aFEOI,35.4061431,136.0372085,google_places
-ドラッグユタカ,ドラッグユタカ 守山店,福島県滋賀県守山市古高町字福田３８４,ChIJSZMRHthzAWARCRL5yRYK7Ec,35.054027,135.9790645,google_places
-ドラッグユタカ,ドラッグユタカ宝塚長尾店,福島県兵庫県宝塚市長尾町１,ChIJDVrqdQD3AGARBLOLkA1FpF8,34.812977,135.38177,google_places
-ドラッグユタカ,ドラッグユタカ 彦根南店,福島県滋賀県彦根市野瀬町１５４−１,ChIJM7MUmDvVA2AR5eJRSCyRl6E,35.253312,136.235059,google_places
-ドラッグユタカ,ドラッグユタカ 安曇川店,福島県滋賀県高島市安曇川町西万木４２９,ChIJG8-sgmOQAWARTNlYInHlu4o,35.3248569,136.0223286,google_places
-ドラッグユタカ,ドラッグユタカ 彦根高宮店,福島県滋賀県彦根市高宮町１５５８,ChIJ0fcWNVjUA2ARxRibyBGNdM8,35.2404735,136.258094,google_places
-マツモトキヨシ,ドラッグストア マツモトキヨシ 福島笹谷店,福島県福島市笹谷東中條１４−６,ChIJK6ckP7GIil8RKrkrwoztZ-g,37.78948020000001,140.4433022,google_places
-マツモトキヨシ,ドラッグストア マツモトキヨシ 郡山鶴見坦店,福島県郡山市鶴見坦３丁目１６−２３,ChIJpyiifbBsIGAR0HJZr13A5bE,37.3923868,140.3582781,google_places
-マツモトキヨシ,ドラッグストア マツモトキヨシ 郡山堤店,福島県郡山市堤３丁目６,ChIJp6HHqCQTIGARF1157_A6HHw,37.3988239,140.3329859,google_places
-マツモトキヨシ,ドラッグストアマツモトキヨシ 郡山下亀田店,福島県郡山市下亀田１６−１６,ChIJ8cJsMmttIGARLewbzB29k6k,37.4074704,140.3487396,google_places
-マツモトキヨシ,ドラッグストア マツモトキヨシ 郡山横塚店,福島県郡山市横塚２丁目１０−３,ChIJgaJ0SHhsIGARB56hqLhctqM,37.3992093,140.3984272,google_places
-マツモトキヨシ,ドラッグストア マツモトキヨシ ヨークタウン八山田店,福島県郡山市八山田西１丁目５４,ChIJV-3KhSRtIGARYUA4VKY-zGw,37.4265431,140.3632159,google_places
-マツモトキヨシ,ドラッグストア マツモトキヨシ ヨークタウン大槻店,福島県郡山市大槻町土瓜３７−１,ChIJLYDariMTIGARL6nsHhgkyCA,37.40260749999999,140.327826,google_places
-マツモトキヨシ,ドラッグストア マツモトキヨシ 小出東店,福島県新潟県魚沼市井口新田７１０−１,ChIJe1gD08KR9V8RLL1MJqSz9Yg,37.2292211,138.9747721,google_places
-マツモトキヨシ,ドラッグストアマツモトキヨシ アクロスプラザ大原店,福島県いわき市小名浜大原東田９１,ChIJZXqV4l0TIWARs24RzDAJbvM,36.968564,140.8905185,google_places
-マツモトキヨシ,薬 マツモトキヨシ アスナル金山店,福島県愛知県名古屋市中区金山１丁目１７−１,ChIJ_67OC653A2ARrtfBxjct3AU,35.1437513,136.9016579,google_places
-マツモトキヨシ,薬 マツモトキヨシ matsukiyoLAB 名古屋金山駅前店,福島県愛知県名古屋市中区金山１丁目１４−９長谷川ビル,ChIJ4bW4dtJ3A2ARSXhdoy0VYrM,35.143669,136.90223,google_places
-マツモトキヨシ,マツモトキヨシ アクロスプラザ大原店,福島県いわき市小名浜大原東田９６−９６,ChIJQxH9EwATIWARwFAx0RqX2R0,36.9665793,140.8892186,google_places
-マツモトキヨシ,Amazon ロッカー - マツモトキヨシ_郡山鶴見坦店,福島県郡山市マツモトキヨシ３丁目１６鶴見坦店郡山市鶴見坦3-16-23,ChIJe-3GXa9tIGARjB_adXABdu8,37.392332,140.3582608,google_places
-杏林堂,杏林堂薬局,福島県福島市森合高野２２−１０,ChIJUUp2yPGFil8R5gTJajQztOc,37.769049,140.444258,google_places
-杏林堂,杏林堂薬局吉井田店,福島県福島市八木田神明１１５−３,ChIJUxmhVa-Fil8R8jDwI5G8E1U,37.748582,140.441237,google_places
-杏林堂,杏林堂薬局研修室,福島県福島市森合高野杏林堂薬局研修室,ChIJfwq9yfGFil8R5zb-vyZhGuQ,37.7691155,140.4444861,google_places
 ツルハドラッグ,ツルハドラッグ 会津高田店,福島県大沼郡会津美里町字布才地581-1,official_ca95f6a593114d09,37.463852,139.836387,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 会津美里店,福島県大沼郡会津美里町字高田前川原3553,official_34ad1f7daa29bdcb,37.470616841764254,139.8532936652897,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 南会津店,福島県南会津郡南会津町田島字谷地甲55-11,official_e14dcbde738aba3a,37.20229219097234,139.76945583402082,official_tsuruha
@@ -793,23 +27,29 @@ GENKY,ゲンキー 上志比店,福島県福島１５字南五石田10番1,ChIJY
 ツルハドラッグ,ツルハドラッグ 白河大信店,福島県白河市大信町屋字朴田61番3,official_3ff301f433d2b75a,37.20442050840164,140.24889432247335,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 白河モール店,福島県白河市老久保73-1白河モール内,official_9f96d8d1dd1ac048,37.11532113885409,140.2002496779966,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 白河白坂店,福島県白河市白坂三輪台16－1,official_7d8b7a1d0240578a,37.10054611042497,140.19659594983275,official_tsuruha
+ツルハドラッグ,ツルハドラッグ 白河結城店,福島県白河市結城44番地,official_3b16cfa083335781,37.11948173694988,140.22840762853886,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 郡山片平店,福島県郡山市中ノ目1丁目17番,official_1d47a08d0ae0b616,37.41921029980508,140.33319726796125,official_tsuruha
 ツルハドラッグ,調剤薬局ツルハドラッグ 希望が丘店,福島県郡山市富田町字大徳南6-10,official_4d20a9162ce59bc6,37.40693120381923,140.33714536625305,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 郡山堤店,福島県郡山市堤1丁目1-26,official_7263e7609699f62c,37.39893558749066,140.33883988340122,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 郡山台新店,福島県郡山市台新2丁目33番26号,official_3408d7f3e567bcb7,37.39103976864218,140.34147174611726,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 郡山島店,福島県郡山市島二丁目44番29号,official_88ea34e997df1448,37.39799820230481,140.34691354936473,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 郡山菜根店,福島県郡山市字菜根屋敷４１７番地,official_ce53e9e184c2a795,37.383566001593806,140.35620379966758,official_tsuruha
+ツルハドラッグ,ツルハドラッグ 矢吹北店,福島県西白河郡矢吹町北町164番地5,official_77712bd075b3a8c8,37.2119431148227,140.325992977751,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 福島泉崎店,福島県西白河郡泉崎村大字泉崎字八丸165番1,official_35a857e1bc4e201c,37.15228358462905,140.3031335878796,official_tsuruha
 ツルハドラッグ,調剤薬局ツルハドラッグ 郡山荒井店,福島県郡山市安積北井2丁目291番地,official_0e01ef04c61754d7,37.37176197286889,140.36235485818315,official_tsuruha
 ツルハドラッグ,調剤薬局ツルハドラッグ 郡山安積店,福島県郡山市安積4丁目203番,official_ab0b7d94082417c4,37.352759457158285,140.36338108419886,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 郡山富田店,福島県郡山市名郷田1丁目1番地,official_3033600d2166bcb5,37.41746394812697,140.36328803862304,official_tsuruha
+ツルハドラッグ,ツルハドラッグ 須賀川大袋店,福島県須賀川市大袋町57番地1,official_008c1d0a8da0aadc,37.284417,140.358639,official_tsuruha
+ツルハドラッグ,調剤薬局ツルハドラッグ須賀川西店,福島県須賀川市岡東町193番地,official_90ac51ab7861681a,37.29731909505093,140.36115792729814,official_tsuruha
 ツルハドラッグ,調剤薬局ツルハドラッグ 八山田店,福島県郡山市富田東三丁目22番地,official_741c20f6c9e04f85,37.42583943896532,140.3652207637342,official_tsuruha
+ツルハドラッグ,ツルハドラッグ 矢吹店,福島県西白河郡矢吹町八幡町418番の2,official_740251108df6cd4c,37.19561661713065,140.3323537767212,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 郡山笹川店,福島県郡山市笹川三丁目25番地1,official_65ce401dd272112d,37.356402039861926,140.36994757974307,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 郡山深沢店,福島県郡山市深沢一丁目8番27号,official_e043e7663b0c95a2,37.39092098446034,140.37201577023774,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 矢吹中央インター店,福島県西白河郡矢吹町八幡町778,official_6963a686b81e7749,37.189648792736165,140.33692938331797,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 須賀川南店,福島県須賀川市高久田境132-6,official_95028cc190fb461f,37.27465017101528,140.36620799010734,official_tsuruha
 ツルハドラッグ,調剤薬局ツルハドラッグ 郡山さくら通り店,福島県郡山市虎丸町2-1,official_97da7ccf4b602098,37.399108,140.376434,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 郡山久保田店,福島県郡山市富久山町久保田字大久保1-1,official_f58754d35a5a0689,37.41019104914935,140.37940306518192,official_tsuruha
+ツルハドラッグ,ツルハドラッグ 須賀川店,福島県須賀川市仲の町87番,official_09505a046145de9e,37.297798,140.383653,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 郡山日和田店,福島県郡山市日和田町字財ノ木原１５-１,official_c2f93472936f4c62,37.445160977038164,140.38404140219356,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 郡山金屋店,福島県郡山市田村町金屋字マセロ２０番地２,official_b022486cf4a12a8c,37.36810394413895,140.39059274036106,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 本宮店,福島県本宮市荒井字久保田132-8-2,official_c765f39b3d274bf3,37.48649374999043,140.3796476782339,official_tsuruha
@@ -850,6 +90,7 @@ GENKY,ゲンキー 上志比店,福島県福島１５字南五石田10番1,ChIJY
 ツルハドラッグ,ツルハドラッグ 平窪店,福島県いわき市平下平窪山土内町1‐1,official_eb4be0d1e0a5b5e3,37.08386364,140.8778143,official_tsuruha
 ツルハドラッグ,ツルハドラッグ いわき錦店,福島県いわき市錦町中央二丁目8番地1,official_3a083ea56fee636f,36.9058688198237,140.789164288025,official_tsuruha
 ツルハドラッグ,ツルハドラッグ いわき好間店,福島県いわき市好間町下好間字鬼越131,official_f6b1072eb6619b47,37.05956381291907,140.8726997999949,official_tsuruha
+ツルハドラッグ,調剤薬局ツルハドラッグ 内郷みまや店,福島県いわき市内郷御厩町３丁目１２２,official_6e6092cb62d0d40c,37.0495019,140.8737421,official_tsuruha
 ツルハドラッグ,ツルハドラッグ いわき下湯長谷店,福島県いわき市常磐下湯長谷町字シザ７１番地,official_518efdd83fe77aa2,36.990715,140.853585,official_tsuruha
 ツルハドラッグ,ツルハドラッグ いわき湯本店,福島県いわき市常磐水野谷町諏訪ヶ崎5-1,official_a9d85508b2299b77,36.99648215456279,140.8600114076721,official_tsuruha
 ツルハドラッグ,ツルハドラッグ いわき童子町店,福島県いわき市平字童子町3-14,official_2a4823a255049e5b,37.051434489387276,140.88713251078553,official_tsuruha
@@ -873,6 +114,7 @@ GENKY,ゲンキー 上志比店,福島県福島１５字南五石田10番1,ChIJY
 ツルハドラッグ,ツルハドラッグ いわき久之浜店,福島県いわき市久之浜町久之浜字堀ノ内9番地,official_137bb9eeb3f2f645,37.14465882127057,140.99574456188202,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 相馬桜ヶ丘店,福島県相馬市中村字桜ヶ丘130番,official_a75797be91c73395,37.802279,140.919063,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 相馬南店,福島県相馬市馬場野字雨田9-1,official_7c4bfaf360c06bf3,37.790066876956786,140.93113938146556,official_tsuruha
+ツルハドラッグ,ツルハドラッグ 小名浜神白店,福島県いわき市小名浜下神白字狩亦59-15,official_15a898d8f5aaf94c,36.948651,140.926899,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 相馬店,福島県相馬市小泉字根岸96番地1,official_a92f0f09ae2558e1,37.81037729,140.9252572,official_tsuruha
 ツルハドラッグ,ツルハドラッグ 新地店,福島県相馬郡新地町谷地小屋字樋ノ口36番地1,official_498c4cfb222964f7,37.8785058547317,140.915800659609,official_tsuruha
 ウエルシア,ウエルシア会津若松湯川店,福島県会津若松市湯川町4-10,official_1bfab91213c5a877,37.485084,139.923527,official_welcia
@@ -912,3 +154,151 @@ GENKY,ゲンキー 上志比店,福島県福島１５字南五石田10番1,ChIJY
 ウエルシア,ウエルシアいわき錦店,福島県いわき市錦町花ノ井30-1,official_d1782eb9c9c810f4,36.908128,140.780481,official_welcia
 ウエルシア,ウエルシアいわき中央台東店,福島県いわき市中央台高久2-25-1,official_ec85b5deb7e3d0bd,37.006136,140.932003,official_welcia
 コクミン,コクミンドラッグ福島駅店,福島県福島市栄町1-1駅西口パワーシティピボット内,official_d7c9b5d1831c0c3a,37.752141,140.461888,official_welcia
+薬王堂,薬王堂 福島大森店,福島県福島市大森字本町裏50番地,official_07abad8ea049ba71,,,official_yakuodo
+薬王堂,薬王堂 福島松川店,福島県福島市松川町字本町111番地1,official_62713f3cf4191002,,,official_yakuodo
+薬王堂,薬王堂 福島太平寺店,福島県福島市太平寺字古内34番1,official_9ce77e2573c1d244,,,official_yakuodo
+薬王堂,薬王堂 郡山安積店,福島県郡山市安積4丁目55番地1,official_55f2efd00c4e613f,,,official_yakuodo
+薬王堂,薬王堂 郡山堤店,福島県郡山市大槻町字堤西24番地1,official_66c85225abee4d3b,,,official_yakuodo
+薬王堂,薬王堂 郡山富久山店,福島県郡山市富久山町久保田字宮田10番地1,official_a9f55c9bd507cd61,,,official_yakuodo
+薬王堂,薬王堂 いわき永崎店,福島県いわき市永崎字橋出5-1,official_937541636e4112b4,,,official_yakuodo
+薬王堂,薬王堂 小名浜定西店,福島県いわき市小名浜字定西264-1,official_477c0cd8c2f2f6a2,,,official_yakuodo
+薬王堂,薬王堂 小名浜元分店,福島県いわき市小名浜字元分12-1,official_649575df27aaf6a5,,,official_yakuodo
+薬王堂,薬王堂 いわき山田店,福島県いわき市山田町毛内50,official_7fe5669e127c3c5d,,,official_yakuodo
+薬王堂,薬王堂 いわき勿来店,福島県いわき市勿来町窪田御前崎25-1,official_2a2a5fccf7cfe872,,,official_yakuodo
+薬王堂,薬王堂 いわき小川店,福島県いわき市小川町高萩字下代26-1,official_2c1f4e2c5131adb9,,,official_yakuodo
+薬王堂,薬王堂 白河桜岡店,福島県白河市大桜岡前126-1,official_9ee58ac9c2025ff1,,,official_yakuodo
+薬王堂,薬王堂 白河高山店,福島県白河市高山167番地1,official_63400f694c3b499d,,,official_yakuodo
+薬王堂,薬王堂 須賀川木之崎店,福島県須賀川市木之崎字寺前71番4,official_b7d58436510036bb,,,official_yakuodo
+薬王堂,薬王堂 須賀川東作店,福島県須賀川市東作48番1,official_ff4180cd67c9e09b,,,official_yakuodo
+薬王堂,薬王堂 喜多方松山店,福島県喜多方市松山町鳥見山字上天神5番,official_bf09ac8309eb8e9f,,,official_yakuodo
+薬王堂,薬王堂 相馬沖ノ内店,福島県相馬市沖ノ内3丁目3番地7,official_fc6dff2e16fbea9b,,,official_yakuodo
+薬王堂,薬王堂 相馬松川浦店,福島県相馬市尾浜字細田235,official_333a4cf1204ed695,,,official_yakuodo
+薬王堂,薬王堂 二本松本町店,福島県二本松市本町一丁目212番地4,official_f02d9eff8fc495fe,,,official_yakuodo
+薬王堂,薬王堂 メガステージ二本松店,福島県二本松市作田237番地2,official_c590f4ef0c481463,,,official_yakuodo
+薬王堂,薬王堂 田村大越店,福島県田村市大越町上大越字湯田19番地1,official_bc4066678d866d46,,,official_yakuodo
+薬王堂,薬王堂 田村船引店,福島県田村市船引町船引字川代88番地3,official_d3e6e58d916f25a4,,,official_yakuodo
+薬王堂,薬王堂 南相馬原町店,福島県南相馬市原町区中太田字天狗田93番2,official_9a392fee778cba2b,,,official_yakuodo
+薬王堂,薬王堂 原町大木戸店,福島県南相馬市原町区大木戸字松島215-1,official_2bce09d11a77a582,,,official_yakuodo
+薬王堂,薬王堂 原町大木戸北店,福島県南相馬市原町区大木戸字八方内79番地１,official_4fb2059e921fb701,,,official_yakuodo
+薬王堂,薬王堂 南相馬鹿島店,福島県南相馬市鹿島区寺内字東前田42,official_c13a412e61a94e98,,,official_yakuodo
+薬王堂,薬王堂 伊達梁川店,福島県伊達市梁川町大町一丁目40,official_d5511514374495b9,,,official_yakuodo
+薬王堂,薬王堂 伊達霊山町店,福島県伊達市霊山町下小国字夫婦清水28番,official_9ff32c7452ad38bf,,,official_yakuodo
+薬王堂,薬王堂 本宮高木店,福島県本宮市高木字舟場3番地1,official_4c57b5797c0410fe,,,official_yakuodo
+薬王堂,薬王堂 本宮仁井田店,福島県本宮市仁井田字富士内9-1,official_22db26b90877e2d4,,,official_yakuodo
+薬王堂,薬王堂 福島川俣店,福島県伊達郡川俣町大字鶴沢字堂ノ窪22番地1,official_db9a4baf9cfafa77,,,official_yakuodo
+薬王堂,薬王堂 福島大玉店,福島県安達郡大玉村玉井字袋内113番地,official_e6bc9006ad9bba1f,,,official_yakuodo
+薬王堂,薬王堂 福島鏡石店,福島県岩瀬郡鏡石町東町333,official_c62a7518d4e53f28,,,official_yakuodo
+薬王堂,薬王堂 メガステージ会津坂下店,福島県河沼郡会津坂下町大字気多宮字柳田1004番地,official_7fdc89eeacec06d1,,,official_yakuodo
+薬王堂,薬王堂 福島会津美里店,福島県大沼郡会津美里町字思堀73番地,official_e15b74f05e137689,,,official_yakuodo
+薬王堂,薬王堂 会津美里高田店,福島県大沼郡会津美里町字高田前川原3495番2,official_aaf09f948f782407,,,official_yakuodo
+薬王堂,薬王堂 福島西郷店,福島県白河郡西郷村大字米字西原28番地2,official_066a93bd4d6570c1,,,official_yakuodo
+薬王堂,薬王堂 福島中島店,福島県西白河郡中島村大字二子塚字山神山13番1,official_971fada3b231f303,,,official_yakuodo
+薬王堂,薬王堂 福島棚倉店,福島県東白川郡棚倉町大字棚倉字日向前8番地1,official_e098616f6974aa10,,,official_yakuodo
+薬王堂,薬王堂 福島塙店,福島県東白川郡塙町大字塙字本町106番地,official_59e253e5c64e9abb,,,official_yakuodo
+薬王堂,薬王堂 福島石川店,福島県石川郡石川町字当町131,official_e8ac456142d57505,,,official_yakuodo
+薬王堂,薬王堂 福島小野店,福島県田村郡小野町大字小野新町字中通90番地,official_5d29795667633923,,,official_yakuodo
+薬王堂,薬王堂 福島新地店,福島県相馬郡新地町谷地小屋字中田35番地の1,official_1ce2932dc8bc7b06,,,official_yakuodo
+マツモトキヨシ,ドラッグストア マツモトキヨシ 福島入江町店,福島県福島市入江町１１−３８,official_f68d90147b7be7d3,,,google_maps_browser
+マツモトキヨシ,ドラッグストア マツモトキヨシ 福島西店,福島県福島市南沢又中琵琶渕２７,official_1775f6713b5c6e92,,,google_maps_browser
+マツモトキヨシ,薬 マツモトキヨシ エスパル福島店,福島県福島市栄町１−１,official_64ec2349026c5e12,,,google_maps_browser
+マツモトキヨシ,ドラッグストア マツモトキヨシ 福島笹谷店,福島県福島市笹谷東中條１４−６,official_4b4b9dbaf27cbedb,,,google_maps_browser
+マツモトキヨシ,ドラッグストアマツモトキヨシ 郡山御前南店,福島県郡山市御前南２丁目２８,official_43568d9c4d5c8bcd,,,google_maps_browser
+マツモトキヨシ,ドラッグストアマツモトキヨシ 福島南店,福島県福島市黒岩浜井場３２,official_bd9cf760094255b9,,,google_maps_browser
+マツモトキヨシ,ドラッグストア マツモトキヨシ 郡山堤店,福島県郡山市堤３丁目６,official_7faa4b26d56bdecd,,,google_maps_browser
+マツモトキヨシ,ドラッグストア マツモトキヨシ 会津西若松店,福島県会津若松市住吉町２４−３,official_afc1e90a698dd591,,,google_maps_browser
+マツモトキヨシ,ドラッグストア マツモトキヨシ 郡山鶴見坦店,福島県郡山市鶴見坦３丁目１６−２３,official_4e0274305aa1ba6e,,,google_maps_browser
+マツモトキヨシ,ドラッグストアマツモトキヨシ 郡山下亀田店,福島県郡山市下亀田１６−１６,official_295e4ec65b6770c5,,,google_maps_browser
+マツモトキヨシ,ドラッグストア マツモトキヨシ メガステージ石川店,福島県石川郡石川町長久保２３,official_633e44e1b2b4b419,,,google_maps_browser
+マツモトキヨシ,ドラッグストア マツモトキヨシ 郡山桑野店,福島県郡山市桑野２丁目３６−８,official_cc8650c2f41c28ea,,,google_maps_browser
+マツモトキヨシ,薬 マツモトキヨシ エスパル郡山店,福島県郡山市燧田195番地,official_066afcdabbf134ea,,,google_maps_browser
+マツモトキヨシ,ドラッグストア マツモトキヨシ いわき泉町店,福島県いわき市泉町下川薬師前１１３−１,official_23f35818ad294f25,,,google_maps_browser
+マツモトキヨシ,ドラッグストア マツモトキヨシ 郡山横塚店,福島県郡山市横塚２丁目１０−３,official_5f185b146f48fe9c,,,google_maps_browser
+マツモトキヨシ,ドラッグストア マツモトキヨシ 会津門田店,福島県会津若松市東年貢２丁目３−１,official_c2988f4a4db35af8,,,google_maps_browser
+マツモトキヨシ,ドラッグストア マツモトキヨシ エイトタウン相馬店,福島県相馬市黒木源多田４４,official_3f595660d3bdc19c,,,google_maps_browser
+マツモトキヨシ,ドラッグストア マツモトキヨシ ヨークタウン大槻店,福島県郡山市大槻町土瓜３７−１,official_ddb74b19ea6e4183,,,google_maps_browser
+マツモトキヨシ,ドラッグストア マツモトキヨシ ヨークタウン八山田店,福島県郡山市八山田西１丁目５４,official_7d1f84471b5949cf,,,google_maps_browser
+マツモトキヨシ,ドラッグストアマツモトキヨシ いわき平ペッペ店,福島県いわき市平六町目6−２,official_4cb1bcb3f7591f02,,,google_maps_browser
+クスリのアオキ,クスリのアオキ 福島野田店,福島県福島市野田町４丁目１１−11番3号,official_d89b26043ecf588e,,,google_maps_browser
+クスリのアオキ,クスリのアオキ御山店,福島県福島市御山稲荷田９３番地の１,official_811e285e83372f8e,,,google_maps_browser
+クスリのアオキ,クスリのアオキ松川店,福島県福島市松川町鼓ケ岡３番地の２,official_9ca1b01b08d2a791,,,google_maps_browser
+クスリのアオキ,クスリのアオキ太平寺店,福島県福島市太平寺沖高５５,official_c5ceb0df22af7ec6,,,google_maps_browser
+クスリのアオキ,クスリのアオキ 平窪店,福島県いわき市平下平窪六角２９−１,official_7d6dd8b6095441b8,,,google_maps_browser
+クスリのアオキ,クスリのアオキ 八角店,福島県会津若松市八角町１３−５０,official_4db123fd0397f129,,,google_maps_browser
+クスリのアオキ,クスリのアオキ 二本松店,福島県二本松市油井内走石２０−１,official_9f92ab7a5ef6efc4,,,google_maps_browser
+クスリのアオキ,クスリのアオキ 平店,福島県いわき市平月見町３３−５,official_4a872bbb8f2dc02e,,,google_maps_browser
+クスリのアオキ,クスリのアオキ 好間店,福島県いわき市好間町下好間鬼越７４,official_71708181151ffe27,,,google_maps_browser
+クスリのアオキ,クスリのアオキ 白河西郷店,福島県西白河郡西郷村米西原14番地1,official_7f53a9f5120c00ba,,,google_maps_browser
+クスリのアオキ,クスリのアオキ 磐城守山店,福島県郡山市田村町守山小性町１３９,official_5052663cd9966d4c,,,google_maps_browser
+クスリのアオキ,クスリのアオキ国見店,福島県伊達郡国見町藤田五反田１−２２,official_9bc4a01ac0f741fc,,,google_maps_browser
+カワチ薬品,カワチ薬品 福島南店,福島県福島市鳥谷宮畑５１−５３,official_9cf34ff70ab2316a,,,google_maps_browser
+カワチ薬品,カワチ薬品 福島西店,福島県福島市泉下鎌２９−１,official_7f1e667ac72ab1df,,,google_maps_browser
+カワチ薬品,カワチ薬品 福島東店,福島県福島市高野河原下１６−２,official_7c290f3bd6790356,,,google_maps_browser
+カワチ薬品,カワチ薬品 福島さくら店,福島県福島市さくら３丁目7−３,official_249350c8661ad770,,,google_maps_browser
+カワチ薬品,カワチ薬品 笹谷店,福島県福島市笹谷字中谷地１１−１,official_e1f193c7d83665f2,,,google_maps_browser
+カワチ薬品,カワチ薬品 鎌田店,福島県福島市鎌田舟戸９−８,official_2e5e45d603c1889e,,,google_maps_browser
+カワチ薬品,カワチ薬品 須賀川店,福島県須賀川市陣場町1−１,official_3d56bf07ba539dc2,,,google_maps_browser
+カワチ薬品,カワチ薬品 石川店,福島県石川郡石川町双里４３−２,official_ef524b91d58fd428,,,google_maps_browser
+カワチ薬品,カワチ薬品 湯本店,福島県いわき市常磐西郷町落合４１,official_99ac01ee3e31a0c6,,,google_maps_browser
+カワチ薬品,カワチ薬品 棚倉店,福島県東白川郡棚倉町下山本愛宕平6,official_43f3e4960a8f6322,,,google_maps_browser
+カワチ薬品,カワチ薬品 原町店,福島県南相馬市原町区北町２９３,official_2e3e91d69e4becd3,,,google_maps_browser
+カワチ薬品,カワチ薬品 白河店,福島県白河市昭和町１８８,official_b442083f3c826e87,,,google_maps_browser
+カワチ薬品,カワチ薬品 会津若松中央店,福島県会津若松市中央２丁目３−７,official_fd9e3402d2cd531d,,,google_maps_browser
+カワチ薬品,カワチ薬品 会津アピオ店,福島県会津若松市町北町大字始宮前１０−３,official_eaa9f5a0627912fa,,,google_maps_browser
+カワチ薬品,カワチ薬品会津若松南店,福島県会津若松市飯寺南２丁目１−８０,official_561ce65d9a2257a6,,,google_maps_browser
+カワチ薬品,カワチ薬品 泉店,福島県いわき市泉町７丁目20−２２,official_deb6997f3a9d319d,,,google_maps_browser
+カワチ薬品,カワチ薬品 相馬店,福島県相馬市中野寺前３７７−１,official_46c67134b0978130,,,google_maps_browser
+カワチ薬品,カワチ薬品 安積店,福島県郡山市安積町荒井雁股８−１０１,official_e3fb5c5cf119128a,,,google_maps_browser
+カワチ薬品,カワチ薬品 城清水店,福島県郡山市城清水１８,official_c54a14ddddde50a1,,,google_maps_browser
+カワチ薬品,カワチ薬品 上荒川店,福島県いわき市平上荒川堀ノ内１,official_a63382fc05857b7d,,,google_maps_browser
+カワチ薬品,カワチ薬品喜多方西店,福島県喜多方市押切南２丁目１２,official_723cc89433077409,,,google_maps_browser
+カワチ薬品,カワチ薬品富田店,福島県郡山市富田町西１丁目３,official_759bfded671a310b,,,google_maps_browser
+カワチ薬品,カワチ薬品 白河東店,福島県白河市中田２３−１,official_69220c239fd5c321,,,google_maps_browser
+カワチ薬品,カワチ薬品 会津坂下店,福島県河沼郡会津坂下町舘ノ下７０,official_19949bf8b9718f3e,,,google_maps_browser
+ハシドラッグ,ハシドラッグ 南福島店,福島県福島市太平寺児子塚５２−１,official_90cd9ef9df8195e8,,,google_maps_browser
+ハシドラッグ,ハシドラッグ 福島中央店,福島県福島市西中央２丁目８,official_a28c28fff829e337,,,google_maps_browser
+ハシドラッグ,ハシドラッグ 荒井店,福島県福島市荒井北３丁目12−５,official_e1c3817083c3bc56,,,google_maps_browser
+ハシドラッグ,ハシドラッグ 信陵店,福島県福島市笹谷出水頭１−２,official_07a4861dbcc59b62,,,google_maps_browser
+ハシドラッグ,ハシドラッグ 北店,福島県福島市笹谷片目清水３０−４,official_faf3bacf1c1ec6ce,,,google_maps_browser
+ハシドラッグ,ハシドラッグ 安達店,福島県二本松市油井腰巻７,official_05c25c46651cb496,,,google_maps_browser
+ハシドラッグ,ハシドラッグ 鳥谷野店,福島県福島市鳥谷野芝切１８,official_4a74b035b62574b6,,,google_maps_browser
+ハシドラッグ,ハシドラッグ 西店,福島県福島市野田町道端７９,official_76a017618942c8f5,,,google_maps_browser
+ハシドラッグ,ハシドラッグ 八木田店,福島県福島市八木田並柳１６１−２,official_467f1f65a91f3c2f,,,google_maps_browser
+ハシドラッグ,ハシドラッグ 国見店,福島県伊達郡国見町藤田中沢四１,official_dc8d5e02e94f4518,,,google_maps_browser
+ハシドラッグ,ハシドラッグ 伊達箱崎店,福島県伊達市箱崎布川８９,official_1d2a2cd99f47208a,,,google_maps_browser
+ハシドラッグ,ハシドラッグ 腰浜店,福島県福島市腰浜町１４−４,official_f2694c4cdc8d8d67,,,google_maps_browser
+ハシドラッグ,ハシドラッグ 船引店,福島県田村市船引町東部台４丁目３４,official_b2077f36e0a0027f,,,google_maps_browser
+ハシドラッグ,ハシドラッグ 保原店,福島県伊達市保原町栄町３８−１,official_5a1ed1c0ef757081,,,google_maps_browser
+ハシドラッグ,ハシドラッグ 飯舘店,福島県相馬郡飯舘村草野大師堂１,official_bd56778bc0b75dc1,,,google_maps_browser
+ハシドラッグ,ハシドラッグ 川俣店,福島県伊達郡川俣町鶴沢社前８７,official_03a6940e25302d29,,,google_maps_browser
+コスモス,ドラッグストアコスモス 白河老久保店,福島県白河市老久保１２,official_731d26c82b29f591,,,google_maps_browser
+コスモス,秋桜薬局,福島県郡山市御前南５丁目１５４,official_5bc59187a9eb3554,,,google_maps_browser
+コスモス,コスモ調剤薬局 伊達町店,福島県伊達市片町３８−２,official_ccea40b88923287e,,,google_maps_browser
+サンドラッグ,サンドラッグ 方木田店,福島県福島市大森北島２０−１,official_2ec0cacfedcbd16c,,,google_maps_browser
+サンドラッグ,サンドラッグ やのめ店,福島県福島市南矢野目向原１−１店内,official_b65a400df78dacfa,,,google_maps_browser
+サンドラッグ,サンドラッグ いずみ店,福島県福島市森合清水７,official_92eda7a321bde3a1,,,google_maps_browser
+サンドラッグ,サンドラッグ 八木田店,福島県福島市八木田中島１２８−１,official_ecf3a2223c97b459,,,google_maps_browser
+サンドラッグ,サンドラッグ 伊達店,福島県伊達市原島８−１,official_4cf3e92af7fc752b,,,google_maps_browser
+サンドラッグ,サンドラッグ 植田店,福島県いわき市佐糠町碇田９１−１,official_168632e30e92216c,,,google_maps_browser
+サンドラッグ,サンドラッグ いわきエブリア店,福島県いわき市鹿島町米田日渡,official_f82e3453b497977d,,,google_maps_browser
+サンドラッグ,サンドラッグ 須賀川店,福島県須賀川市高久田境９５−１,official_f48d6826246cb28d,,,google_maps_browser
+サンドラッグ,サンドラッグ 須賀川森宿店,福島県須賀川市森宿北向８８,official_7552202dd88a85bd,,,google_maps_browser
+サンドラッグ,サンドラッグ 会津若松アピオ店,福島県会津若松市インター西１１６116,official_b7d650c1520a2ad8,,,google_maps_browser
+サンドラッグ,ツルハドラッグ 喜多方南店,福島県喜多方市関柴町上高額前田１７５０−７,official_661492696eae13c6,,,google_maps_browser
+サンドラッグ,ツルハドラッグ 喜多方塩川店,福島県喜多方市塩川町東栄町５丁目6番３,official_2a4803114ce06eb0,,,google_maps_browser
+サンドラッグ,サンドラッグ 猪苗代店,福島県耶麻郡猪苗代町芦原９７,official_854579f6122e59ac,,,google_maps_browser
+サンドラッグ,ツルハドラッグ 喜多方西店,福島県喜多方市押切南２丁目５１−２,official_27762cb61ff3d6fa,,,google_maps_browser
+サンドラッグ,ツルハドラッグ 相馬店,福島県相馬市小泉根岸96番地1,official_6f08bee94abb7326,,,google_maps_browser
+サンドラッグ,ツルハドラッグ 相馬南店,福島県相馬市馬場野雨田９−１,official_ce05cf24963ade2b,,,google_maps_browser
+サンドラッグ,ツルハドラッグ 相馬桜ヶ丘店,福島県相馬市中村桜ケ丘１３０130番,official_5e4b9fd69e71f6b0,,,google_maps_browser
+サンドラッグ,サンドラッグ 二本松インター店,福島県二本松市成田町１丁目８１０,official_8af2bfeabcfc00ee,,,google_maps_browser
+サンドラッグ,サンドラッグ あだたら店,福島県二本松市油井中田１−１コープマートあだたら店内,official_864ba7fc82b68909,,,google_maps_browser
+ココカラファイン,ココカラファイン 喜多方店,福島県喜多方市江中子４１７９,official_dc45660dbe753829,,,google_maps_browser
+ココカラファイン,ココカラファイン 会津若松店,福島県会津若松市飯寺南４丁目６−２２,official_1921514c0f65533c,,,google_maps_browser
+ココカラファイン,コクミンドラッグ 福島駅店,福島県福島市栄町１−１駅西口パワーシティピボット内,official_2619da1bc4493953,,,google_maps_browser
+ココカラファイン,ココカラLIFE西ノ内教室,福島県郡山市西ノ内１丁目３−２４成和ビル,official_59633686e8c33a90,,,google_maps_browser
+ココカラファイン,小規模保育事業所・ココカラ開成,福島県郡山市開成４丁目９−１７1階102号,official_64443c6ee7b67ac7,,,google_maps_browser
+ココカラファイン,（株）ピーエイケア,福島県郡山市開成４丁目９−１７,official_f5a965091f21fdc6,,,google_maps_browser
+ココカラファイン,いわき市,福島県の浜通り南部に位置する市。中核市に指定されている。1966年成立。福島県浜通り地域の行政・経済・文化の中心地である。面積は福島県内で最大であり、人口においては郡山市に次ぐ県内2位、東北地方では仙台市、,official_075a6bc31c12d0b1,,,google_maps_browser
+ココカラファイン,トミードラッグ,福島県白河市一番町２９,official_dd955edecfbe5d31,,,google_maps_browser
+ココカラファイン,サンドラッグ 田村店,福島県田村市船引町船引源次郎１１９−４,official_d540bff15d4da69b,,,google_maps_browser
+ココカラファイン,アイランド薬局 船引店,福島県田村市船引町船引馬場62番１,official_e7ba3831adef42b6,,,google_maps_browser

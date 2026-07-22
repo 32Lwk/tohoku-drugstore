@@ -1,11 +1,15 @@
 {
   "prefecture": "青森県",
-  "total": 139,
+  "total": 242,
   "missing_coords": 0,
   "duplicate_addresses": 0,
   "pharmacy_leak": 0,
   "chain_coverage": {
     "ハッピードラッグ": 81,
-    "ツルハドラッグ": 58
+    "薬王堂": 69,
+    "ツルハドラッグ": 58,
+    "スーパードラッグアサヒ": 22,
+    "マツモトキヨシ": 7,
+    "サンドラッグ": 5
   }
 }

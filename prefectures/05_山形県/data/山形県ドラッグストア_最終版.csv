@@ -1,13 +1,6 @@
 ﻿company,store_name,address,place_id,latitude,longitude,source
-その他,くすりのいっきゅう,山形県西村山郡大江町左沢３５９,ChIJyWmCFarBi18R5t5NWsJWrfg,38.378723,140.207643,google_places
-その他,くすりのゆうき駅前店,山形県南陽市三間通１３７−３,ChIJsdWSpJFVil8RYS_0S1uexlE,38.0478229,140.151275,google_places
-その他,くすりのエンゼル,山形県長井市館町南１５−６２,ChIJW6BoVYQAi18Rn1Wv68fr1sA,38.0940265,140.0374257,google_places
 その他,ひろのドラッグ,山形県新庄市下金沢町５−３２,ChIJAad9RzStjl8RcBSI6-9zFi8,38.7544564,140.3029615,google_places
-その他,クスリのおおち,山形県村山市中央２丁目４−８,ChIJs-xe51Xni18RXu6SS3tF488,38.482091,140.371651,google_places
-その他,クスリのサンコー,山形県長井市中道２丁目１９−１３,ChIJJ-roZAqqi18R3kxlNaAfGUw,38.105824,140.031414,google_places
-その他,クスリのフレンズ,山形県鶴岡市本町２丁目６−１５,ChIJnc7PdKEajF8RwM3m6B4s69U,38.72349639999999,139.8294288,google_places
 その他,タカノクスリヤ,山形県米沢市中央１丁目３−１４,ChIJ6ffv3j7wil8R7-7ZwQU1cn4,37.9122813,140.1115479,google_places
-その他,㈲クスリのフレンズ 板井川店,山形県鶴岡市板井川片茎７９−９,ChIJ3yoEvsgOjF8R6anX78tLMUA,38.6491615,139.8495865,google_places
 その他,株式会社ヤマザワ薬品ドラッグ 新庄店,山形県新庄市金沢字大道上２０３３−４,ChIJqwXmsMpSiV8RvtGVJY2Pug8,38.753267,140.309725,google_places
 ウエルシア,ウエルシア 山形東青田店,山形県山形市東青田４丁目５−２２ウエルシア山形東青田店,ChIJx4q5ELS1i18REzXNUvxFvO4,38.2220324,140.3343464,google_places
 ウエルシア,ウエルシア上山弁天店,山形県上山市弁天１丁目１１−３６,ChIJ_QLgZ6azi18ROskWuuG6VLM,38.1678429,140.292572,google_places
@@ -48,19 +41,6 @@
 カワチ薬品,カワチ薬品 鶴岡インター店,山形県鶴岡市美咲町３４−２６,ChIJWVwz3oAQjF8RfBOLPIZPOw8,38.7339867,139.7979887,google_places
 カワチ薬品,カワチ薬品 鶴岡宝田店,山形県鶴岡市宝田３丁目１−５,ChIJcfR5oLcbjF8RbowJ426unco,38.7469095,139.8433969,google_places
 カワチ薬品,カワチ薬品 鶴岡東店,山形県鶴岡市伊勢原町４−４７,ChIJdwiylq0ajF8Rx4dWFD5hBik,38.7183214,139.84776,google_places
-クスリのアオキ,クスリのアオキ 中里店,山形県天童市中里４丁目１−４５,ChIJgePBa_bFi18R2H6n7Ttikzc,38.3292002,140.361319,google_places
-クスリのアオキ,クスリのアオキ 南原町店,山形県山形市南原町３丁目２０−３０,ChIJxXyPRXS1i18R5Zv4Sbnbh78,38.2329448,140.3406575,google_places
-クスリのアオキ,クスリのアオキ 天童北店,山形県天童市北久野本３丁目２−２８,ChIJl0bpCgDFi18RXvWZ6mC2XvU,38.3792537,140.3737726,google_places
-クスリのアオキ,クスリのアオキ 寒河江西店,山形県寒河江市寒河江鶴田１５−２,ChIJKY3ccD3Bi18RQu-petnJZnE,38.3798938,140.2608554,google_places
-クスリのアオキ,クスリのアオキ 寒河江赤田店,山形県寒河江市寒河江赤田７０番地の１,ChIJL4MRbwDDi18RXwSB41EQyH0,38.3739091,140.2862184,google_places
-クスリのアオキ,クスリのアオキ 江俣店,山形県山形市江俣１丁目９−４,ChIJQeRUpAnJi18RwOulUyGztMs,38.274855,140.3236236,google_places
-クスリのアオキ,クスリのアオキ 河北店,山形県西村山郡河北町谷地砂田７０−１,ChIJnZlVLibDi18RCNLkxbsDz_8,38.4210859,140.3069988,google_places
-クスリのアオキ,クスリのアオキ 米沢林泉寺店,山形県米沢市林泉寺２丁目２−８３,ChIJ1bT8JgDvil8REwy3pbOS5jg,37.9026121,140.0968164,google_places
-クスリのアオキ,クスリのアオキ 米沢泉町店,山形県米沢市泉町１丁目１−２１,ChIJvaAVv47vil8RfRy1b-roLtU,37.8940904,140.1052377,google_places
-クスリのアオキ,クスリのアオキ 米沢門東店,山形県米沢市門東町２丁目１−３,ChIJG5dUegDxil8RXEF9Ntpji78,37.9099058,140.112082,google_places
-クスリのアオキ,クスリのアオキ 酒田店,山形県酒田市日の出町１丁目１−８,ChIJTXdnOQCfjl8REefGVRTkhnU,38.9174662,139.8588314,google_places
-クスリのアオキ,クスリのアオキ 金池店,山形県米沢市金池６丁目４−４２,ChIJMzvJnEjxil8RrdUzWZXeb9E,37.9257533,140.1145048,google_places
-クスリのアオキ,クスリのアオキ 高畠店,山形県東置賜郡高畠町福沢４５９−２,ChIJJZt1DkD5il8RsToFyqgZ53k,37.9930161,140.1486668,google_places
 ココカラファイン,ココカラファイン 小国店,山形県西置賜郡小国町小国小坂町３丁目５８,ChIJVY1CzGYai18RPaV98CT-g18,38.0614518,139.7421404,google_places
 サンドラッグ,サンドラッグ さくらんぼ東根駅前店,山形県東根市さくらんぼ駅前２丁目１６−２５,ChIJSbrMjufdi18RHWIL8HSnbf0,38.428831,140.3864941,google_places
 サンドラッグ,サンドラッグ 上山店,山形県上山市仙石梅ノ木７７８−１,ChIJQ5ww7DFNil8RKjEYdVf76Mo,38.1521219,140.2890019,google_places
