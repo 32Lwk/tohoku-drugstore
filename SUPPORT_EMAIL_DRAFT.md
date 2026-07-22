@@ -1,25 +1,34 @@
-Subject: Re: Case 73530481 — Understood: enabling Places API (New) with preventive measures
+Subject: Re: Case 73530481 — Places API (New) enabled with preventive measures; ready for monitoring
 
 Hi Ian,
 
-Thank you for the clarification. I understand your point.
+Thank you again for your guidance.
 
-Disabling the API key stops all traffic, so there is no usage for your team to monitor. I will therefore **enable Places API (New)** and apply the preventive measures first, then confirm back to you so monitoring can begin.
+I have now **enabled Places API (New)** on project **medicine-recommend** (Project ID: **340042923793**) and applied preventive measures so that your team can monitor usage.
 
-## Plan (before I ask you to start monitoring)
+## Completed actions
 
-1. **Enable Places API (New)** on project medicine-recommend (Project ID: 340042923793)
-2. **Create / configure an API key** with restrictions:
-   - API restrictions: Places API (New) only (and Geocoding only if strictly needed)
-   - Application restrictions as appropriate
-3. **Set low daily quotas** so usage cannot spike again
-4. Keep **budget alerts** enabled
-5. Ensure the application uses **Text Search (New)** with an explicit **minimal field mask** only (no legacy Text Search, no wildcard `*`)
-6. Generate only a **small, controlled amount of test usage** under those limits, so you can validate that the preventive measures are effective
+1. **Places API (New) enabled**
+2. **API key controls**
+   - The previous key involved in the July 21 spike remains disabled
+   - A restricted key setup is in place for Places API (New) only
+3. **Strict quotas applied** (examples):
+   - SearchTextRequest per day: **5** (reduced from 75,000)
+   - SearchTextRequest per minute: **5** (reduced from 600)
+   - SearchNearby / GetPlace / Autocomplete and other Places (New) quotas also reduced to very low limits (around 5/day or 5/minute where applicable)
+4. **Budget alerts** remain configured
+5. **Usage policy**
+   - No legacy Text Search
+   - If any calls are made, they will use Text Search (New) with an explicit minimal field mask only
+   - I will keep usage very small and controlled during your monitoring window
 
-I will complete these steps carefully and reply again once everything is in place and ready for your 24–48 hour monitoring.
+These preventive measures are now active. Please proceed with your **24–48 hour usage monitoring**.
 
-Thank you for your guidance, and for continuing to assist with the one-time courtesy billing adjustment review afterward.
+After validation, I would be deeply grateful if you could continue with the **one-time courtesy billing adjustment** review. As a university student in Japan using this project only for personal learning and development, the unexpected charge remains far beyond what I can afford.
+
+Please let me know if you need screenshots of the enabled API, quota overrides, key restrictions, or budget alert settings.
+
+Thank you again for your support.
 
 Best regards,
 Yuto Kawashima
