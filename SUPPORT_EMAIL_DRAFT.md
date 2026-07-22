@@ -1,36 +1,33 @@
-Subject: Re: Case 73530481 — Implementation fix and preventive measures completed; ready for monitoring
+Subject: Re: Case 73530481 — Implementation review and preventive measures completed
 
 Hi Ian,
 
 Thank you for your follow-up.
 
-I am writing to confirm that the **implementation remediation and preventive measures are now in place**, so you may **start monitoring** my usage for the next 24–48 hours.
+I am writing to confirm that I have completed the required remediation and preventive measures, so you may begin monitoring my usage.
 
-## 1. Implementation / Places API (New)
+## Implementation / migration status
 
-For project **medicine-recommend** (Project ID: **340042923793**):
+- I have **stopped all Places API usage** on project **medicine-recommend** (Project ID: **340042923793**).
+- I have reviewed the application’s Places-related implementation.
+- I am **not currently using legacy Text Search**.
+- I am also **re-evaluating whether this application should use Places API at all**.
+- If Maps usage is resumed in the future, I will use **Places API (New) / Text Search (New)** only, with an explicit **minimal field mask**, and only for narrowly scoped lookups (e.g. nearby pharmacy). Until that decision is made, Places remains disabled.
 
-- I have **stopped** the unintended Places usage that caused the July 21 spike.
-- I have reviewed the application design. This project is a personal student learning app (OTC medicine recommendation chat UI). Places was only being considered for limited nearby-pharmacy lookups, and I am **re-evaluating whether Places should be used at all**.
-- **Current state:** Places API calls from this project are **disabled / not in active use**.
-- **If Maps usage is ever resumed**, it will use **Places API (New) Text Search only**, with an explicit **minimal field mask** (no wildcard `*`), and with hard request limits in code. Legacy Text Search will not be used.
+## Preventive measures applied
 
-## 2. Preventive measures (project + API key)
+1. **Places API key disabled (invalidated)** — the key involved in the July 21 spike can no longer generate traffic.
+2. **Budget alerts configured** on my Google Cloud billing account.
+3. **Daily quotas / API controls** — I am applying quota limits and will only issue a new key (if ever needed) with proper **API key restrictions**.
+4. **Application redesign** — I am revising the medicine-recommend app so Places is not called unintentionally during development/testing.
 
-Completed:
+Because the API key is disabled, current Places usage is effectively **zero**, and a similar spike cannot recur under the current setup.
 
-- **API key:** The Places API key involved in the spike has been **disabled (invalidated)**. It can no longer generate traffic.
-- **Budget alerts:** Billing budget alerts have been configured on my Google Cloud account.
-- **Quotas / future key controls:** Daily quotas and API key restrictions will be applied **before any new key is enabled**. Until then, Places traffic remains stopped via the disabled key.
-- **Application safeguard:** Development will not call Places unintentionally; any future integration will be narrowly scoped and rate-limited.
+Please proceed with your **24–48 hour usage monitoring**. After validation, I would be deeply grateful if you could continue with the **one-time courtesy billing adjustment** review.
 
-## 3. Request
+As a university student in Japan using this project only for personal learning and development, the unexpected charge remains far beyond what I can afford. Thank you again for your support.
 
-Please proceed with **usage monitoring** and, after validation, with the **one-time courtesy billing adjustment** review discussed earlier.
-
-I will keep Places usage stopped during your monitoring window. If you need screenshots (disabled key, budget alert, quota settings) or any additional details, I will provide them immediately.
-
-Thank you again for your support.
+Please let me know if you need screenshots of the disabled key, budget alert settings, quota configuration, or any other details.
 
 Best regards,
 Yuto Kawashima
