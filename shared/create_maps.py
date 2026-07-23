@@ -14,6 +14,11 @@ from shared.config import (
     CHOROPLETH_BORDER_COLOR,
     CHOROPLETH_BORDER_WEIGHT,
     DENSITY_CHOROPLETH_COLORS,
+    DENSITY_CHOROPLETH_MID,
+    DENSITY_CHOROPLETH_MID_POS,
+    DENSITY_CHOROPLETH_UPPER_GAMMA,
+    DENSITY_CHOROPLETH_VMAX,
+    DENSITY_CHOROPLETH_VMIN,
     MUNI_BORDER_COLOR,
     MUNI_BORDER_WEIGHT,
     PREF_BOUNDARY_COLOR,
@@ -85,6 +90,44 @@ def _choropleth_style(fill_color: str, fill_opacity: float = 0.75) -> dict:
         "weight": CHOROPLETH_BORDER_WEIGHT,
         "fillOpacity": fill_opacity,
     }
+
+
+def _density_normalized(density: float) -> float:
+    """密度値を0〜1に変換。平均付近は薄色域に留め、高密度のみ急峻に濃色化"""
+    d = float(np.clip(density, DENSITY_CHOROPLETH_VMIN, DENSITY_CHOROPLETH_VMAX))
+    mid = DENSITY_CHOROPLETH_MID
+    mid_pos = DENSITY_CHOROPLETH_MID_POS
+    if d <= mid:
+        return (d / mid) * mid_pos if mid > 0 else 0.0
+    t = (d - mid) / (DENSITY_CHOROPLETH_VMAX - mid)
+    t = t ** DENSITY_CHOROPLETH_UPPER_GAMMA
+    return mid_pos + t * (1.0 - mid_pos)
+
+
+def _density_base_cmap() -> cm.LinearColormap:
+    return cm.LinearColormap(DENSITY_CHOROPLETH_COLORS, vmin=0, vmax=1)
+
+
+def _make_density_colormap() -> cm.LinearColormap:
+    """凡例用。分段正規化を101点サンプリングして線形補間"""
+    base = _density_base_cmap()
+    samples = [
+        base(_density_normalized(v))[:7]
+        for v in np.linspace(DENSITY_CHOROPLETH_VMIN, DENSITY_CHOROPLETH_VMAX, 101)
+    ]
+    return cm.LinearColormap(
+        samples,
+        vmin=DENSITY_CHOROPLETH_VMIN,
+        vmax=DENSITY_CHOROPLETH_VMAX,
+        caption="人口10万人当たりドラッグストア数",
+    )
+
+
+def _density_fill_color(density: float) -> str:
+    if density <= 0:
+        return "#cccccc"
+    color = _density_base_cmap()(_density_normalized(density))
+    return color[:7]
 
 
 def _add_prefecture_boundary(
@@ -303,9 +346,6 @@ def create_density_choropleth(slug: str) -> str:
     density_dict = dict(zip(df["市区町村"], df["人口10万人当たり店舗数"]))
 
     geo = _load_geojson(paths["geojson"])
-    values = [v for v in density_dict.values() if v > 0]
-    vmin = float(np.percentile(values, 5)) if values else 0
-    vmax = float(np.percentile(values, 95)) if values else 1
 
     for feat in geo["features"]:
         key = _city_key(feat["properties"])
@@ -314,17 +354,12 @@ def create_density_choropleth(slug: str) -> str:
         )
 
     m = folium.Map(location=list(cfg["center"]), zoom_start=cfg["zoom"], tiles="OpenStreetMap")
-    colormap = cm.LinearColormap(
-        colors=DENSITY_CHOROPLETH_COLORS,
-        vmin=vmin,
-        vmax=vmax,
-        caption="人口10万人当たりドラッグストア数",
-    )
+    colormap = _make_density_colormap()
 
     def style_fn(feature):
         d = feature["properties"].get("密度", 0) or 0
         if d > 0:
-            return _choropleth_style(colormap(np.clip(d, vmin, vmax)))
+            return _choropleth_style(_density_fill_color(d))
         return _choropleth_style("#cccccc", fill_opacity=0.5)
 
     folium.GeoJson(

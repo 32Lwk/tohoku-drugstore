@@ -194,6 +194,12 @@ DENSITY_CHOROPLETH_COLORS = [
     "#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6",
     "#4292c6", "#2171b5", "#08519c", "#08306b",
 ]
+# 密度コロプレス: 0〜50固定。25まで薄色域、25〜50で急峻に濃色化
+DENSITY_CHOROPLETH_VMIN = 0
+DENSITY_CHOROPLETH_VMAX = 50
+DENSITY_CHOROPLETH_MID = 25
+DENSITY_CHOROPLETH_MID_POS = 0.32
+DENSITY_CHOROPLETH_UPPER_GAMMA = 0.85
 AGING_CHOROPLETH_COLORS = ["#ffffb2", "#fecc5c", "#fd8d3c", "#f03b20", "#bd0026"]
 
 # 地図の境界線スタイル（愛知県プロジェクト準拠）

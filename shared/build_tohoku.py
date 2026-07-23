@@ -14,7 +14,6 @@ from shared.config import (
     AGING_CHOROPLETH_COLORS,
     CHOROPLETH_BORDER_COLOR,
     CHOROPLETH_BORDER_WEIGHT,
-    DENSITY_CHOROPLETH_COLORS,
     PREFECTURES,
     TOHOKU,
     TOHOKU_DIR,
@@ -22,9 +21,11 @@ from shared.config import (
 )
 from shared.create_maps import (
     _add_prefecture_boundary,
-    _city_key,
     _choropleth_style,
+    _city_key,
+    _density_fill_color,
     _load_geojson,
+    _make_density_colormap,
     create_all_maps,
     create_marker_map,
     create_marker_map_from_df,
@@ -167,10 +168,6 @@ def create_tohoku_density_choropleth() -> str:
             "人口表示": f"{pop:,}人",
         }
 
-    density_values = [v["密度"] for v in detail_lookup.values() if v["密度"] > 0]
-    vmin = float(np.percentile(density_values, 5)) if density_values else 0.0
-    vmax = float(np.percentile(density_values, 95)) if density_values else 1.0
-
     for feat in geo["features"]:
         props = feat["properties"]
         key = (props.get("都道府県"), props.get("市区町村_key", _city_key(props)))
@@ -187,17 +184,12 @@ def create_tohoku_density_choropleth() -> str:
         props["人口表示"] = str(info.get("人口表示", "—"))
 
     m = folium.Map(location=list(TOHOKU["center"]), zoom_start=TOHOKU["zoom"], tiles="OpenStreetMap")
-    colormap = cm.LinearColormap(
-        colors=DENSITY_CHOROPLETH_COLORS,
-        vmin=vmin,
-        vmax=vmax,
-        caption="人口10万人当たりドラッグストア数",
-    )
+    colormap = _make_density_colormap()
 
     def style_fn(feature):
         d = feature["properties"].get("密度", 0) or 0
         if d > 0:
-            return _choropleth_style(colormap(np.clip(d, vmin, vmax)))
+            return _choropleth_style(_density_fill_color(d))
         return _choropleth_style("#cccccc", fill_opacity=0.5)
 
     def highlight_fn(_feature):
