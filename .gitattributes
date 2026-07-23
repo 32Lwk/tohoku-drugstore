@@ -1,1 +1,2 @@
 tohoku/maps/*.html filter=lfs diff=lfs merge=lfs -text
+prefectures/*/maps/*.html filter=lfs diff=lfs merge=lfs -text
