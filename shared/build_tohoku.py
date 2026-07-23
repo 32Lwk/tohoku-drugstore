@@ -21,10 +21,12 @@ from shared.config import (
     TOHOKU_SLUGS,
 )
 from shared.create_maps import (
+    _add_prefecture_boundary,
     _city_key,
     _choropleth_style,
     _load_geojson,
     create_all_maps,
+    create_marker_map,
     create_marker_map_from_df,
 )
 
@@ -136,9 +138,10 @@ def create_tohoku_marker_map() -> str:
         zoom=TOHOKU["zoom"],
         out_path=out,
         boundary_label="東北6県境界",
-        map_title="東北地方内ドラッグストア分布地図",
-        map_subtitle=f"チェーン別色分け表示 - 全{len(df)}店舗",
         pref_col="都道府県",
+        boundary_group_key="都道府県",
+        show_pref_boundary=True,
+        show_title=False,
     )
     print(f"  東北マーカー地図: {out} ({plotted}件)")
     return str(out)
@@ -220,6 +223,7 @@ def create_tohoku_density_choropleth() -> str:
             ),
         ),
     ).add_to(m)
+    _add_prefecture_boundary(m, geo, "東北6県境界（赤線）", group_key="都道府県")
     colormap.add_to(m)
 
     out = paths["maps"] / "東北ドラッグストア密度コロプレスマップ.html"
@@ -274,6 +278,7 @@ def create_tohoku_aging_choropleth() -> str:
             ),
         ),
     ).add_to(m)
+    _add_prefecture_boundary(m, geo, "東北6県境界（赤線）", group_key="都道府県")
     colormap.add_to(m)
 
     out = paths["maps"] / "東北高齢化率コロプレスマップ.html"

@@ -109,8 +109,23 @@ def _chain_color(chain: str) -> str:
     return CHAIN_COLORS.get(chain, "#808080")
 
 
+def _display_chain(chain: str) -> str:
+    """凡例・マーカー表示用にチェーン名を正規化"""
+    return "その他" if chain == "不明" else chain
+
+
+def _merge_other_chains(counts: dict[str, int]) -> dict[str, int]:
+    """「不明」を「その他」に統合したチェーン別店舗数"""
+    merged = dict(counts)
+    unknown = merged.pop("不明", 0)
+    if unknown:
+        merged["その他"] = merged.get("その他", 0) + unknown
+    return merged
+
+
 def _chain_counts(df: pd.DataFrame) -> dict[str, int]:
-    return df["company"].value_counts().to_dict()
+    raw = df["company"].value_counts().to_dict()
+    return _merge_other_chains(raw)
 
 
 def _add_map_title(map_obj, title: str, subtitle: str) -> None:
@@ -126,37 +141,52 @@ def _add_map_title(map_obj, title: str, subtitle: str) -> None:
     map_obj.get_root().html.add_child(folium.Element(html))
 
 
-def _add_aichi_style_legend(map_obj, chain_counts: dict[str, int], plotted: int, total: int) -> None:
+def _legend_chain_order(chain_counts: dict[str, int]) -> list[tuple[str, int]]:
+    """愛知県地図と同じ CHAIN_COLORS 定義順を優先し、未定義チェーンは店舗数順"""
+    ordered: list[tuple[str, int]] = []
+    seen: set[str] = set()
+    for chain in CHAIN_COLORS:
+        count = chain_counts.get(chain, 0)
+        if count > 0:
+            ordered.append((chain, count))
+            seen.add(chain)
+    for chain, count in sorted(chain_counts.items(), key=lambda x: (-x[1], x[0])):
+        if chain not in seen and count > 0:
+            ordered.append((chain, count))
+    return ordered
+
+
+def _add_aichi_style_legend(map_obj, chain_counts: dict[str, int], plotted: int) -> None:
     """愛知県プロジェクト準拠のチェーン別凡例（右下）"""
     rows = []
-    for chain, count in sorted(chain_counts.items(), key=lambda x: (-x[1], x[0])):
-        if count <= 0:
-            continue
+    ordered = _legend_chain_order(chain_counts)
+    for chain, count in ordered:
         color = _chain_color(chain)
         rows.append(
-            f'<p style="margin:6px 0;display:flex;align-items:center;">'
-            f'<span style="background-color:{color};width:16px;height:16px;display:inline-block;'
-            f'border-radius:50%;margin-right:8px;border:1px solid #333;"></span>'
-            f'<span style="font-size:12px;">{chain} <small style="color:#666;">({count})</small></span>'
-            f"</p>"
+            f"""
+<p style="margin:6px 0; display: flex; align-items: center;">
+    <span style="background-color:{color}; width:16px; height:16px; display:inline-block;
+                 border-radius:50%; margin-right:8px; border: 1px solid #333;"></span>
+    <span style="font-size:12px;">{chain} <small style="color:#666;">({count})</small></span>
+</p>"""
         )
 
-    plot_rate = (plotted / total * 100) if total else 0
+    chain_count = len(ordered)
     html = f"""
-    <div style="position:fixed;bottom:50px;right:50px;width:240px;height:auto;
-         background-color:white;z-index:9999;font-size:13px;border:2px solid #333;
-         border-radius:8px;padding:12px;box-shadow:0 4px 12px rgba(0,0,0,0.3);
-         font-family:Meiryo,sans-serif;max-height:380px;overflow-y:auto;">
-      <h4 style="margin:0 0 12px 0;text-align:center;color:#333;
-           border-bottom:2px solid #ddd;padding-bottom:8px;">チェーン別色分け</h4>
-      {''.join(rows)}
-      <hr style="margin:10px 0;border:none;border-top:1px solid #ddd;">
-      <p style="margin:5px 0;font-size:11px;text-align:center;color:#666;">
-        総店舗数: {plotted}件<br>
-        プロット率: {plot_rate:.1f}%
-      </p>
-    </div>
-    """
+<div style="position: fixed;
+            bottom: 50px; right: 50px; width: 240px; height: auto;
+            background-color: white; z-index:9999; font-size:13px;
+            border:2px solid #333; border-radius: 8px; padding: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3); font-family: Meiryo, sans-serif;">
+<h4 style="margin:0 0 12px 0; text-align:center; color: #333; border-bottom: 2px solid #ddd; padding-bottom: 8px;">チェーン別色分け</h4>
+{''.join(rows)}
+<hr style="margin:10px 0; border: none; border-top: 1px solid #ddd;">
+<p style="margin:5px 0; font-size:11px; text-align:center; color:#666;">
+    総店舗数: {plotted}件<br>
+    チェーン数: {chain_count}社
+</p>
+</div>
+"""
     map_obj.get_root().html.add_child(folium.Element(html))
 
 
@@ -180,11 +210,12 @@ def create_marker_map_from_df(
     zoom: int,
     out_path: Path,
     boundary_label: str,
-    map_title: str,
-    map_subtitle: str,
+    map_title: str = "",
+    map_subtitle: str = "",
     pref_col: str | None = None,
     boundary_group_key: str | None = None,
     show_pref_boundary: bool = False,
+    show_title: bool = True,
 ) -> int:
     counts = _chain_counts(df)
     chains_sorted = sorted(counts.keys(), key=lambda c: (-counts[c], c))
@@ -207,7 +238,7 @@ def create_marker_map_from_df(
     for _, row in df.iterrows():
         if pd.isna(row.get("latitude")) or pd.isna(row.get("longitude")):
             continue
-        chain = row["company"]
+        chain = _display_chain(str(row["company"]))
         color = _chain_color(chain)
         extra = ""
         if pref_col and pref_col in row and pd.notna(row[pref_col]):
@@ -229,8 +260,9 @@ def create_marker_map_from_df(
     for chain in chains_sorted:
         groups[chain].add_to(m)
 
-    _add_map_title(m, map_title, map_subtitle)
-    _add_aichi_style_legend(m, counts, plotted, total)
+    if show_title and map_title:
+        _add_map_title(m, map_title, map_subtitle)
+    _add_aichi_style_legend(m, counts, plotted)
     folium.LayerControl(collapsed=False, position="topleft").add_to(m)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
