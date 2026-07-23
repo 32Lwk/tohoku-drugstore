@@ -5,15 +5,23 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
+from shared.config import PREFECTURES, TOHOKU_SLUGS
+
 ROOT = Path(__file__).resolve().parent.parent
 SITE_DIR = ROOT / "_site"
 CUSTOM_DOMAIN = "maps.medicine.yutok.dev"
 
+MAP_TYPES = [
+    ("{name}ドラッグストア地図.html", "ドラッグストア地図", "チェーン別店舗位置（ピンマップ）"),
+    ("{name}ドラッグストア密度コロプレスマップ.html", "ドラッグストア密度コロプレスマップ", "市区町村別の店舗密度"),
+    ("{name}高齢化率コロプレスマップ.html", "高齢化率コロプレスマップ", "市区町村別の高齢化率"),
+]
+
 REGIONS = [
     {
         "id": "tohoku",
-        "title": "東北地方",
-        "subtitle": "東北6県の調査結果",
+        "title": "東北地方（統合）",
+        "subtitle": "東北6県の統合マップ",
         "source": ROOT / "tohoku" / "maps",
         "maps": [
             ("東北ドラッグストア地図.html", "東北ドラッグストア地図", "チェーン別店舗位置（ピンマップ）"),
@@ -45,13 +53,34 @@ REGIONS = [
     },
 ]
 
+TOHOKU_PREFECTURE_REGIONS = []
+for slug in TOHOKU_SLUGS:
+    pref_name = PREFECTURES[slug]["name"]
+    TOHOKU_PREFECTURE_REGIONS.append(
+        {
+            "id": f"tohoku-{slug.split('_', 1)[0]}",
+            "title": pref_name,
+            "subtitle": f"{pref_name}の個別調査マップ",
+            "source": ROOT / "prefectures" / slug / "maps",
+            "maps": [
+                (
+                    filename.format(name=pref_name),
+                    f"{pref_name}{label}",
+                    desc,
+                )
+                for filename, label, desc in MAP_TYPES
+            ],
+        }
+    )
+
 
 def copy_maps() -> None:
     if SITE_DIR.exists():
         shutil.rmtree(SITE_DIR)
     SITE_DIR.mkdir()
 
-    for region in REGIONS:
+    all_regions = REGIONS + TOHOKU_PREFECTURE_REGIONS
+    for region in all_regions:
         dest = SITE_DIR / region["id"]
         dest.mkdir()
         source: Path = region["source"]
@@ -66,27 +95,49 @@ def write_cname() -> None:
     (SITE_DIR / "CNAME").write_text(f"{CUSTOM_DOMAIN}\n", encoding="utf-8")
 
 
-def write_index() -> None:
-    sections = []
-    for region in REGIONS:
-        items = "\n".join(
-            f"""    <li>
+def _render_map_list(region: dict) -> str:
+    return "\n".join(
+        f"""    <li>
       <a href="{region['id']}/{filename}">
         {label}
         <span class="desc">{desc}</span>
       </a>
     </li>"""
-            for filename, label, desc in region["maps"]
-        )
+        for filename, label, desc in region["maps"]
+    )
+
+
+def write_index() -> None:
+    sections = []
+    for region in REGIONS:
         sections.append(
             f"""  <section>
     <h2>{region['title']}</h2>
     <p class="region-desc">{region['subtitle']}</p>
     <ul>
-{items}
+{_render_map_list(region)}
     </ul>
   </section>"""
         )
+
+    pref_blocks = []
+    for region in TOHOKU_PREFECTURE_REGIONS:
+        pref_blocks.append(
+            f"""    <div class="pref-block">
+      <h3>{region['title']}</h3>
+      <ul>
+{_render_map_list(region)}
+      </ul>
+    </div>"""
+        )
+
+    sections.append(
+        f"""  <section>
+    <h2>東北6県（県別）</h2>
+    <p class="region-desc">各県の個別マップ</p>
+{chr(10).join(pref_blocks)}
+  </section>"""
+    )
 
     html = f"""<!DOCTYPE html>
 <html lang="ja">
@@ -112,6 +163,7 @@ def write_index() -> None:
       padding-top: 0.5rem;
       border-top: 2px solid #e1e4e8;
     }}
+    h3 {{ font-size: 1rem; margin: 1rem 0 0.5rem; color: #333; }}
     section:first-of-type h2 {{ border-top: none; padding-top: 0; }}
     .subtitle, .region-desc {{
       color: #555;
@@ -119,8 +171,9 @@ def write_index() -> None:
       margin-bottom: 1rem;
     }}
     .subtitle {{ margin-bottom: 1.5rem; }}
-    ul {{ list-style: none; padding: 0; margin: 0 0 1.5rem; }}
+    ul {{ list-style: none; padding: 0; margin: 0 0 1rem; }}
     li {{ margin-bottom: 0.75rem; }}
+    .pref-block {{ margin-bottom: 0.5rem; }}
     a {{
       display: block;
       padding: 1rem 1.25rem;

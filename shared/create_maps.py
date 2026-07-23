@@ -9,8 +9,11 @@ import numpy as np
 import pandas as pd
 
 from shared.config import (
-    CHAIN_CATEGORIES,
+    AGING_CHOROPLETH_COLORS,
     CHAIN_COLORS,
+    CHOROPLETH_BORDER_COLOR,
+    CHOROPLETH_BORDER_WEIGHT,
+    DENSITY_CHOROPLETH_COLORS,
     MUNI_BORDER_COLOR,
     MUNI_BORDER_WEIGHT,
     PREF_BOUNDARY_COLOR,
@@ -66,13 +69,31 @@ def _pref_boundary_style() -> dict:
     }
 
 
+def _muni_boundary_style() -> dict:
+    return {
+        "fillColor": "#ffffff",
+        "color": MUNI_BORDER_COLOR,
+        "weight": MUNI_BORDER_WEIGHT,
+        "fillOpacity": 0.03,
+    }
+
+
+def _choropleth_style(fill_color: str, fill_opacity: float = 0.75) -> dict:
+    return {
+        "fillColor": fill_color,
+        "color": CHOROPLETH_BORDER_COLOR,
+        "weight": CHOROPLETH_BORDER_WEIGHT,
+        "fillOpacity": fill_opacity,
+    }
+
+
 def _add_prefecture_boundary(
     map_obj,
     geo: dict,
     label: str,
     group_key: str | None = None,
 ) -> folium.GeoJson:
-    """県境界を赤線で描画（コロプレスの上に重ねて表示）"""
+    """県境界を赤線で描画"""
     outline = _dissolve_outlines(geo, group_key=group_key)
     layer = folium.GeoJson(
         outline,
@@ -84,111 +105,72 @@ def _add_prefecture_boundary(
     return layer
 
 
-# 密度コロプレス用グラデーション（薄黄 → 橙 → 赤 → 深紅）
-DENSITY_GRADIENT_COLORS = [
-    "#ffffe5",
-    "#fff7bc",
-    "#fee391",
-    "#fec44f",
-    "#fe9929",
-    "#ec7014",
-    "#cc4c02",
-    "#993404",
-    "#662506",
-]
-
-
-def _density_colormap(vmin: float, vmax: float):
-    return cm.LinearColormap(colors=DENSITY_GRADIENT_COLORS, vmin=vmin, vmax=vmax)
-
-
-def _add_continuous_gradient_legend(
-    map_obj, colormap, title: str, unit: str, steps: int = 12
-) -> None:
-    """連続グラデーション凡例"""
-    vmin, vmax = colormap.vmin, colormap.vmax
-    values = np.linspace(vmin, vmax, steps)
-    swatches = "".join(
-        f'<span style="flex:1;background:{colormap(v)};"></span>' for v in values
-    )
-    html = f"""
-    <div style="position:fixed;bottom:30px;right:10px;z-index:9999;
-         background:white;padding:10px 14px;border-radius:8px;
-         border:2px solid #bbb;font-family:'Meiryo','Yu Gothic',sans-serif;
-         font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,0.25);min-width:200px;">
-      <div style="font-weight:bold;font-size:13px;margin-bottom:6px;">{title}</div>
-      <div style="display:flex;height:20px;border:1px solid #666;border-radius:2px;
-           overflow:hidden;">{swatches}</div>
-      <div style="display:flex;justify-content:space-between;margin-top:3px;
-           font-size:11px;color:#555;">
-        <span>{vmin:.1f}{unit}</span>
-        <span>{vmax:.1f}{unit}</span>
-      </div>
-      <div style="margin-top:6px;color:#888;font-size:11px;">灰色 = 店舗なし/データなし</div>
-    </div>
-    """
-    map_obj.get_root().html.add_child(folium.Element(html))
-
-
 def _chain_color(chain: str) -> str:
-    return CHAIN_COLORS.get(chain, "#78909C")
+    return CHAIN_COLORS.get(chain, "#808080")
 
 
 def _chain_counts(df: pd.DataFrame) -> dict[str, int]:
     return df["company"].value_counts().to_dict()
 
 
-def _add_chain_legend(map_obj, chain_counts: dict[str, int], title: str) -> None:
-    """チェーン別カラー凡例（店舗数付き）を地図左下に追加"""
-    categorized: dict[str, list[tuple[str, int]]] = {cat: [] for cat in CHAIN_CATEGORIES}
-    categorized["その他のチェーン"] = []
-    seen: set[str] = set()
-
-    for cat, chains in CHAIN_CATEGORIES.items():
-        for chain in chains:
-            if chain in chain_counts:
-                categorized[cat].append((chain, chain_counts[chain]))
-                seen.add(chain)
-
-    for chain, count in sorted(chain_counts.items(), key=lambda x: (-x[1], x[0])):
-        if chain not in seen:
-            categorized["その他のチェーン"].append((chain, count))
-
-    sections = []
-    for cat, items in categorized.items():
-        if not items:
-            continue
-        rows = []
-        for chain, count in sorted(items, key=lambda x: (-x[1], x[0])):
-            color = _chain_color(chain)
-            rows.append(
-                f'<div style="display:flex;align-items:center;margin:2px 0;">'
-                f'<span style="background:{color};width:12px;height:12px;'
-                f'border-radius:50%;display:inline-block;margin-right:7px;'
-                f'border:1px solid #555;flex-shrink:0;"></span>'
-                f"<span>{chain} ({count}店)</span></div>"
-            )
-        sections.append(
-            f'<div style="margin-top:6px;">'
-            f'<div style="font-weight:600;color:#444;margin-bottom:2px;">{cat}</div>'
-            f'{"".join(rows)}</div>'
-        )
-
-    total = sum(chain_counts.values())
+def _add_map_title(map_obj, title: str, subtitle: str) -> None:
     html = f"""
-    <div style="position:fixed;bottom:30px;left:10px;z-index:9999;
-         background:white;padding:10px 14px;border-radius:8px;
-         border:2px solid #bbb;max-height:380px;overflow-y:auto;
-         font-family:'Meiryo','Yu Gothic',sans-serif;font-size:12px;
-         line-height:1.5;box-shadow:0 2px 8px rgba(0,0,0,0.25);min-width:210px;">
-      <div style="font-weight:bold;font-size:14px;margin-bottom:4px;
-           border-bottom:1px solid #ddd;padding-bottom:4px;">
-        {title} (全{total}店)
-      </div>
-      {''.join(sections)}
+    <div style="position:fixed;top:10px;left:50%;transform:translateX(-50%);
+         width:520px;background-color:white;z-index:9999;font-size:18px;
+         border:3px solid #333;border-radius:10px;padding:15px;
+         box-shadow:0 4px 12px rgba(0,0,0,0.4);font-family:Meiryo,sans-serif;">
+      <h2 style="margin:0;text-align:center;color:#333;">{title}</h2>
+      <p style="margin:8px 0 0 0;font-size:14px;text-align:center;color:#666;">{subtitle}</p>
     </div>
     """
     map_obj.get_root().html.add_child(folium.Element(html))
+
+
+def _add_aichi_style_legend(map_obj, chain_counts: dict[str, int], plotted: int, total: int) -> None:
+    """愛知県プロジェクト準拠のチェーン別凡例（右下）"""
+    rows = []
+    for chain, count in sorted(chain_counts.items(), key=lambda x: (-x[1], x[0])):
+        if count <= 0:
+            continue
+        color = _chain_color(chain)
+        rows.append(
+            f'<p style="margin:6px 0;display:flex;align-items:center;">'
+            f'<span style="background-color:{color};width:16px;height:16px;display:inline-block;'
+            f'border-radius:50%;margin-right:8px;border:1px solid #333;"></span>'
+            f'<span style="font-size:12px;">{chain} <small style="color:#666;">({count})</small></span>'
+            f"</p>"
+        )
+
+    plot_rate = (plotted / total * 100) if total else 0
+    html = f"""
+    <div style="position:fixed;bottom:50px;right:50px;width:240px;height:auto;
+         background-color:white;z-index:9999;font-size:13px;border:2px solid #333;
+         border-radius:8px;padding:12px;box-shadow:0 4px 12px rgba(0,0,0,0.3);
+         font-family:Meiryo,sans-serif;max-height:380px;overflow-y:auto;">
+      <h4 style="margin:0 0 12px 0;text-align:center;color:#333;
+           border-bottom:2px solid #ddd;padding-bottom:8px;">チェーン別色分け</h4>
+      {''.join(rows)}
+      <hr style="margin:10px 0;border:none;border-top:1px solid #ddd;">
+      <p style="margin:5px 0;font-size:11px;text-align:center;color:#666;">
+        総店舗数: {plotted}件<br>
+        プロット率: {plot_rate:.1f}%
+      </p>
+    </div>
+    """
+    map_obj.get_root().html.add_child(folium.Element(html))
+
+
+def _styled_popup(chain: str, store_name: str, address: str, extra: str = "") -> str:
+    color = _chain_color(chain)
+    extra_html = f"<p style='margin:4px 0;font-size:11px;color:#888;'>{extra}</p>" if extra else ""
+    return f"""
+    <div style='width:250px;font-family:Meiryo,"MS Gothic",sans-serif;'>
+      <h4 style='margin:0 0 8px 0;color:{color};border-bottom:2px solid {color};padding-bottom:4px;'>{chain}</h4>
+      <p style='margin:4px 0;font-weight:bold;font-size:13px;'>{store_name}</p>
+      <p style='margin:4px 0;font-size:11px;color:#666;'>{address}</p>
+      {extra_html}
+    </div>
+    """
 
 
 def create_marker_map_from_df(
@@ -198,31 +180,28 @@ def create_marker_map_from_df(
     zoom: int,
     out_path: Path,
     boundary_label: str,
-    legend_title: str,
+    map_title: str,
+    map_subtitle: str,
     pref_col: str | None = None,
     boundary_group_key: str | None = None,
+    show_pref_boundary: bool = False,
 ) -> int:
     counts = _chain_counts(df)
     chains_sorted = sorted(counts.keys(), key=lambda c: (-counts[c], c))
+    total = len(df)
 
     m = folium.Map(location=list(center), zoom_start=zoom, tiles="OpenStreetMap")
     folium.GeoJson(
         geo,
         name=boundary_label,
-        style_function=lambda x: {
-            "fillColor": "#ffffff",
-            "color": MUNI_BORDER_COLOR,
-            "weight": MUNI_BORDER_WEIGHT,
-            "fillOpacity": 0.03,
-        },
+        style_function=lambda x: _muni_boundary_style(),
     ).add_to(m)
-    _add_prefecture_boundary(m, geo, f"{boundary_label}（赤線）", group_key=boundary_group_key)
+    if show_pref_boundary and boundary_group_key:
+        _add_prefecture_boundary(m, geo, f"{boundary_label}（赤線）", group_key=boundary_group_key)
 
     groups: dict[str, folium.FeatureGroup] = {}
     for chain in chains_sorted:
-        label = f"● {_chain_color(chain)} {chain} ({counts[chain]})"
-        # LayerControl には色が出ないので名前先頭に記号のみ
-        groups[chain] = folium.FeatureGroup(name=f"{chain} ({counts[chain]}店)", show=True)
+        groups[chain] = folium.FeatureGroup(name=f"{chain}", show=True)
 
     plotted = 0
     for _, row in df.iterrows():
@@ -230,29 +209,29 @@ def create_marker_map_from_df(
             continue
         chain = row["company"]
         color = _chain_color(chain)
-        popup_parts = [f"<b>{chain}</b>", str(row["store_name"]), str(row["address"])]
+        extra = ""
         if pref_col and pref_col in row and pd.notna(row[pref_col]):
-            popup_parts.append(f"（{row[pref_col]}）")
-        popup = "<br>".join(popup_parts)
-        tooltip = f"{chain} — {row['store_name']}"
+            extra = str(row[pref_col])
+        popup = _styled_popup(chain, str(row["store_name"]), str(row["address"]), extra)
         folium.CircleMarker(
             location=[row["latitude"], row["longitude"]],
-            radius=6,
-            popup=folium.Popup(popup, max_width=300),
-            tooltip=tooltip,
-            color="#333333",
+            radius=5,
+            popup=folium.Popup(popup, max_width=280),
+            tooltip=f"{chain}",
+            color="#000",
             fill=True,
             fillColor=color,
-            fillOpacity=0.85,
-            weight=1.5,
+            fillOpacity=0.8,
+            weight=1,
         ).add_to(groups[chain])
         plotted += 1
 
     for chain in chains_sorted:
         groups[chain].add_to(m)
 
-    _add_chain_legend(m, counts, legend_title)
-    folium.LayerControl(collapsed=False, position="topright").add_to(m)
+    _add_map_title(m, map_title, map_subtitle)
+    _add_aichi_style_legend(m, counts, plotted, total)
+    folium.LayerControl(collapsed=False, position="topleft").add_to(m)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     m.save(str(out_path))
@@ -275,42 +254,11 @@ def create_marker_map(slug: str) -> str:
         zoom=cfg["zoom"],
         out_path=out,
         boundary_label=f"{pref_name}境界",
-        legend_title=f"{pref_name} チェーン別",
+        map_title=f"{pref_name}内ドラッグストア分布地図",
+        map_subtitle=f"チェーン別色分け表示 - 全{len(df)}店舗",
     )
     print(f"  マーカー地図: {out} ({plotted}件)")
     return str(out)
-
-
-def _add_step_legend(map_obj, colormap, title: str, unit: str) -> None:
-    """コロプレス用の段階別カラー凡例を追加"""
-    vmin, vmax = colormap.vmin, colormap.vmax
-    steps = 5
-    values = np.linspace(vmin, vmax, steps)
-    rows = []
-    for i, v in enumerate(values):
-        color = colormap(v)
-        label = f"{v:.1f}{unit}"
-        if i < steps - 1:
-            next_v = values[i + 1]
-            label = f"{v:.1f} 〜 {next_v:.1f}{unit}"
-        rows.append(
-            f'<div style="display:flex;align-items:center;margin:2px 0;">'
-            f'<span style="background:{color};width:24px;height:14px;'
-            f'display:inline-block;margin-right:6px;border:1px solid #666;"></span>'
-            f"<span>{label}</span></div>"
-        )
-
-    html = f"""
-    <div style="position:fixed;bottom:30px;right:10px;z-index:9999;
-         background:white;padding:10px 14px;border-radius:8px;
-         border:2px solid #bbb;font-family:'Meiryo','Yu Gothic',sans-serif;
-         font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,0.25);">
-      <div style="font-weight:bold;font-size:13px;margin-bottom:6px;">{title}</div>
-      {''.join(rows)}
-      <div style="margin-top:6px;color:#888;font-size:11px;">灰色 = 店舗なし/データなし</div>
-    </div>
-    """
-    map_obj.get_root().html.add_child(folium.Element(html))
 
 
 def create_density_choropleth(slug: str) -> str:
@@ -335,37 +283,33 @@ def create_density_choropleth(slug: str) -> str:
 
     m = folium.Map(location=list(cfg["center"]), zoom_start=cfg["zoom"], tiles="OpenStreetMap")
     colormap = cm.LinearColormap(
-        colors=["#ffffcc", "#ffe066", "#ffb347", "#ff6b35", "#c0392b"],
+        colors=DENSITY_CHOROPLETH_COLORS,
         vmin=vmin,
         vmax=vmax,
+        caption="人口10万人当たりドラッグストア数",
     )
 
     def style_fn(feature):
         d = feature["properties"].get("密度", 0) or 0
         if d > 0:
-            return {
-                "fillColor": colormap(np.clip(d, vmin, vmax)),
-                "color": MUNI_BORDER_COLOR,
-                "weight": MUNI_BORDER_WEIGHT,
-                "fillOpacity": 0.78,
-            }
-        return {
-            "fillColor": "#d9d9d9",
-            "color": MUNI_BORDER_COLOR,
-            "weight": MUNI_BORDER_WEIGHT,
-            "fillOpacity": 0.5,
-        }
+            return _choropleth_style(colormap(np.clip(d, vmin, vmax)))
+        return _choropleth_style("#cccccc", fill_opacity=0.5)
 
     folium.GeoJson(
         geo,
+        name="ドラッグストア密度",
         style_function=style_fn,
         tooltip=folium.GeoJsonTooltip(
             fields=["N03_004", "密度"],
-            aliases=["市区町村:", "10万人あたり(店):"],
+            aliases=["市区町村:", "10万人当たり店舗数:"],
+            localize=True,
+            style=(
+                "background-color:white;color:black;font-family:Meiryo;"
+                "font-size:12px;padding:10px;border-radius:5px;"
+            ),
         ),
     ).add_to(m)
-    _add_prefecture_boundary(m, geo, f"{pref_name}境界（赤線）")
-    _add_step_legend(m, colormap, "ドラッグストア密度", " 店/10万人")
+    colormap.add_to(m)
 
     out = paths["maps"] / f"{pref_name}ドラッグストア密度コロプレスマップ.html"
     m.save(str(out))
@@ -382,7 +326,7 @@ def create_aging_choropleth(slug: str) -> str:
     aging_dict = dict(zip(aging["市区町村"], aging["高齢化率"]))
 
     geo = _load_geojson(paths["geojson"])
-    values = [v for v in aging_dict.values() if pd.notna(v)]
+    values = [v for v in aging_dict.values() if pd.notna(v) and v > 0]
     vmin = float(np.percentile(values, 5)) if values else 0
     vmax = float(np.percentile(values, 95)) if values else 40
 
@@ -394,37 +338,33 @@ def create_aging_choropleth(slug: str) -> str:
 
     m = folium.Map(location=list(cfg["center"]), zoom_start=cfg["zoom"], tiles="OpenStreetMap")
     colormap = cm.LinearColormap(
-        colors=["#ffffcc", "#ffe066", "#ffb347", "#ff6b35", "#c0392b"],
+        colors=AGING_CHOROPLETH_COLORS,
         vmin=vmin,
         vmax=vmax,
+        caption="高齢化率（%）",
     )
 
     def style_fn(feature):
         a = feature["properties"].get("高齢化率", 0) or 0
         if a > 0:
-            return {
-                "fillColor": colormap(np.clip(a, vmin, vmax)),
-                "color": MUNI_BORDER_COLOR,
-                "weight": MUNI_BORDER_WEIGHT,
-                "fillOpacity": 0.78,
-            }
-        return {
-            "fillColor": "#d9d9d9",
-            "color": MUNI_BORDER_COLOR,
-            "weight": MUNI_BORDER_WEIGHT,
-            "fillOpacity": 0.5,
-        }
+            return _choropleth_style(colormap(np.clip(a, vmin, vmax)))
+        return _choropleth_style("#cccccc", fill_opacity=0.5)
 
     folium.GeoJson(
         geo,
+        name="高齢化率",
         style_function=style_fn,
         tooltip=folium.GeoJsonTooltip(
             fields=["N03_004", "高齢化率"],
             aliases=["市区町村:", "高齢化率(%):"],
+            localize=True,
+            style=(
+                "background-color:white;color:black;font-family:Meiryo;"
+                "font-size:12px;padding:10px;border-radius:5px;"
+            ),
         ),
     ).add_to(m)
-    _add_prefecture_boundary(m, geo, f"{pref_name}境界（赤線）")
-    _add_step_legend(m, colormap, "高齢化率", "%")
+    colormap.add_to(m)
 
     out = paths["maps"] / f"{pref_name}高齢化率コロプレスマップ.html"
     m.save(str(out))

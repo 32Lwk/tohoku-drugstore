@@ -10,13 +10,19 @@ import numpy as np
 import pandas as pd
 
 from shared.analyze_density import analyze_for_prefecture
-from shared.config import MUNI_BORDER_COLOR, MUNI_BORDER_WEIGHT, PREFECTURES, TOHOKU, TOHOKU_DIR
+from shared.config import (
+    AGING_CHOROPLETH_COLORS,
+    CHOROPLETH_BORDER_COLOR,
+    CHOROPLETH_BORDER_WEIGHT,
+    DENSITY_CHOROPLETH_COLORS,
+    PREFECTURES,
+    TOHOKU,
+    TOHOKU_DIR,
+    TOHOKU_SLUGS,
+)
 from shared.create_maps import (
-    _add_continuous_gradient_legend,
-    _add_prefecture_boundary,
-    _add_step_legend,
     _city_key,
-    _density_colormap,
+    _choropleth_style,
     _load_geojson,
     create_all_maps,
     create_marker_map_from_df,
@@ -44,7 +50,8 @@ def tohoku_paths() -> dict:
 def merge_geojson() -> Path:
     paths = tohoku_paths()
     features = []
-    for slug, cfg in PREFECTURES.items():
+    for slug in TOHOKU_SLUGS:
+        cfg = PREFECTURES[slug]
         geo = _load_geojson(
             Path(__file__).resolve().parent.parent / "prefectures" / slug / "data" / "municipalities.geojson"
         )
@@ -66,7 +73,8 @@ def merge_csvs() -> dict:
     paths = tohoku_paths()
     store_dfs, density_dfs, pop_dfs, aging_dfs = [], [], [], []
 
-    for slug, cfg in PREFECTURES.items():
+    for slug in TOHOKU_SLUGS:
+        cfg = PREFECTURES[slug]
         pref = cfg["name"]
         from shared.utils import prefecture_paths
 
@@ -128,9 +136,9 @@ def create_tohoku_marker_map() -> str:
         zoom=TOHOKU["zoom"],
         out_path=out,
         boundary_label="東北6県境界",
-        legend_title="東北地方 チェーン別",
+        map_title="東北地方内ドラッグストア分布地図",
+        map_subtitle=f"チェーン別色分け表示 - 全{len(df)}店舗",
         pref_col="都道府県",
-        boundary_group_key="都道府県",
     )
     print(f"  東北マーカー地図: {out} ({plotted}件)")
     return str(out)
@@ -157,8 +165,8 @@ def create_tohoku_density_choropleth() -> str:
         }
 
     density_values = [v["密度"] for v in detail_lookup.values() if v["密度"] > 0]
-    vmin = float(min(density_values)) if density_values else 0.0
-    vmax = float(max(density_values)) if density_values else 1.0
+    vmin = float(np.percentile(density_values, 5)) if density_values else 0.0
+    vmax = float(np.percentile(density_values, 95)) if density_values else 1.0
 
     for feat in geo["features"]:
         props = feat["properties"]
@@ -176,33 +184,29 @@ def create_tohoku_density_choropleth() -> str:
         props["人口表示"] = str(info.get("人口表示", "—"))
 
     m = folium.Map(location=list(TOHOKU["center"]), zoom_start=TOHOKU["zoom"], tiles="OpenStreetMap")
-    colormap = _density_colormap(vmin, vmax)
+    colormap = cm.LinearColormap(
+        colors=DENSITY_CHOROPLETH_COLORS,
+        vmin=vmin,
+        vmax=vmax,
+        caption="人口10万人当たりドラッグストア数",
+    )
 
     def style_fn(feature):
         d = feature["properties"].get("密度", 0) or 0
         if d > 0:
-            return {
-                "fillColor": colormap(np.clip(d, vmin, vmax)),
-                "color": MUNI_BORDER_COLOR,
-                "weight": MUNI_BORDER_WEIGHT,
-                "fillOpacity": 0.82,
-            }
-        return {
-            "fillColor": "#cccccc",
-            "color": MUNI_BORDER_COLOR,
-            "weight": MUNI_BORDER_WEIGHT,
-            "fillOpacity": 0.45,
-        }
+            return _choropleth_style(colormap(np.clip(d, vmin, vmax)))
+        return _choropleth_style("#cccccc", fill_opacity=0.5)
 
     def highlight_fn(_feature):
         return {
-            "weight": MUNI_BORDER_WEIGHT + 1.5,
+            "weight": CHOROPLETH_BORDER_WEIGHT + 1.0,
             "color": "#111111",
             "fillOpacity": 0.95,
         }
 
     folium.GeoJson(
         geo,
+        name="ドラッグストア密度",
         style_function=style_fn,
         highlight_function=highlight_fn,
         tooltip=folium.GeoJsonTooltip(
@@ -210,30 +214,13 @@ def create_tohoku_density_choropleth() -> str:
             aliases=["都道府県:", "市区町村:", "人口:", "店舗数:", "密度:"],
             sticky=True,
             labels=True,
+            style=(
+                "background-color:white;color:black;font-family:Meiryo;"
+                "font-size:12px;padding:10px;border-radius:5px;"
+            ),
         ),
     ).add_to(m)
-    _add_prefecture_boundary(m, geo, "県境界（赤線）", group_key="都道府県")
-    _add_continuous_gradient_legend(m, colormap, "ドラッグストア密度（東北）", " 店/10万人")
-    m.get_root().html.add_child(
-        folium.Element(
-            """
-    <style>
-      .foliumtooltip {
-        background: rgba(255,255,255,0.95) !important;
-        border: 2px solid #666 !important;
-        border-radius: 6px !important;
-        padding: 8px 10px !important;
-        font-family: 'Meiryo','Yu Gothic',sans-serif !important;
-        font-size: 13px !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.25) !important;
-      }
-      .foliumtooltip table { margin: 0; }
-      .foliumtooltip th { padding-right: 10px; color: #555; font-weight: normal; }
-      .foliumtooltip td { font-weight: bold; color: #222; }
-    </style>
-    """
-        )
-    )
+    colormap.add_to(m)
 
     out = paths["maps"] / "東北ドラッグストア密度コロプレスマップ.html"
     m.save(str(out))
@@ -247,9 +234,9 @@ def create_tohoku_aging_choropleth() -> str:
     aging_dict = _aging_lookup(aging_df)
     geo = _load_geojson(paths["geojson"])
 
-    values = [v for v in aging_dict.values() if pd.notna(v)]
-    vmin = np.percentile(values, 5) if values else 0
-    vmax = np.percentile(values, 95) if values else 40
+    values = [v for v in aging_dict.values() if pd.notna(v) and v > 0]
+    vmin = float(np.percentile(values, 5)) if values else 0
+    vmax = float(np.percentile(values, 95)) if values else 40
 
     for feat in geo["features"]:
         props = feat["properties"]
@@ -261,37 +248,33 @@ def create_tohoku_aging_choropleth() -> str:
 
     m = folium.Map(location=list(TOHOKU["center"]), zoom_start=TOHOKU["zoom"], tiles="OpenStreetMap")
     colormap = cm.LinearColormap(
-        colors=["#ffffcc", "#ffe066", "#ffb347", "#ff6b35", "#c0392b"],
+        colors=AGING_CHOROPLETH_COLORS,
         vmin=vmin,
         vmax=vmax,
+        caption="高齢化率（%）",
     )
 
     def style_fn(feature):
         a = feature["properties"].get("高齢化率", 0) or 0
         if a > 0:
-            return {
-                "fillColor": colormap(np.clip(a, vmin, vmax)),
-                "color": MUNI_BORDER_COLOR,
-                "weight": MUNI_BORDER_WEIGHT,
-                "fillOpacity": 0.75,
-            }
-        return {
-            "fillColor": "#cccccc",
-            "color": MUNI_BORDER_COLOR,
-            "weight": MUNI_BORDER_WEIGHT,
-            "fillOpacity": 0.5,
-        }
+            return _choropleth_style(colormap(np.clip(a, vmin, vmax)))
+        return _choropleth_style("#cccccc", fill_opacity=0.5)
 
     folium.GeoJson(
         geo,
+        name="高齢化率",
         style_function=style_fn,
         tooltip=folium.GeoJsonTooltip(
             fields=["都道府県", "N03_004", "高齢化率"],
             aliases=["都道府県:", "市区町村:", "高齢化率(%):"],
+            localize=True,
+            style=(
+                "background-color:white;color:black;font-family:Meiryo;"
+                "font-size:12px;padding:10px;border-radius:5px;"
+            ),
         ),
     ).add_to(m)
-    _add_prefecture_boundary(m, geo, "県境界（赤線）", group_key="都道府県")
-    _add_step_legend(m, colormap, "高齢化率（東北）", "%")
+    colormap.add_to(m)
 
     out = paths["maps"] / "東北高齢化率コロプレスマップ.html"
     m.save(str(out))
@@ -302,7 +285,8 @@ def create_tohoku_aging_choropleth() -> str:
 def write_tohoku_report(store_count: int, muni_count: int) -> None:
     paths = tohoku_paths()
     pref_lines = []
-    for slug, cfg in PREFECTURES.items():
+    for slug in TOHOKU_SLUGS:
+        cfg = PREFECTURES[slug]
         from shared.utils import prefecture_paths
 
         p = prefecture_paths(slug)
@@ -372,7 +356,7 @@ def rebuild_all_prefectures_and_tohoku(include_clean: bool = False) -> None:
         print("=" * 60)
         print("Step 0: 6県 クリーニング・座標再取得")
         print("=" * 60)
-        for slug in PREFECTURES:
+        for slug in TOHOKU_SLUGS:
             print(f"\n--- {PREFECTURES[slug]['name']} ---")
             clean_for_prefecture(slug)
             geocode_for_prefecture(slug)
@@ -380,14 +364,14 @@ def rebuild_all_prefectures_and_tohoku(include_clean: bool = False) -> None:
     print("=" * 60)
     print("Step 1: 6県 密度分析の再実行")
     print("=" * 60)
-    for slug in PREFECTURES:
+    for slug in TOHOKU_SLUGS:
         print(f"\n--- {PREFECTURES[slug]['name']} ---")
         analyze_for_prefecture(slug)
 
     print("\n" + "=" * 60)
     print("Step 2: 6県 地図の再生成")
     print("=" * 60)
-    for slug in PREFECTURES:
+    for slug in TOHOKU_SLUGS:
         print(f"\n--- {PREFECTURES[slug]['name']} ---")
         create_all_maps(slug)
 
