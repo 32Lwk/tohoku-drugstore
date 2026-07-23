@@ -189,6 +189,9 @@ def _copy_map_files(source: Path, dest: Path, maps: list[tuple[str, str, str]]) 
         if not src.exists():
             raise FileNotFoundError(f"Map not found: {src}")
         shutil.copy2(src, dest / filename)
+        sidecar = source / f"{Path(filename).stem}.geojson"
+        if sidecar.exists():
+            shutil.copy2(sidecar, dest / sidecar.name)
 
 
 def copy_maps() -> None:

@@ -7,6 +7,9 @@ import branca.colormap as cm
 import folium
 import numpy as np
 import pandas as pd
+from branca.element import MacroElement
+from jinja2 import Template
+from shapely.geometry import mapping, shape
 
 from shared.config import (
     AGING_CHOROPLETH_COLORS,
@@ -17,8 +20,11 @@ from shared.config import (
     DENSITY_CHOROPLETH_MID,
     DENSITY_CHOROPLETH_MID_POS,
     DENSITY_CHOROPLETH_UPPER_GAMMA,
+    DENSITY_CHOROPLETH_UPPER_BUMP,
     DENSITY_CHOROPLETH_VMAX,
     DENSITY_CHOROPLETH_VMIN,
+    GEOJSON_COORD_PRECISION,
+    GEOJSON_SIMPLIFY_TOLERANCE,
     MUNI_BORDER_COLOR,
     MUNI_BORDER_WEIGHT,
     PREF_BOUNDARY_COLOR,
@@ -28,9 +34,135 @@ from shared.config import (
 from shared.utils import ensure_dirs
 
 
+def _read_csv(path: Path) -> pd.DataFrame:
+    for encoding in ("utf-8-sig", "cp932"):
+        try:
+            return pd.read_csv(path, encoding=encoding)
+        except UnicodeDecodeError:
+            continue
+    raise UnicodeDecodeError("utf-8", b"", 0, 1, f"Cannot decode CSV: {path}")
+
+
 def _load_geojson(path):
     with open(path, encoding="utf-8") as f:
         return json.load(f)
+
+
+def _round_coords(obj, precision: int):
+    if isinstance(obj, float):
+        return round(obj, precision)
+    if isinstance(obj, list):
+        return [_round_coords(x, precision) for x in obj]
+    return obj
+
+
+def optimize_geojson(
+    geo: dict,
+    tolerance: float = GEOJSON_SIMPLIFY_TOLERANCE,
+    precision: int = GEOJSON_COORD_PRECISION,
+) -> dict:
+    """ポリゴン簡略化と座標精度丸めで GeoJSON を軽量化"""
+    features = []
+    for feat in geo["features"]:
+        geom = shape(feat["geometry"]).simplify(tolerance, preserve_topology=True)
+        features.append(
+            {
+                "type": "Feature",
+                "properties": feat.get("properties", {}),
+                "geometry": _round_coords(mapping(geom), precision),
+            }
+        )
+    return {"type": "FeatureCollection", "features": features}
+
+
+def geojson_sidecar_path(html_path: Path) -> Path:
+    return html_path.with_name(f"{html_path.stem}.geojson")
+
+
+def save_geojson(path: Path, geo: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(geo, f, ensure_ascii=False, separators=(",", ":"))
+
+
+_CHOROPLETH_STYLE_JS = """function(feature) {
+    var p = feature.properties;
+    return {
+        fillColor: p._fill || "#cccccc",
+        color: "#000000",
+        weight: 0.5,
+        fillOpacity: p._fillOpacity != null ? p._fillOpacity : 0.5
+    };
+}"""
+
+
+class ExternalGeoJson(MacroElement):
+    """HTML へ巨大 GeoJSON を埋め込まず、別ファイルから fetch して描画"""
+
+    _template = Template(
+        """
+    {% macro script(this, kwargs) %}
+    fetch('{{ this.url }}')
+        .then(function(response) { return response.json(); })
+        .then(function(data) {
+            L.geoJSON(data, {
+                style: {{ this.style_js }},
+                onEachFeature: {{ this.on_each_feature_js }},
+                interactive: true
+            }).addTo({{ this._parent.get_name() }});
+        })
+        .catch(function(err) { console.error('GeoJSON load failed:', err); });
+    {% endmacro %}
+    """
+    )
+
+    def __init__(
+        self,
+        url: str,
+        style_js: str,
+        tooltip_fields: list[str] | None = None,
+        tooltip_aliases: list[str] | None = None,
+    ):
+        super().__init__()
+        self.url = url
+        self.style_js = style_js
+        if tooltip_fields:
+            self.on_each_feature_js = (
+                "function(feature, layer) {"
+                f"var props = feature.properties;"
+                f"var fields = {json.dumps(tooltip_fields, ensure_ascii=False)};"
+                f"var aliases = {json.dumps(tooltip_aliases or [], ensure_ascii=False)};"
+                "var lines = [];"
+                "for (var i = 0; i < fields.length; i++) {"
+                "var val = props[fields[i]];"
+                "if (val !== undefined && val !== null && val !== '') {"
+                "lines.push('<b>' + aliases[i] + '</b> ' + val);"
+                "}"
+                "}"
+                "if (lines.length) { layer.bindTooltip(lines.join('<br>'), {sticky: true}); }"
+                "}"
+            )
+        else:
+            self.on_each_feature_js = "function(feature, layer) {}"
+
+
+def _add_external_choropleth_layer(
+    map_obj,
+    geo: dict,
+    html_path: Path,
+    tooltip_fields: list[str],
+    tooltip_aliases: list[str],
+) -> Path:
+    optimized = optimize_geojson(geo)
+    sidecar = geojson_sidecar_path(html_path)
+    save_geojson(sidecar, optimized)
+    ExternalGeoJson(
+        url=sidecar.name,
+        style_js=_CHOROPLETH_STYLE_JS,
+        tooltip_fields=tooltip_fields,
+        tooltip_aliases=tooltip_aliases,
+    ).add_to(map_obj)
+    return sidecar
 
 
 def _city_key(props) -> str:
@@ -101,7 +233,8 @@ def _density_normalized(density: float) -> float:
         return (d / mid) * mid_pos if mid > 0 else 0.0
     t = (d - mid) / (DENSITY_CHOROPLETH_VMAX - mid)
     t = t ** DENSITY_CHOROPLETH_UPPER_GAMMA
-    return mid_pos + t * (1.0 - mid_pos)
+    norm = mid_pos + t * (1.0 - mid_pos)
+    return min(1.0, norm + DENSITY_CHOROPLETH_UPPER_BUMP)
 
 
 def _density_base_cmap() -> cm.LinearColormap:
@@ -260,18 +393,11 @@ def create_marker_map_from_df(
     show_pref_boundary: bool = False,
     show_title: bool = True,
 ) -> int:
+    del geo, boundary_label, boundary_group_key, show_pref_boundary  # 軽量化のため境界 GeoJSON は描画しない
     counts = _chain_counts(df)
     chains_sorted = sorted(counts.keys(), key=lambda c: (-counts[c], c))
-    total = len(df)
 
     m = folium.Map(location=list(center), zoom_start=zoom, tiles="OpenStreetMap")
-    folium.GeoJson(
-        geo,
-        name=boundary_label,
-        style_function=lambda x: _muni_boundary_style(),
-    ).add_to(m)
-    if show_pref_boundary and boundary_group_key:
-        _add_prefecture_boundary(m, geo, f"{boundary_label}（赤線）", group_key=boundary_group_key)
 
     groups: dict[str, folium.FeatureGroup] = {}
     for chain in chains_sorted:
@@ -285,13 +411,13 @@ def create_marker_map_from_df(
         color = _chain_color(chain)
         extra = ""
         if pref_col and pref_col in row and pd.notna(row[pref_col]):
-            extra = str(row[pref_col])
-        popup = _styled_popup(chain, str(row["store_name"]), str(row["address"]), extra)
+            extra = f" ({row[pref_col]})"
+        popup_text = f"<b>{row['store_name']}</b><br>{row['address']}{extra}"
         folium.CircleMarker(
             location=[row["latitude"], row["longitude"]],
             radius=5,
-            popup=folium.Popup(popup, max_width=280),
-            tooltip=f"{chain}",
+            popup=folium.Popup(popup_text, max_width=280),
+            tooltip=chain,
             color="#000",
             fill=True,
             fillColor=color,
@@ -341,44 +467,37 @@ def create_density_choropleth(slug: str) -> str:
     paths = ensure_dirs(slug)
     pref_name = cfg["name"]
 
-    df = pd.read_csv(paths["density_csv"], encoding="utf-8-sig")
+    df = _read_csv(paths["density_csv"])
     df = df.dropna(subset=["市区町村", "人口10万人当たり店舗数"])
     density_dict = dict(zip(df["市区町村"], df["人口10万人当たり店舗数"]))
 
     geo = _load_geojson(paths["geojson"])
 
     for feat in geo["features"]:
-        key = _city_key(feat["properties"])
-        feat["properties"]["密度"] = density_dict.get(
-            key, density_dict.get(feat["properties"].get("N03_004"), 0)
-        )
+        props = feat["properties"]
+        key = _city_key(props)
+        d = density_dict.get(key, density_dict.get(props.get("N03_004"), 0)) or 0
+        props["密度"] = d
+        props["密度表示"] = f"{d:.2f}" if d > 0 else "—"
+        if d > 0:
+            props["_fill"] = _density_fill_color(d)
+            props["_fillOpacity"] = 0.75
+        else:
+            props["_fill"] = "#cccccc"
+            props["_fillOpacity"] = 0.5
 
     m = folium.Map(location=list(cfg["center"]), zoom_start=cfg["zoom"], tiles="OpenStreetMap")
     colormap = _make_density_colormap()
-
-    def style_fn(feature):
-        d = feature["properties"].get("密度", 0) or 0
-        if d > 0:
-            return _choropleth_style(_density_fill_color(d))
-        return _choropleth_style("#cccccc", fill_opacity=0.5)
-
-    folium.GeoJson(
-        geo,
-        name="ドラッグストア密度",
-        style_function=style_fn,
-        tooltip=folium.GeoJsonTooltip(
-            fields=["N03_004", "密度"],
-            aliases=["市区町村:", "10万人当たり店舗数:"],
-            localize=True,
-            style=(
-                "background-color:white;color:black;font-family:Meiryo;"
-                "font-size:12px;padding:10px;border-radius:5px;"
-            ),
-        ),
-    ).add_to(m)
-    colormap.add_to(m)
-
     out = paths["maps"] / f"{pref_name}ドラッグストア密度コロプレスマップ.html"
+
+    _add_external_choropleth_layer(
+        m,
+        geo,
+        out,
+        tooltip_fields=["N03_004", "密度表示"],
+        tooltip_aliases=["市区町村:", "10万人当たり店舗数:"],
+    )
+    colormap.add_to(m)
     m.save(str(out))
     print(f"  密度コロプレス: {out}")
     return str(out)
@@ -389,7 +508,7 @@ def create_aging_choropleth(slug: str) -> str:
     paths = ensure_dirs(slug)
     pref_name = cfg["name"]
 
-    aging = pd.read_csv(paths["aging_csv"], encoding="utf-8-sig")
+    aging = _read_csv(paths["aging_csv"])
     aging_dict = dict(zip(aging["市区町村"], aging["高齢化率"]))
 
     geo = _load_geojson(paths["geojson"])
@@ -397,13 +516,6 @@ def create_aging_choropleth(slug: str) -> str:
     vmin = float(np.percentile(values, 5)) if values else 0
     vmax = float(np.percentile(values, 95)) if values else 40
 
-    for feat in geo["features"]:
-        key = _city_key(feat["properties"])
-        feat["properties"]["高齢化率"] = aging_dict.get(
-            key, aging_dict.get(feat["properties"].get("N03_004"), 0)
-        )
-
-    m = folium.Map(location=list(cfg["center"]), zoom_start=cfg["zoom"], tiles="OpenStreetMap")
     colormap = cm.LinearColormap(
         colors=AGING_CHOROPLETH_COLORS,
         vmin=vmin,
@@ -411,29 +523,30 @@ def create_aging_choropleth(slug: str) -> str:
         caption="高齢化率（%）",
     )
 
-    def style_fn(feature):
-        a = feature["properties"].get("高齢化率", 0) or 0
+    for feat in geo["features"]:
+        props = feat["properties"]
+        key = _city_key(props)
+        a = aging_dict.get(key, aging_dict.get(props.get("N03_004"), 0)) or 0
+        props["高齢化率"] = a
+        props["高齢化率表示"] = f"{a:.1f}" if a > 0 else "—"
         if a > 0:
-            return _choropleth_style(colormap(np.clip(a, vmin, vmax)))
-        return _choropleth_style("#cccccc", fill_opacity=0.5)
+            props["_fill"] = colormap(np.clip(a, vmin, vmax))[:7]
+            props["_fillOpacity"] = 0.75
+        else:
+            props["_fill"] = "#cccccc"
+            props["_fillOpacity"] = 0.5
 
-    folium.GeoJson(
-        geo,
-        name="高齢化率",
-        style_function=style_fn,
-        tooltip=folium.GeoJsonTooltip(
-            fields=["N03_004", "高齢化率"],
-            aliases=["市区町村:", "高齢化率(%):"],
-            localize=True,
-            style=(
-                "background-color:white;color:black;font-family:Meiryo;"
-                "font-size:12px;padding:10px;border-radius:5px;"
-            ),
-        ),
-    ).add_to(m)
-    colormap.add_to(m)
-
+    m = folium.Map(location=list(cfg["center"]), zoom_start=cfg["zoom"], tiles="OpenStreetMap")
     out = paths["maps"] / f"{pref_name}高齢化率コロプレスマップ.html"
+
+    _add_external_choropleth_layer(
+        m,
+        geo,
+        out,
+        tooltip_fields=["N03_004", "高齢化率表示"],
+        tooltip_aliases=["市区町村:", "高齢化率(%):"],
+    )
+    colormap.add_to(m)
     m.save(str(out))
     print(f"  高齢化率コロプレス: {out}")
     return str(out)

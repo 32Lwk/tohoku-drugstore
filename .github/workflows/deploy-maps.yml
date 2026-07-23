@@ -6,6 +6,9 @@ on:
     paths:
       - "tohoku/maps/**"
       - "prefectures/**/maps/**"
+      - "shared/create_maps.py"
+      - "shared/build_tohoku.py"
+      - "shared/config.py"
       - "scripts/build_site.py"
       - ".github/workflows/deploy-maps.yml"
   workflow_dispatch:

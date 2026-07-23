@@ -12,16 +12,13 @@ import pandas as pd
 from shared.analyze_density import analyze_for_prefecture
 from shared.config import (
     AGING_CHOROPLETH_COLORS,
-    CHOROPLETH_BORDER_COLOR,
-    CHOROPLETH_BORDER_WEIGHT,
     PREFECTURES,
     TOHOKU,
     TOHOKU_DIR,
     TOHOKU_SLUGS,
 )
 from shared.create_maps import (
-    _add_prefecture_boundary,
-    _choropleth_style,
+    _add_external_choropleth_layer,
     _city_key,
     _density_fill_color,
     _load_geojson,
@@ -182,43 +179,26 @@ def create_tohoku_density_choropleth() -> str:
         props["店舗数表示"] = str(info.get("店舗数表示", "—"))
         props["人口"] = int(info.get("人口", 0))
         props["人口表示"] = str(info.get("人口表示", "—"))
+        d = float(props.get("密度", 0))
+        if d > 0:
+            props["_fill"] = _density_fill_color(d)
+            props["_fillOpacity"] = 0.75
+        else:
+            props["_fill"] = "#cccccc"
+            props["_fillOpacity"] = 0.5
 
     m = folium.Map(location=list(TOHOKU["center"]), zoom_start=TOHOKU["zoom"], tiles="OpenStreetMap")
     colormap = _make_density_colormap()
-
-    def style_fn(feature):
-        d = feature["properties"].get("密度", 0) or 0
-        if d > 0:
-            return _choropleth_style(_density_fill_color(d))
-        return _choropleth_style("#cccccc", fill_opacity=0.5)
-
-    def highlight_fn(_feature):
-        return {
-            "weight": CHOROPLETH_BORDER_WEIGHT + 1.0,
-            "color": "#111111",
-            "fillOpacity": 0.95,
-        }
-
-    folium.GeoJson(
-        geo,
-        name="ドラッグストア密度",
-        style_function=style_fn,
-        highlight_function=highlight_fn,
-        tooltip=folium.GeoJsonTooltip(
-            fields=["都道府県", "市区町村名", "人口表示", "店舗数表示", "密度表示"],
-            aliases=["都道府県:", "市区町村:", "人口:", "店舗数:", "密度:"],
-            sticky=True,
-            labels=True,
-            style=(
-                "background-color:white;color:black;font-family:Meiryo;"
-                "font-size:12px;padding:10px;border-radius:5px;"
-            ),
-        ),
-    ).add_to(m)
-    _add_prefecture_boundary(m, geo, "東北6県境界（赤線）", group_key="都道府県")
-    colormap.add_to(m)
-
     out = paths["maps"] / "東北ドラッグストア密度コロプレスマップ.html"
+
+    _add_external_choropleth_layer(
+        m,
+        geo,
+        out,
+        tooltip_fields=["都道府県", "市区町村名", "人口表示", "店舗数表示", "密度表示"],
+        tooltip_aliases=["都道府県:", "市区町村:", "人口:", "店舗数:", "密度:"],
+    )
+    colormap.add_to(m)
     m.save(str(out))
     print(f"  東北密度コロプレス: {out}")
     return str(out)
@@ -233,6 +213,12 @@ def create_tohoku_aging_choropleth() -> str:
     values = [v for v in aging_dict.values() if pd.notna(v) and v > 0]
     vmin = float(np.percentile(values, 5)) if values else 0
     vmax = float(np.percentile(values, 95)) if values else 40
+    colormap = cm.LinearColormap(
+        colors=AGING_CHOROPLETH_COLORS,
+        vmin=vmin,
+        vmax=vmax,
+        caption="高齢化率（%）",
+    )
 
     for feat in geo["features"]:
         props = feat["properties"]
@@ -241,39 +227,26 @@ def create_tohoku_aging_choropleth() -> str:
             key,
             aging_dict.get((props.get("都道府県"), props.get("N03_004")), 0),
         )
+        a = feat["properties"]["高齢化率"] or 0
+        feat["properties"]["高齢化率表示"] = f"{a:.1f}" if a > 0 else "—"
+        if a > 0:
+            feat["properties"]["_fill"] = colormap(np.clip(a, vmin, vmax))[:7]
+            feat["properties"]["_fillOpacity"] = 0.75
+        else:
+            feat["properties"]["_fill"] = "#cccccc"
+            feat["properties"]["_fillOpacity"] = 0.5
 
     m = folium.Map(location=list(TOHOKU["center"]), zoom_start=TOHOKU["zoom"], tiles="OpenStreetMap")
-    colormap = cm.LinearColormap(
-        colors=AGING_CHOROPLETH_COLORS,
-        vmin=vmin,
-        vmax=vmax,
-        caption="高齢化率（%）",
-    )
-
-    def style_fn(feature):
-        a = feature["properties"].get("高齢化率", 0) or 0
-        if a > 0:
-            return _choropleth_style(colormap(np.clip(a, vmin, vmax)))
-        return _choropleth_style("#cccccc", fill_opacity=0.5)
-
-    folium.GeoJson(
-        geo,
-        name="高齢化率",
-        style_function=style_fn,
-        tooltip=folium.GeoJsonTooltip(
-            fields=["都道府県", "N03_004", "高齢化率"],
-            aliases=["都道府県:", "市区町村:", "高齢化率(%):"],
-            localize=True,
-            style=(
-                "background-color:white;color:black;font-family:Meiryo;"
-                "font-size:12px;padding:10px;border-radius:5px;"
-            ),
-        ),
-    ).add_to(m)
-    _add_prefecture_boundary(m, geo, "東北6県境界（赤線）", group_key="都道府県")
-    colormap.add_to(m)
-
     out = paths["maps"] / "東北高齢化率コロプレスマップ.html"
+
+    _add_external_choropleth_layer(
+        m,
+        geo,
+        out,
+        tooltip_fields=["都道府県", "N03_004", "高齢化率表示"],
+        tooltip_aliases=["都道府県:", "市区町村:", "高齢化率(%):"],
+    )
+    colormap.add_to(m)
     m.save(str(out))
     print(f"  東北高齢化率コロプレス: {out}")
     return str(out)
