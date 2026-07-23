@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE_DIR = ROOT / "_site"
-CUSTOM_DOMAIN = "medicine.yutok.dev"
+CUSTOM_DOMAIN = "maps.medicine.yutok.dev"
 
 REGIONS = [
     {
