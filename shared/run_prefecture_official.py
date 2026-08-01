@@ -27,7 +27,7 @@ def run_prefecture_official(slug: str) -> dict:
     run_step("Step 2: 国勢調査2020", fetch_census, slug)
     run_step("Step 3: 公式サイト/API 収集", collect_official_only, slug)
     run_step("Step 5: クリーニング", clean_for_prefecture, slug)
-    run_step("Step 6: 座標取得", geocode_for_prefecture, slug)
+    run_step("Step 6: 座標取得", geocode_for_prefecture, slug, gsi_only=True)
     run_step("Step 7: 密度分析", analyze_for_prefecture, slug)
     run_step("Step 8: 地図生成", create_all_maps, slug)
     run_step("Step 9: 検証", cross_validate, slug, max_retries=1)

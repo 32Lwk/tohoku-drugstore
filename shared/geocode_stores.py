@@ -38,10 +38,10 @@ def geocode_gsi(address: str) -> tuple[float, float] | None:
     return None
 
 
-def geocode_for_prefecture(slug: str) -> pd.DataFrame:
+def geocode_for_prefecture(slug: str, gsi_only: bool = False) -> pd.DataFrame:
     cfg = PREFECTURES[slug]
     paths = ensure_dirs(slug)
-    api_key = load_api_key(required=False)
+    api_key = None if gsi_only else load_api_key(required=False)
 
     df_raw = pd.read_csv(paths["raw_csv"], encoding="utf-8-sig") if paths["raw_csv"].exists() else pd.DataFrame()
     coord_from_raw = {}

@@ -27,6 +27,25 @@ HEADERS = {
 }
 
 
+def _http_get(url: str, *, timeout: int = 60, retries: int = 3, verify: bool = True, **kwargs):
+    last_err = None
+    for attempt in range(retries):
+        try:
+            resp = requests.get(
+                url, headers=HEADERS, timeout=timeout, verify=verify, **kwargs
+            )
+            return resp
+        except Exception as e:
+            last_err = e
+            time.sleep(1.5 * (attempt + 1))
+    raise last_err  # type: ignore[misc]
+
+
+def _grep_addresses(text: str, prefecture: str) -> list[str]:
+    addrs = re.findall(rf"({prefecture}[^\s<\"'\n]{{8,100}})", text)
+    return [normalize_address(a, prefecture) for a in addrs if len(a) >= 12]
+
+
 def _store(
     company: str,
     name: str,
@@ -81,6 +100,31 @@ PLAYWRIGHT_PREF_CONFIG: dict[str, dict] = {
             ("ココカラファイン", "ココカラファイン"),
         ],
     },
+    "北海道": {
+        "drug_asahi": False,
+        "cities": [
+            "札幌市", "旭川市", "函館市", "釧路市", "帯広市", "北見市", "小樽市",
+            "江別市", "千歳市", "恵庭市", "苫小牧市", "室蘭市", "登別市", "岩見沢市",
+            "網走市", "稚内市", "富良野市", "名寄市", "深川市", "留萌市", "根室市",
+        ],
+        "pref_queries": [
+            ("ツルハドラッグ", "ツルハドラッグ 北海道"),
+            ("サツドラ", "サツドラ 北海道"),
+            ("ウエルシア", "ウエルシア 北海道"),
+            ("マツモトキヨシ", "マツモトキヨシ 北海道"),
+            ("サンドラッグ", "サンドラッグ 北海道"),
+            ("ココカラファイン", "ココカラファイン 北海道"),
+            ("コスモス", "ドラッグストアコスモス 北海道"),
+            ("コクミン", "コクミンドラッグ 北海道"),
+            ("セイムス", "ドラッグセイムス 北海道"),
+            ("Vドラッグ", "Vドラッグ 北海道"),
+        ],
+        "city_queries": [
+            ("ツルハドラッグ", "ツルハドラッグ"),
+            ("サツドラ", "サツドラ"),
+            ("サンドラッグ", "サンドラッグ"),
+        ],
+    },
 }
 
 
@@ -125,22 +169,21 @@ def fetch_yakuodo(prefecture: str) -> list[dict]:
 def fetch_cosmos(prefecture: str) -> list[dict]:
     """コスモス 店舗一覧"""
     stores: list[dict] = []
-    pref_param = {"青森県": "02", "岩手県": "03", "宮城県": "04", "秋田県": "05", "山形県": "06", "福島県": "07"}.get(
-        prefecture, "02"
-    )
+    pref_param = {
+        "北海道": "01",
+        "青森県": "02", "岩手県": "03", "宮城県": "04", "秋田県": "05",
+        "山形県": "06", "福島県": "07",
+    }.get(prefecture, "02")
     urls = [
         f"https://www.cosmospc.co.jp/shop/search?pref={pref_param}",
         "https://www.cosmospc.co.jp/shop/",
     ]
     for url in urls:
         try:
-            resp = requests.get(url, headers=HEADERS, timeout=45)
+            resp = _http_get(url, timeout=90, retries=2)
             if resp.status_code != 200:
                 continue
-            for m in re.finditer(rf"({prefecture}[^<\n\"']{{8,100}})", resp.text):
-                addr = normalize_address(m.group(1), prefecture)
-                if len(addr) < 12:
-                    continue
+            for addr in _grep_addresses(resp.text, prefecture):
                 stores.append(_store("コスモス", "コスモス", addr, "official_cosmos", prefecture))
         except Exception as e:
             print(f"    コスモス 失敗: {e}")
@@ -150,14 +193,18 @@ def fetch_cosmos(prefecture: str) -> list[dict]:
 def fetch_sundrag(prefecture: str) -> list[dict]:
     """サンドラッグ"""
     stores: list[dict] = []
-    try:
-        resp = requests.get("https://www.sundrug.co.jp/store/search.php", headers=HEADERS, timeout=45)
-        if resp.status_code == 200:
-            for m in re.finditer(rf"({prefecture}[^<\n\"']{{8,100}})", resp.text):
-                addr = normalize_address(m.group(1), prefecture)
-                stores.append(_store("サンドラッグ", "サンドラッグ", addr, "official_sundrag", prefecture))
-    except Exception as e:
-        print(f"    サンドラッグ 失敗: {e}")
+    urls = [
+        "https://www.sundrug.co.jp/store/search.php",
+        "https://sundrug-online.com/tools/locations",
+    ]
+    for url in urls:
+        try:
+            resp = _http_get(url, timeout=60, retries=2)
+            if resp.status_code == 200:
+                for addr in _grep_addresses(resp.text, prefecture):
+                    stores.append(_store("サンドラッグ", "サンドラッグ", addr, "official_sundrag", prefecture))
+        except Exception as e:
+            print(f"    サンドラッグ {url} 失敗: {e}")
     return stores
 
 
@@ -182,9 +229,11 @@ def fetch_aoki(prefecture: str) -> list[dict]:
 def fetch_matsukiyo(prefecture: str) -> list[dict]:
     """マツモトキヨシ"""
     stores: list[dict] = []
-    pref_code = {"青森県": "2", "岩手県": "3", "宮城県": "4", "秋田県": "5", "山形県": "6", "福島県": "7"}.get(
-        prefecture, "2"
-    )
+    pref_code = {
+        "北海道": "1",
+        "青森県": "2", "岩手県": "3", "宮城県": "4", "秋田県": "5",
+        "山形県": "6", "福島県": "7",
+    }.get(prefecture, "2")
     try:
         resp = requests.get(
             f"https://www.matsukiyococokara-online.com/store/list?prefecture={pref_code}",
@@ -229,13 +278,13 @@ def fetch_genky(prefecture: str) -> list[dict]:
     for page in range(12):
         try:
             url = f"https://www.genky.co.jp/store/list.php?page={page}"
-            resp = requests.get(url, headers=HEADERS, timeout=30)
+            resp = _http_get(url, timeout=30, retries=2, verify=False)
             if resp.status_code != 200:
                 continue
             if prefecture not in resp.text:
                 continue
-            for m in re.finditer(rf"({prefecture}[^<\n\"']{{8,100}})", resp.text):
-                stores.append(_store("GENKY", "GENKY", m.group(1), "official_genky", prefecture))
+            for addr in _grep_addresses(resp.text, prefecture):
+                stores.append(_store("GENKY", "GENKY", addr, "official_genky", prefecture))
             time.sleep(0.3)
         except Exception as e:
             print(f"    GENKY page {page} 失敗: {e}")
@@ -252,6 +301,255 @@ def fetch_kawachi(prefecture: str) -> list[dict]:
                 stores.append(_store("カワチ薬品", "カワチ薬品", m.group(1), "official_kawachi", prefecture))
     except Exception as e:
         print(f"    カワチ 失敗: {e}")
+    return stores
+
+
+SATUDORA_API = "https://g9ey9rioe.api.hp.can-ly.com/v2/companies/659/shops/search"
+
+
+def fetch_satsudora(prefecture: str) -> list[dict]:
+    """サツドラ（サッポロドラッグ）— can-ly 公式 API"""
+    if prefecture != "北海道":
+        return []
+    stores: list[dict] = []
+    page = 1
+    max_page = 1
+    try:
+        while page <= max_page:
+            resp = requests.get(
+                SATUDORA_API,
+                params={"sort": "alphabetical", "paging": "true", "page": page},
+                headers={**HEADERS, "Accept": "application/json"},
+                timeout=60,
+            )
+            resp.raise_for_status()
+            payload = resp.json()
+            max_page = payload.get("maxPage", 1)
+            for shop in payload.get("shops", []):
+                addr = shop.get("address") or ""
+                if prefecture not in addr:
+                    continue
+                name = shop.get("nameKanji") or shop.get("mapStoreNameDisplayType") or "サツドラ"
+                lat = shop.get("latitude")
+                lon = shop.get("longitude")
+                stores.append(
+                    _store(
+                        "サツドラ",
+                        name,
+                        addr,
+                        "official_satsudora",
+                        prefecture,
+                        lat=float(lat) if lat else None,
+                        lon=float(lon) if lon else None,
+                    )
+                )
+            page += 1
+            time.sleep(0.2)
+    except Exception as e:
+        print(f"    サツドラ 失敗: {e}")
+    return stores
+
+
+def fetch_kusuri_kodama(prefecture: str) -> list[dict]:
+    """クスリのコダマ — 新潟県限定ブランド（北海道は未出店）"""
+    if prefecture != "北海道":
+        return []
+    stores: list[dict] = []
+    for url in ("https://www.kusuri-kodama.co.jp/shop/", "https://www.kusuri-kodama.co.jp/store/"):
+        try:
+            resp = requests.get(url, headers=HEADERS, timeout=30)
+            if resp.status_code != 200:
+                continue
+            for m in re.finditer(rf"({prefecture}[^\n<\"']{{8,100}})", resp.text):
+                stores.append(
+                    _store("クスリのコダマ", "クスリのコダマ", m.group(1), "official_kusuri_kodama", prefecture)
+                )
+        except Exception:
+            continue
+    return stores
+
+
+def fetch_drug_eleven(prefecture: str) -> list[dict]:
+    """ドラッグイレブン — 九州・沖縄限定（北海道は未出店）"""
+    if prefecture != "北海道":
+        return []
+    stores: list[dict] = []
+    try:
+        resp = requests.get("https://www.drugeleven.com/service/search/", headers=HEADERS, timeout=45)
+        if resp.status_code == 200:
+            for m in re.finditer(rf"({prefecture}[^<\n\"']{{8,120}})", resp.text):
+                stores.append(_store("ドラッグイレブン", "ドラッグイレブン", m.group(1), "official_drug11", prefecture))
+    except Exception as e:
+        print(f"    ドラッグイレブン 失敗: {e}")
+    return stores
+
+
+def fetch_kirindo(prefecture: str) -> list[dict]:
+    """キリン堂 — 近畿中心（北海道は未出店）"""
+    if prefecture != "北海道":
+        return []
+    stores: list[dict] = []
+    try:
+        resp = requests.get("https://www.kirindo.co.jp/shop/list/", headers=HEADERS, timeout=45)
+        if resp.status_code == 200:
+            for m in re.finditer(rf"({prefecture}[^<\n\"']{{8,120}})", resp.text):
+                stores.append(_store("キリン堂", "キリン堂", m.group(1), "official_kirindo", prefecture))
+    except Exception as e:
+        print(f"    キリン堂 失敗: {e}")
+    return stores
+
+
+def fetch_playwright_addresses(
+    prefecture: str,
+    url: str,
+    chain: str,
+    source: str,
+    *,
+    wait_ms: int = 5000,
+    scroll_times: int = 10,
+) -> list[dict]:
+    """Playwright で JS 描画ページから住所を抽出"""
+    from playwright.sync_api import sync_playwright
+
+    stores: list[dict] = []
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            page = browser.new_page(locale="ja-JP")
+            page.goto(url, timeout=90000)
+            page.wait_for_timeout(wait_ms)
+            for _ in range(scroll_times):
+                page.evaluate("window.scrollBy(0, 800)")
+                page.wait_for_timeout(400)
+            body = page.content() + "\n" + page.inner_text("body")
+            browser.close()
+        seen: set[str] = set()
+        for addr in _grep_addresses(body, prefecture):
+            if addr in seen:
+                continue
+            seen.add(addr)
+            stores.append(_store(chain, chain, addr, source, prefecture))
+    except Exception as e:
+        print(f"    Playwright {chain} 失敗: {e}")
+    return stores
+
+
+def fetch_cosmos_playwright(prefecture: str) -> list[dict]:
+    if prefecture != "北海道":
+        return []
+    return fetch_playwright_addresses(
+        prefecture,
+        "https://www.cosmospc.co.jp/shop/search?pref=01",
+        "コスモス",
+        "official_cosmos_pw",
+        wait_ms=8000,
+        scroll_times=15,
+    )
+
+
+def fetch_matsukiyo_playwright(prefecture: str) -> list[dict]:
+    if prefecture != "北海道":
+        return []
+    stores: list[dict] = []
+    try:
+        batch = fetch_playwright_addresses(
+            prefecture,
+            "https://www.matsukiyococokara-online.com/store/list?prefecture=1",
+            "マツモトキヨシ",
+            "official_matsukiyo_pw",
+            wait_ms=8000,
+        )
+        stores.extend(batch)
+    except Exception as e:
+        print(f"    マツキヨ Playwright 失敗: {e}")
+    return stores
+
+
+def fetch_sundrag_playwright(prefecture: str) -> list[dict]:
+    if prefecture != "北海道":
+        return []
+    return fetch_playwright_addresses(
+        prefecture,
+        "https://sundrug-online.com/tools/locations",
+        "サンドラッグ",
+        "official_sundrag_pw",
+        wait_ms=8000,
+        scroll_times=15,
+    )
+
+
+def fetch_hokkaido_gmaps_extended(prefecture: str) -> list[dict]:
+    """5地域の pref 単位 GMaps クエリ（city ループは PLAYWRIGHT_PREF_CONFIG に任せる）"""
+    if prefecture != "北海道":
+        return []
+    from playwright.sync_api import sync_playwright
+    from shared.hokkaido_regions import REGIONS
+
+    stores: list[dict] = []
+    seen: set[str] = set()
+    cfg = PLAYWRIGHT_PREF_CONFIG.get("北海道", {})
+    existing = {q for _, q in cfg.get("pref_queries", []) + cfg.get("city_queries", [])}
+
+    queries: list[tuple[str, str]] = []
+    for region in REGIONS.values():
+        for chain, query in region.get("gmaps_queries", []):
+            if query not in existing:
+                queries.append((chain, query))
+
+    unique_queries: list[tuple[str, str]] = []
+    q_seen: set[str] = set()
+    for chain, query in queries:
+        if query in q_seen:
+            continue
+        q_seen.add(query)
+        unique_queries.append((chain, query))
+
+    if not unique_queries:
+        return stores
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page(locale="ja-JP")
+
+        for chain, query in unique_queries:
+            try:
+                page.goto(
+                    f"https://www.google.com/maps/search/{query.replace(' ', '+')}",
+                    timeout=90000,
+                )
+                page.wait_for_timeout(3500)
+                try:
+                    feed = page.locator('div[role="feed"]').first
+                    for _ in range(18):
+                        feed.evaluate("el => el.scrollTop += 400")
+                        page.wait_for_timeout(600)
+                except Exception:
+                    pass
+                for item in page.locator('a[href*="/maps/place"]').all()[:45]:
+                    try:
+                        label = (item.get_attribute("aria-label") or "").strip()
+                        if not label:
+                            continue
+                        item.click(timeout=3000)
+                        page.wait_for_timeout(1200)
+                        body = page.inner_text("body")
+                        m = re.search(rf"({prefecture}[^\n]{{8,100}})", body)
+                        if not m:
+                            continue
+                        addr = normalize_address(m.group(1).strip(), prefecture)
+                        if addr in seen:
+                            continue
+                        seen.add(addr)
+                        stores.append(
+                            _store(chain, label[:80], addr, "google_maps_browser", prefecture)
+                        )
+                    except Exception:
+                        continue
+            except Exception as e:
+                print(f"    gmaps-ext {chain}/{query[:25]} 失敗: {e}")
+            time.sleep(0.6)
+
+        browser.close()
     return stores
 
 
@@ -295,12 +593,12 @@ def fetch_extra_chains_playwright(prefecture: str) -> list[dict]:
                 page.wait_for_timeout(4000)
                 try:
                     feed = page.locator('div[role="feed"]').first
-                    for _ in range(12):
+                    for _ in range(18):
                         feed.evaluate("el => el.scrollTop += 400")
-                        page.wait_for_timeout(800)
+                        page.wait_for_timeout(700)
                 except Exception:
                     pass
-                for item in page.locator('a[href*="/maps/place"]').all()[:30]:
+                for item in page.locator('a[href*="/maps/place"]').all()[:45]:
                     try:
                         label = (item.get_attribute("aria-label") or "").strip()
                         if not label:
@@ -349,8 +647,12 @@ def collect_official_only(slug: str) -> pd.DataFrame:
     print(f"\n[公式収集] {prefecture} — Places API 不使用")
 
     all_stores: list[dict] = []
+    tsuruha_full = prefecture == "北海道"
     fetchers = [
-        ("ツルハYext", lambda: fetch_tsuruha_yext(prefecture, cfg["center"])),
+        (
+            "ツルハYext",
+            lambda: fetch_tsuruha_yext(prefecture, cfg["center"], full_scan=tsuruha_full),
+        ),
         ("ウエルシアAPI", lambda: fetch_welcia(prefecture)),
         ("薬王堂", lambda: fetch_yakuodo(prefecture)),
         ("コスモス", lambda: fetch_cosmos(prefecture)),
@@ -360,8 +662,18 @@ def collect_official_only(slug: str) -> pd.DataFrame:
         ("セイムス", lambda: fetch_seims(prefecture)),
         ("GENKY", lambda: fetch_genky(prefecture)),
         ("カワチ薬品", lambda: fetch_kawachi(prefecture)),
-        ("Playwright追加", lambda: fetch_extra_chains_playwright(prefecture)),
     ]
+    if prefecture == "北海道":
+        fetchers.extend([
+            ("サツドラ", lambda: fetch_satsudora(prefecture)),
+            ("クスリのコダマ", lambda: fetch_kusuri_kodama(prefecture)),
+            ("ドラッグイレブン", lambda: fetch_drug_eleven(prefecture)),
+            ("キリン堂", lambda: fetch_kirindo(prefecture)),
+            ("コスモスPW", lambda: fetch_cosmos_playwright(prefecture)),
+            ("マツキヨPW", lambda: fetch_matsukiyo_playwright(prefecture)),
+            ("サンドラッグPW", lambda: fetch_sundrag_playwright(prefecture)),
+        ])
+    fetchers.append(("Playwright追加", lambda: fetch_extra_chains_playwright(prefecture)))
 
     for name, fn in fetchers:
         try:

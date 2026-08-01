@@ -12,12 +12,15 @@ from shared.utils import ensure_dirs
 
 # 国土地理院 行政区域データ（2025年基準・検証済みURL）
 N03_ZIP_URLS = {
+    "01": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2025/N03-20250101_01_GML.zip",
     "02": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2025/N03-20250101_02_GML.zip",
     "03": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2025/N03-20250101_03_GML.zip",
     "04": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2025/N03-20250101_04_GML.zip",
     "05": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2025/N03-20250101_05_GML.zip",
     "06": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2025/N03-20250101_06_GML.zip",
     "07": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2025/N03-20250101_07_GML.zip",
+    "23": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2025/N03-20250101_23_GML.zip",
+    "30": "https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2025/N03-20250101_30_GML.zip",
 }
 
 NIIYZ_API = "https://api.github.com/repos/niiyz/JapanCityGeoJson/contents/geojson"

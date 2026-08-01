@@ -1,0 +1,17 @@
+{
+  "prefecture": "北海道",
+  "total": 929,
+  "missing_coords": 0,
+  "duplicate_addresses": 0,
+  "pharmacy_leak": 0,
+  "chain_coverage": {
+    "ツルハドラッグ": 564,
+    "サツドラ": 259,
+    "サンドラッグ": 64,
+    "コクミン": 14,
+    "ココカラファイン": 11,
+    "マツモトキヨシ": 9,
+    "セイムス": 7,
+    "ウエルシア": 1
+  }
+}

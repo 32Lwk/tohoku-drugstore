@@ -25,10 +25,17 @@ def _parse_city_name(code_name: str) -> str:
     return m.group(1) if m else code_name
 
 
-def fetch_tsuruha_yext(prefecture: str, center: tuple[float, float]) -> list[dict]:
+def fetch_tsuruha_yext(
+    prefecture: str,
+    center: tuple[float, float],
+    *,
+    full_scan: bool = False,
+) -> list[dict]:
+    """ツルハグループ Yext API。full_scan=True で全件走査し region フィルタ（北海道で約2倍）"""
     stores: list[dict] = []
     offset = 0
     total = None
+    search_input = "" if full_scan else prefecture
     while total is None or offset < total:
         params = {
             "experienceKey": "shop-search",
@@ -36,7 +43,7 @@ def fetch_tsuruha_yext(prefecture: str, center: tuple[float, float]) -> list[dic
             "v": "20220511",
             "version": "PRODUCTION",
             "locale": "ja",
-            "input": prefecture,
+            "input": search_input,
             "location": f"{center[0]},{center[1]}",
             "verticalKey": "locations",
             "limit": "50",
@@ -72,7 +79,7 @@ def fetch_tsuruha_yext(prefecture: str, center: tuple[float, float]) -> list[dic
                 }
             )
         offset += 50
-        time.sleep(0.1)
+        time.sleep(0.08 if full_scan else 0.1)
     return stores
 
 
