@@ -207,6 +207,14 @@ TOHOKU = {
 }
 TOHOKU_DIR = ROOT_DIR / "tohoku"
 
+HOKKAIDO_TOHOKU_SLUGS = TOHOKU_SLUGS + ["09_北海道"]
+HOKKAIDO_TOHOKU = {
+    "name": "北海道・東北",
+    "center": (41.0, 141.5),
+    "zoom": 5,
+}
+EXPORTS_DIR = ROOT_DIR / "exports"
+
 # 愛知県プロジェクトと統一したコロプレス配色
 DENSITY_CHOROPLETH_COLORS = [
     "#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6",

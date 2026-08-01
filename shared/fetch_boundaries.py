@@ -8,6 +8,7 @@ from zipfile import ZipFile
 import requests
 
 from shared.config import PREFECTURES
+from shared.geo_utils import exclude_northern_territories
 from shared.utils import ensure_dirs
 
 # 国土地理院 行政区域データ（2025年基準・検証済みURL）
@@ -26,7 +27,20 @@ N03_ZIP_URLS = {
 NIIYZ_API = "https://api.github.com/repos/niiyz/JapanCityGeoJson/contents/geojson"
 
 
-def _download_gsi_zip(url: str, output_path: Path) -> bool:
+def _save_geojson(geo: dict, output_path: Path, slug: str) -> Path:
+    if PREFECTURES[slug]["code"] == "01":
+        before = len(geo.get("features", []))
+        geo = exclude_northern_territories(geo)
+        removed = before - len(geo["features"])
+        if removed:
+            print(f"  北方領土除外: {removed} features")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(geo, f, ensure_ascii=False)
+    return output_path
+
+
+def _download_gsi_zip(url: str, output_path: Path, slug: str) -> bool:
     try:
         resp = requests.get(url, timeout=120)
         if resp.status_code != 200:
@@ -38,8 +52,7 @@ def _download_gsi_zip(url: str, output_path: Path) -> bool:
             with zf.open(geojson_files[0]) as f:
                 geo = json.load(f)
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        with open(output_path, "w", encoding="utf-8") as f:
-            json.dump(geo, f, ensure_ascii=False)
+        _save_geojson(geo, output_path, slug)
         print(f"  GSI取得成功: {url} ({len(geo.get('features', []))} features)")
         return True
     except Exception as e:
@@ -47,7 +60,7 @@ def _download_gsi_zip(url: str, output_path: Path) -> bool:
         return False
 
 
-def _download_from_niiyz(pref_code: str, output_path: Path) -> Path:
+def _download_from_niiyz(pref_code: str, output_path: Path, slug: str) -> Path:
     print(f"  GitHub ミラーから取得: pref={pref_code}")
     resp = requests.get(
         f"{NIIYZ_API}/{pref_code}?per_page=200",
@@ -76,10 +89,8 @@ def _download_from_niiyz(pref_code: str, output_path: Path) -> Path:
         raise RuntimeError(f"pref={pref_code} の GeoJSON が0件です")
 
     merged = {"type": "FeatureCollection", "features": features}
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(merged, f, ensure_ascii=False)
-    print(f"  保存: {output_path} ({len(features)} features)")
+    _save_geojson(merged, output_path, slug)
+    print(f"  保存: {output_path} ({len(merged['features'])} features)")
     return output_path
 
 
@@ -91,14 +102,19 @@ def fetch_for_prefecture(slug: str) -> Path:
         with open(paths["geojson"], encoding="utf-8") as f:
             geo = json.load(f)
         if geo.get("features"):
+            if cfg["code"] == "01":
+                filtered = exclude_northern_territories(geo)
+                if len(filtered["features"]) < len(geo["features"]):
+                    _save_geojson(filtered, paths["geojson"], slug)
+                    geo = filtered
             print(f"  既存GeoJSON: {paths['geojson']} ({len(geo['features'])}件)")
             return paths["geojson"]
 
     url = N03_ZIP_URLS.get(cfg["code"])
-    if url and _download_gsi_zip(url, paths["geojson"]):
+    if url and _download_gsi_zip(url, paths["geojson"], slug):
         return paths["geojson"]
 
-    return _download_from_niiyz(cfg["code"], paths["geojson"])
+    return _download_from_niiyz(cfg["code"], paths["geojson"], slug)
 
 
 if __name__ == "__main__":

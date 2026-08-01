@@ -3,6 +3,22 @@
 import math
 
 import numpy as np
+from shapely.geometry import shape
+
+# 国土地理院 N03 は北方領土（択捉・国後・色丹・歯舞）を含む。
+# 本土根室市と区別するため、ポリゴン重心の経度で除外する。
+HOKKAIDO_LON_MAX = 145.5
+
+NORTHERN_TERRITORY_MUNICIPALITIES = frozenset(
+    {
+        "紗那村",  # 択捉島
+        "留別村",
+        "蘂取村",
+        "留夜別村",  # 国後島
+        "泊村",
+        "色丹村",  # 色丹島
+    }
+)
 
 EARTH_RADIUS_KM = 6371.0
 
@@ -73,6 +89,23 @@ def weighted_mean(values: np.ndarray, weights: np.ndarray) -> float:
     if not mask.any():
         return float("nan")
     return float(np.average(values[mask], weights=weights[mask]))
+
+
+def exclude_northern_territories(
+    geo: dict,
+    lon_max: float = HOKKAIDO_LON_MAX,
+) -> dict:
+    """北海道 GeoJSON から北方領土・歯舞群島のポリゴンを除外する"""
+    kept = []
+    for feat in geo["features"]:
+        props = feat.get("properties", {})
+        name = props.get("N03_004") or props.get("N03_003") or ""
+        if name in NORTHERN_TERRITORY_MUNICIPALITIES:
+            continue
+        if shape(feat["geometry"]).centroid.x > lon_max:
+            continue
+        kept.append(feat)
+    return {"type": "FeatureCollection", "features": kept}
 
 
 def weighted_percentile(

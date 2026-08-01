@@ -31,7 +31,10 @@ from shared.config import (
     PREF_BOUNDARY_WEIGHT,
     PREFECTURES,
 )
+from shared.geo_utils import exclude_northern_territories
 from shared.utils import ensure_dirs
+
+HOKKAIDO_SLUG = "09_北海道"
 
 
 def _read_csv(path: Path) -> pd.DataFrame:
@@ -43,9 +46,12 @@ def _read_csv(path: Path) -> pd.DataFrame:
     raise UnicodeDecodeError("utf-8", b"", 0, 1, f"Cannot decode CSV: {path}")
 
 
-def _load_geojson(path):
+def _load_geojson(path, slug: str | None = None):
     with open(path, encoding="utf-8") as f:
-        return json.load(f)
+        geo = json.load(f)
+    if slug == HOKKAIDO_SLUG or (slug is None and HOKKAIDO_SLUG in str(path)):
+        geo = exclude_northern_territories(geo)
+    return geo
 
 
 def _round_coords(obj, precision: int):
@@ -445,7 +451,7 @@ def create_marker_map(slug: str) -> str:
     pref_name = cfg["name"]
 
     df = pd.read_csv(paths["coord_csv"], encoding="utf-8-sig")
-    geo = _load_geojson(paths["geojson"])
+    geo = _load_geojson(paths["geojson"], slug)
 
     out = paths["maps"] / f"{pref_name}ドラッグストア地図.html"
     plotted = create_marker_map_from_df(
@@ -471,7 +477,7 @@ def create_density_choropleth(slug: str) -> str:
     df = df.dropna(subset=["市区町村", "人口10万人当たり店舗数"])
     density_dict = dict(zip(df["市区町村"], df["人口10万人当たり店舗数"]))
 
-    geo = _load_geojson(paths["geojson"])
+    geo = _load_geojson(paths["geojson"], slug)
 
     for feat in geo["features"]:
         props = feat["properties"]
@@ -511,7 +517,7 @@ def create_aging_choropleth(slug: str) -> str:
     aging = _read_csv(paths["aging_csv"])
     aging_dict = dict(zip(aging["市区町村"], aging["高齢化率"]))
 
-    geo = _load_geojson(paths["geojson"])
+    geo = _load_geojson(paths["geojson"], slug)
     values = [v for v in aging_dict.values() if pd.notna(v) and v > 0]
     vmin = float(np.percentile(values, 5)) if values else 0
     vmax = float(np.percentile(values, 95)) if values else 40
